@@ -16,7 +16,8 @@ using AirTraffic.Radar;
 //On peut mettre les fenetres ds PL, et pa sujet elle a mis les 3 couches model, viewmodel et view
 // elle a fait des dossiers par fenetre
 namespace AirTraffic
-{
+{ 
+    //celui de git hub
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>

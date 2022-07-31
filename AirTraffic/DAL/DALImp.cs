@@ -89,14 +89,17 @@ namespace DAL
                         if (key == "full_count") continue;
                         if (key == "version") continue;
                         // il a mis id=-1 parce qu'on doit rajouter le id et savoir le gerer
-                        if (item.Value[11].ToString() == "TLV" || item.Value[12].ToString() != "TLV")
-                            AllCurrentFlights.Add(new BE.FlightInfoPartial { Id = -1, Source = item.Value[11].ToString(), Destination = item.Value[12].ToString(), SourceId = key, Long = Convert.ToDouble(item.Value[1]), Lat = Convert.ToDouble(item.Value[2]), DateAndTime = Helper.GetDateTimeFromEpoch(Convert.ToDouble(item.Value[10])), FlightCode = item.Value[13].ToString() });
+                        if (item.Value[11].ToString() == "TLV" || item.Value[12].ToString() == "TLV")
+                            if(item.Value[11].ToString()!=""&& item.Value[12].ToString()!=""&& item.Value[13].ToString()!="")
+                                AllCurrentFlights.Add(new BE.FlightInfoPartial { Id = -1, Source = item.Value[11].ToString(), Destination = item.Value[12].ToString(), SourceId = key, Long = Convert.ToDouble(item.Value[1]), Lat = Convert.ToDouble(item.Value[2]), DateAndTime = Helper.GetDateTimeFromEpoch(Convert.ToDouble(item.Value[10])), FlightCode = item.Value[13].ToString() });
                         //  if (item.Value[12].ToString() == "TLV") Incoming.Add(new BE.FlightInfoPartial { Id = -1, Source = item.Value[11].ToString(), Destination = item.Value[12].ToString(), SourceId = key, Long = Convert.ToDouble(item.Value[1]), Lat = Convert.ToDouble(item.Value[2]), DateAndTime = Helper.GetDateTimeFromEpoch(Convert.ToDouble(item.Value[10])), FlightCode = item.Value[13].ToString() });
                         // la on rajoute a la list d'avion rentrant et sortant de TLV
                     }
+                    
                 }
                 catch (Exception e)
                 {
+                    
                     Debug.Print(e.Message);
                 }
                 return AllCurrentFlights;

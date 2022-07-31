@@ -47,7 +47,7 @@
             </UserControl>
             <Label  HorizontalAlignment="Right" VerticalAlignment="Center"  Height="45" Width="54" Margin="0,2,1220,1.8">
 
-                <materialDesign:PackIcon Kind="Radar " VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="44">
+                <materialDesign:PackIcon Kind="Radar" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="44">
                 </materialDesign:PackIcon>
 
             </Label>

@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Maps.MapControl.WPF;
+using System.Windows.Interactivity;
 
 namespace AirTraffic.Radar
 {
@@ -22,15 +23,15 @@ namespace AirTraffic.Radar
     /// </summary>
     public partial class RadarView : UserControl
     {
-        //private ObservableCollection<BE.FlightInfoPartial> listInFlight = new ObservableCollection<BE.FlightInfoPartial>();
+      
         public RadarViewModel radarViewModel;
         public RadarView()
         {
-            InitializeComponent();
             radarViewModel = new RadarViewModel();
-            DataContext = radarViewModel; //a comprendre
-            InFlightsListBox.ItemsSource = radarViewModel.ListInFlight;
-            OutFlightsListBox.DataContext = radarViewModel.ListOutFlight;
+            InitializeComponent();
+            
+            this.DataContext = radarViewModel; 
+          
 
         }
         //changer cette fonction

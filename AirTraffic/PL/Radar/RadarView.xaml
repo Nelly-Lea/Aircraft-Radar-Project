@@ -4,32 +4,61 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AirTraffic.Radar" xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+             
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" Height="600" Width="1280.334">
 
+    
     <Grid Background="#FFE2D8CD"  >
-        <ListBox ItemsSource="{Binding listInFlight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Name="InFlightsListBox" HorizontalAlignment="Left" Height="162" Margin="101,59,0,0" VerticalAlignment="Top" Width="158" SelectionChanged="FlightsListBox_SelectionChanged">
+        <ListBox Name="InFlightsListBox"  ItemsSource="{Binding FlightIncoming, Mode=OneWay}" HorizontalAlignment="Left" Height="162" Margin="101,59,0,0" VerticalAlignment="Top" Width="158" SelectionChanged="FlightsListBox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding source}"/>
+                        <TextBlock Text="{Binding FlightCode}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding YourCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
         </ListBox>
         <Label Content="Incoming" HorizontalAlignment="Left" Margin="138,25,0,0" VerticalAlignment="Top" Height="34" Width="77" FontFamily="Harrington" FontWeight="Bold"/>
         <Label Content="Outgoing" HorizontalAlignment="Left" Margin="138,231,0,0" VerticalAlignment="Top" Width="77" Height="26" FontFamily="Harrington" FontWeight="Bold"/>
-        <ListBox ItemsSource="{Binding listInFlight}"  Name="OutFlightsListBox" HorizontalAlignment="Left" Height="162" Margin="101,257,0,0" VerticalAlignment="Top" Width="158"  SelectionChanged="FlightsListBox_SelectionChanged">
+        <ListBox ItemsSource="{Binding FlightOutgoing, Mode=OneWay}" Name="OutFlightsListBox" HorizontalAlignment="Left" Height="162" Margin="101,257,0,0" VerticalAlignment="Top" Width="158"  SelectionChanged="FlightsListBox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding destination}"/>
+                        <TextBlock Text="{Binding FlightCode}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
         <m:Map x:Name="myMap" CredentialsProvider="ApINLKklvvkm_3CQRgDQ2s-J4VMwZ1PzoRJ_guhxBVIGnlNYyTIfNhBQOlFeMlfR" Margin="383,20,38,33" ZoomLevel="5.0" Center="32.000454,34.870743" AnimationLevel="None" MouseDown="Pin_MouseDown"/>
         <Button Content="Read All" HorizontalAlignment="Left" Margin="112,479,0,0" VerticalAlignment="Top" Width="141" Height="38" FontFamily="Harrington" Background="MidnightBlue" BorderBrush="MidnightBlue"
-            Command="{Binding ReadAllCommand}" CommandTarget="{Binding ElementName=OutFlightsListBox}" CommandParameter="{Binding}">
+            Command="{Binding ReadAllCommand}"  CommandParameter="{Binding}">
         </Button>
+        
+
     </Grid>
 </UserControl>
+<!--DataContext="{Binding radarViewModel.listStr}"-->
+<!--CommandTarget="{Binding ElementName=OutFlightsListBox}"-->
+
+<!--ItemsSource="{Binding listInFlight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"-->
+
+<!--ItemsSource="{Binding listInFlight}"-->
+<!--<UserControl.DataContext>
+    <local:RadarViewModel></local:RadarViewModel>
+</UserControl.DataContext>
+<UserControl.Resources>
+    <DataTemplate DataType="{x:Type BE.FlightInfoPartial}">
+        <Border BorderThickness="1" BorderBrush="Black" Width="200">
+            <StackPanel>
+                <ListBox x:Name="liste" ItemsSource="{Binding listInFlight}" HorizontalAlignment="Left" Height="100" Margin="1,180,0,0" VerticalAlignment="Top" Width="100"/>
+            </StackPanel>
+        </Border>
+    </DataTemplate>
+</UserControl.Resources>-->

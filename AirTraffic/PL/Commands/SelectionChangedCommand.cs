@@ -1,15 +1,14 @@
 ﻿using AirTraffic.Radar;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace AirTraffic.Commands
+namespace PL.Commands
 {
-    class ReadAllCommand : ICommand
+    class SelectionChangedCommand : ICommand
     {
         public event EventHandler CanExecuteChanged
         {
@@ -25,17 +24,16 @@ namespace AirTraffic.Commands
 
         public void Execute(object parameter)
         {
-            
-             currentVM.DisplayCurrentFilghts();
-           
 
+            currentVM.DisplayCurrentFilghts();
 
         }
         public RadarViewModel currentVM { get; set; }
 
-        public ReadAllCommand(RadarViewModel CurrentVM)
+        public SelectionChangedCommand(RadarViewModel CurrentVM)
         {
             currentVM = CurrentVM;
         }
+
     }
 }

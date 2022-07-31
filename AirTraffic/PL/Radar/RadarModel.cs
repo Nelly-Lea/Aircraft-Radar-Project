@@ -18,5 +18,9 @@ namespace AirTraffic.Radar
         {
             return BL.GetCurrentFlights();
         }
+        public BE.Root RMDisplayFlightData(string key)
+        {
+            return BL.GetFlightData(key);
+        }
     }
 }

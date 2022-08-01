@@ -53,6 +53,8 @@ namespace AirTraffic.Radar
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(v));
         }
 
+        
+
         private ObservableCollection<BE.FlightInfoPartial> flightOutgoing;
         public ObservableCollection<BE.FlightInfoPartial> FlightOutgoing
         {
@@ -104,6 +106,7 @@ namespace AirTraffic.Radar
             if (CurrentFlight.Count != 0)
                 CurrentFlight.Clear();
             CurrentFlight.Add(FlightData);
+        
             IsMyUserControlVisible = true;
 
 

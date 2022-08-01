@@ -27,7 +27,7 @@
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-           
+
 
         </ListBox>
         <Label Content="Incoming" HorizontalAlignment="Left" Margin="138,25,0,0" VerticalAlignment="Top" Height="34" Width="77" FontFamily="Harrington" FontWeight="Bold"/>
@@ -52,11 +52,12 @@
         </Button>
 
 
-        <ItemsControl Background="Tan" ItemsSource="{Binding CurrentFlight , Mode=OneWay}" Margin="1011,20,10,239">
+        <ItemsControl   ItemsSource="{Binding CurrentFlight , Mode=OneWay}" Margin="1021,0,0,259">
+
             
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel >
+                    <StackPanel Background="Aquamarine" >
                         <TextBlock Text="{Binding identification.callsign}"/>
                         <TextBlock Text="{Binding airline.name}"/>
                         <TextBlock Text="{Binding airport.origin.code.iata}"/>
@@ -75,7 +76,30 @@
 
                     </StackPanel>
                 </DataTemplate>
-                </ItemsControl.ItemTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <ItemsControl   ItemsSource="{Binding CurrentFlight , Mode=OneWay}" Margin="1021,0,0,259">
+            <ControlTemplate >
+                <StackPanel Background="Aquamarine" >
+                    <TextBlock Text="{Binding identification.callsign}"/>
+                    <TextBlock Text="{Binding airline.name}"/>
+                    <TextBlock Text="{Binding airport.origin.code.iata}"/>
+                    <TextBlock Text="{Binding airport.origin.position.country.name}"/>
+                    <Image Source="C:\Projet aircraft radar\AirTraffic\PL\images\aircraft.png" Height="39"  VerticalAlignment="Top" Width="44"/>
+                    <TextBlock Text="{Binding airport.destination.code.iata}"/>
+                    <TextBlock Text="{Binding airport.destination.position.country.name}"/>
+                    <Label Content="aircraft"/>
+                    <TextBlock Text="{Binding aircraft.model.text}"/>
+                    <Label Content="registration"/>
+                    <TextBlock Text="{Binding aircraft.registration}"/>
+                    <Label Content="departure time and date"/>
+                    <TextBlock Text="{Binding time.estimated.arrival, Converter = {StaticResource TickConvert}}"/>
+                    <Label Content="time and date of arrival"/>
+                    <TextBlock Text="{Binding status.text}"/>
+
+                </StackPanel>
+
+            </ControlTemplate>
         </ItemsControl>
 
 
@@ -83,6 +107,38 @@
 
     </Grid>
 </UserControl>
+
+<!--<StackPanel Background="#FFD2B488"  Margin="1021,0,0,189" >
+
+    --><!--<materialDesign:PackIcon Kind="Close" Height="23" Width="30" Margin="229,0,0,0"/>--><!--
+
+    <TextBlock Text="{Binding identification.callsign}" Margin="10,0,0.2,0"/>
+    <TextBlock Text="{Binding airline.name}" Margin="10,0,0.2,0"/>
+    <TextBlock Text="{Binding airport.origin.position.country.name}" Height="18" FontSize="12" Margin="95,0,60.2,0"/>
+    <TextBlock Text="{Binding airport.origin.code.iata}" Height="41" Margin="90,0,90.2,0"/>
+    <Image Source="C:\Projet aircraft radar\AirTraffic\PL\images\aircraft.png" Height="39" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="44" RenderTransformOrigin="0.5,0.5" >
+        <Image.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform Angle="90"/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Image.RenderTransform>
+    </Image>
+    <TextBlock Text="{Binding airport.destination.code.iata}"  Height="41" HorizontalAlignment="Right" Width="70" Margin="0,0,94.2,0"/>
+    <TextBlock Height="18" FontSize="12" HorizontalAlignment="Right" Width="100" Margin="0,0,60.2,0"/>
+    <Label Content="Aircraft:" Margin="10,0,0.2,0" FontWeight="Bold" FontSize="16" FontFamily="Harrington"/>
+    <TextBlock Text="{Binding aircraft.model.text}" FontSize="14" Margin="28,0,0.2,0"/>
+    <Label Content="Registration:" Margin="10,0,0.2,0" FontWeight="Bold" FontSize="16" FontFamily="Harrington"/>
+    <TextBlock Text="{Binding aircraft.registration}" FontSize="14" Margin="24,0,0.2,0"/>
+    <Label Content="Departure time and date:" Margin="10,0,0.2,0" FontSize="16" FontFamily="Harrington" FontWeight="Bold"/>
+    <TextBlock Text="{Binding time.estimated.arrival, Converter={StaticResource TickConvert}}" Margin="24,0,0.2,0"/>
+    <Label Content="Time and date of arrival:" Margin="10,0,0.2,0" FontWeight="Bold" FontSize="16" FontFamily="Harrington"/>
+    <TextBlock Text="{Binding status.text}" FontSize="14" Margin="24,0,0.2,0"/>
+
+</StackPanel>-->
+
 <!--DataContext="{Binding radarViewModel.listStr}"-->
 <!--CommandTarget="{Binding ElementName=OutFlightsListBox}"-->
 

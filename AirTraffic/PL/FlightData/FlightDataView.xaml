@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:PL.FlightData" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              
              mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="300">
+             d:DesignHeight="500" d:DesignWidth="300">
     <Grid>
         <Border CornerRadius="8,8,8,8"  BorderThickness="1" Background="Tan">
             <Label  Margin="240.2,0.2,0.2,351.2">
@@ -18,11 +18,17 @@
         <Label Content="Company" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top" Width="116"/>
         <Label Content="iaco" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,87,0,0" FontSize="25" VerticalAlignment="Top" Width="85" Height="43"/>
         <Label Content="iata"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="203,87,0,0"  FontSize="25" VerticalAlignment="Top" Width="73" Height="43"/>
-        <Image Source="C:\Projet aircraft radar\AirTraffic\PL\images\image3.png" HorizontalAlignment="Left" Height="39" Margin="124,95,0,0" VerticalAlignment="Top" Width="44"/>
+        <Image Source="C:\Projet aircraft radar\AirTraffic\PL\images\aircraft.png" HorizontalAlignment="Left" Height="39" Margin="124,95,0,0" VerticalAlignment="Top" Width="44"/>
         <Label Content="ville depart" HorizontalAlignment="Left" Margin="15,135,0,0" VerticalAlignment="Top" Width="90"/>
         <Label Content="ville arrivee" HorizontalAlignment="Left" Margin="203,135,0,0" VerticalAlignment="Top" Width="82"/>
         <Label Content="aircraft" HorizontalAlignment="Left" Margin="15,196,0,0" VerticalAlignment="Top" Width="111"/>
         <Label Content="model avion" HorizontalAlignment="Left" Margin="15,220,0,0" VerticalAlignment="Top" Width="126"/>
+        <Label Content="registration" HorizontalAlignment="Left" Margin="11,318,0,0" VerticalAlignment="Top" Width="90"/>
+        <Label Content="num reg" HorizontalAlignment="Left" Margin="10,347,0,0" VerticalAlignment="Top" Width="102"/>
+        <Label Content="departure date and time" HorizontalAlignment="Left" Margin="10,376,0,0" VerticalAlignment="Top" Width="158"/>
+        <Label Content="date and time" HorizontalAlignment="Left" Height="21" Margin="12,405,0,0" VerticalAlignment="Top" Width="171"/>
+        <Label Content="ac" HorizontalAlignment="Left" Height="23" Margin="15,431,0,0" VerticalAlignment="Top"/>
+        <Label Content="arr time" HorizontalAlignment="Left" Height="26" Margin="15,459,0,0" VerticalAlignment="Top" Width="105"/>
 
 
 

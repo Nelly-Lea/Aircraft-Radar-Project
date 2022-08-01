@@ -41,7 +41,7 @@ namespace BE
     {
         //(IATA:TLV, IACO:LLBG)
         public string iata { get; set; }
-        public string iaco { get; set; }
+        public string icao { get; set; }
     }
 
     public class Country

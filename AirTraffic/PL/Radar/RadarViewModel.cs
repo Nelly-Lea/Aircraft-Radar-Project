@@ -1,4 +1,5 @@
 ﻿using AirTraffic.Commands;
+using PL.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,10 +14,7 @@ namespace AirTraffic.Radar
 
     public class RadarViewModel
     {
-        
-   
-
-    public RadarModel radarModel { get; set; }
+        public RadarModel radarModel { get; set; }
 
         public RadarViewModel()
         {
@@ -37,6 +35,24 @@ namespace AirTraffic.Radar
          
         }
 
+        private bool _isMyUserControlVisible;
+        public bool IsMyUserControlVisible
+        {
+            get { return _isMyUserControlVisible; }
+            set
+            {
+                _isMyUserControlVisible = value;
+                OnPropertyChanged("IsMyUserControlVisible");
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string v)
+        {
+            //throw new NotImplementedException();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(v));
+        }
+
         private ObservableCollection<BE.FlightInfoPartial> flightOutgoing;
         public ObservableCollection<BE.FlightInfoPartial> FlightOutgoing
         {
@@ -47,6 +63,24 @@ namespace AirTraffic.Radar
                 return flightOutgoing;
             }
 
+        }
+
+        private ObservableCollection< BE.Root> currentFlight { get; set; }
+        public ObservableCollection<BE.Root> CurrentFlight
+        {
+            get
+            {
+                if (currentFlight == null)
+                    currentFlight = new ObservableCollection<BE.Root>();
+                return currentFlight;
+            }
+
+            //set
+            //{
+                
+            //        currentFlight = value;
+            //        OnPropertyChanged("currentFlight");
+            //}
         }
         public void DisplayCurrentFilghts()
         {
@@ -63,11 +97,16 @@ namespace AirTraffic.Radar
 
         }
 
-        public BE.Root DisplayFlightData(string key)
+        public void DisplayFlightData(string key)
         {
-            BE.Root FlightData = new BE.Root();
-            FlightData=radarModel.RMDisplayFlightData(key);
-            return FlightData;
+           BE.Root FlightData = new BE.Root();
+            FlightData = radarModel.RMDisplayFlightData(key);
+            if (CurrentFlight.Count != 0)
+                CurrentFlight.Clear();
+            CurrentFlight.Add(FlightData);
+            IsMyUserControlVisible = true;
+
+
         }
         public ICommand ReadAllCommand
         {
@@ -76,7 +115,13 @@ namespace AirTraffic.Radar
                 return new ReadAllCommand(this);
             }
         }
-
+        public ICommand SelectionChangedCommand
+        {
+            get
+            {
+                return new SelectionChangedCommand(this);
+            }
+        }
     }
 }
 

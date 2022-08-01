@@ -3,14 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:AirTraffic.Radar" xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
-             
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:local="clr-namespace:AirTraffic.Radar"
+             xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+             xmlns:converters="clr-namespace:AirTraffic.Converters" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" Height="600" Width="1280.334">
 
-    
+    <UserControl.Resources>
+        <converters:TickToDateTimeConverter x:Key="TickConvert"/>
+        <BooleanToVisibilityConverter x:Key="visibilityConverter" />
+    </UserControl.Resources>
     <Grid Background="#FFE2D8CD"  >
-        <ListBox Name="InFlightsListBox"  ItemsSource="{Binding FlightIncoming, Mode=OneWay}" HorizontalAlignment="Left" Height="162" Margin="101,59,0,0" VerticalAlignment="Top" Width="158" SelectionChanged="FlightsListBox_SelectionChanged">
+        <ListBox Name="InFlightsListBox"   ItemsSource="{Binding FlightIncoming, Mode=OneWay}" HorizontalAlignment="Left" Height="162" Margin="101,59,0,0" VerticalAlignment="Top" Width="158">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" CommandParameter="{Binding ElementName= InFlightsListBox, Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -18,16 +27,17 @@
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding YourCommand}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+           
 
         </ListBox>
         <Label Content="Incoming" HorizontalAlignment="Left" Margin="138,25,0,0" VerticalAlignment="Top" Height="34" Width="77" FontFamily="Harrington" FontWeight="Bold"/>
         <Label Content="Outgoing" HorizontalAlignment="Left" Margin="138,231,0,0" VerticalAlignment="Top" Width="77" Height="26" FontFamily="Harrington" FontWeight="Bold"/>
-        <ListBox ItemsSource="{Binding FlightOutgoing, Mode=OneWay}" Name="OutFlightsListBox" HorizontalAlignment="Left" Height="162" Margin="101,257,0,0" VerticalAlignment="Top" Width="158"  SelectionChanged="FlightsListBox_SelectionChanged">
+        <ListBox ItemsSource="{Binding FlightOutgoing, Mode=OneWay}" Name="OutFlightsListBox" HorizontalAlignment="Left" Height="162" Margin="101,257,0,0" VerticalAlignment="Top" Width="158" >
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" CommandParameter="{Binding ElementName= OutFlightsListBox, Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -40,7 +50,35 @@
         <Button Content="Read All" HorizontalAlignment="Left" Margin="112,479,0,0" VerticalAlignment="Top" Width="141" Height="38" FontFamily="Harrington" Background="MidnightBlue" BorderBrush="MidnightBlue"
             Command="{Binding ReadAllCommand}"  CommandParameter="{Binding}">
         </Button>
-        
+
+
+        <ItemsControl Background="Tan" ItemsSource="{Binding CurrentFlight , Mode=OneWay}" Margin="1011,20,10,239">
+            
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel >
+                        <TextBlock FontSize="15" Text="{Binding aircraft.identification.number.@default}"/>
+                        <TextBlock Text="{Binding airline.name}"/>
+                        <TextBlock Text="{Binding airline.code.icao}"/>
+                        <TextBlock Text="{Binding airport.origin.position.country.name}"/>
+                        <Image Source="C:\Projet aircraft radar\AirTraffic\PL\images\aircraft.png" Height="39"  VerticalAlignment="Top" Width="44"/>
+                        <TextBlock Text="{Binding airline.code.iata}"/>
+                        <TextBlock Text="{Binding airport.destination.position.country.name}"/>
+                        <Label Content="aircraft"/>
+                        <TextBlock Text="{Binding aircraft.model.text}"/>
+                        <Label Content="registration"/>
+                        <TextBlock Text="{Binding aircraft.registration}"/>
+                        <Label Content="departure time and date"/>
+                        <TextBlock Text="{Binding time.estimated.arrival, Converter = {StaticResource TickConvert}}"/>
+                        <Label Content="time and date of arrival"/>
+                        <TextBlock Text="{Binding status.text}"/>
+                    </StackPanel>
+                </DataTemplate>
+                </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+
+
 
     </Grid>
 </UserControl>

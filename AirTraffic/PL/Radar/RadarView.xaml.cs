@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using Microsoft.Maps.MapControl.WPF;
 using System.Windows.Interactivity;
 
+
 namespace AirTraffic.Radar
 {
     /// <summary>
@@ -42,9 +43,6 @@ namespace AirTraffic.Radar
                 MessageBox.Show(pin.ToolTip.ToString());
         }
 
-        private void FlightsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
+      
     }
 }

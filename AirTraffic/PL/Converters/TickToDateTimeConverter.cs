@@ -9,7 +9,7 @@ using BE;
 
 namespace AirTraffic.Converters
 {
-    class TickToDateTimeConverter : IValueConverter
+    public class TickToDateTimeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -31,15 +31,15 @@ namespace AirTraffic.Converters
             return null;
         }
 
-        object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
+        //object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
+        //object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
 

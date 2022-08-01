@@ -24,8 +24,10 @@ namespace PL.Commands
 
         public void Execute(object parameter)
         {
-
-            currentVM.DisplayCurrentFilghts();
+            BE.FlightInfoPartial SelectedFlight = new BE.FlightInfoPartial();
+            SelectedFlight = parameter as BE.FlightInfoPartial;
+            string key = SelectedFlight.SourceId;
+            currentVM.DisplayFlightData(key);
 
         }
         public RadarViewModel currentVM { get; set; }

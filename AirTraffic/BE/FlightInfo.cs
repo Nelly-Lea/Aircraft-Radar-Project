@@ -8,6 +8,7 @@ namespace BE
 {
     public class Aircraft
     {
+
         public Model model { get; set; }
         public int countryId { get; set; }
         public string registration { get; set; }

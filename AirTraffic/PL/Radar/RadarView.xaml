@@ -13,6 +13,27 @@
     <UserControl.Resources>
         <converters:TickToDateTimeConverter x:Key="TickConvert"/>
         <BooleanToVisibilityConverter x:Key="visibilityConverter" />
+        <Style TargetType="m:Pushpin" x:Key="FromIsrael">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <Image Source="C:\Projet aircraft radar\AirTraffic\PL\\images\airplane.png"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="m:Pushpin" x:Key="ToIsrael">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Image Source="C:\Projet aircraft radar\AirTraffic\PL\\images\airplaneToIsrael.png"/>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <Grid Background="#FFE2D8CD" x:Name="radarviewgrid" >
         <ListBox x:Name="InFlightsListBox"   ItemsSource="{Binding FlightIncoming, Mode=OneWay}" HorizontalAlignment="Left" Height="162" Margin="101,59,0,0" VerticalAlignment="Top" Width="158">
@@ -57,7 +78,7 @@
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Background="Aquamarine" >
+                    <StackPanel Background="Tan" >
                         <TextBlock Text="{Binding identification.callsign}"/>
                         <TextBlock Text="{Binding airline.name}"/>
                         <TextBlock Text="{Binding airport.origin.code.iata}"/>
@@ -78,7 +99,10 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-      
+        <Button  HorizontalAlignment="Left" Margin="285,462,0,0" VerticalAlignment="Top" Width="75" Height="55" Background="#FF191670" BorderBrush="#FF191670" Click="Button_Click">
+            <Image Source="C:\Projet c# radar avions\AirTrafficProject\images\airplaneToIsrael.png"/>
+        </Button>
+
 
 
 

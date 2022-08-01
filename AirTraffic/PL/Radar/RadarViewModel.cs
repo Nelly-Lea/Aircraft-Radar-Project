@@ -1,4 +1,5 @@
 ﻿using AirTraffic.Commands;
+using Microsoft.Maps.MapControl.WPF;
 using PL.Commands;
 using PL.FlightData;
 using System;
@@ -8,6 +9,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace AirTraffic.Radar
@@ -100,7 +103,7 @@ namespace AirTraffic.Radar
 
         }
 
-        public void DisplayFlightData(string key)
+        public BE.Root DisplayFlightData(string key)
         {
            BE.Root FlightData = new BE.Root();
             FlightData = radarModel.RMDisplayFlightData(key);
@@ -109,6 +112,8 @@ namespace AirTraffic.Radar
             CurrentFlight.Add(FlightData);
     
             IsMyUserControlVisible = true;
+            return FlightData;
+            
 
 
         }
@@ -116,6 +121,63 @@ namespace AirTraffic.Radar
         {
             radarModel.RMSaveFlightToDB(SelectedFlight);
         }
+         public BE.Root ConvertFlightIPToFlighInfo(BE.FlightInfoPartial FlightIP)
+        {
+            BE.Root Flight = new BE.Root();
+            string key = FlightIP.SourceId;
+            Flight=radarModel.RMDisplayFlightData(key);
+            return Flight;
+
+        }
+
+        //public void UpdateMap(BE.Root Flight, BE.FlightInfoPartial selected)
+        //{
+        //    if (Flight != null)
+        //    {
+        //        var OrderedPlaces = (from f in Flight.trail
+        //                             orderby f.ts
+        //                             select f).ToList<BE.Trail>();
+
+        //      //  addNewPolyLine(OrderedPlaces);
+
+        //        //MessageBox.Show(Flight.airport.destination.code.iata);
+        //        BE.Trail CurrentPlace = null;
+
+        //        Pushpin PinCurrent = new Pushpin { ToolTip = selected.Id };
+        //        Pushpin PinOrigin = new Pushpin { ToolTip = Flight.airport.origin.name };
+
+        //        PositionOrigin origin = new PositionOrigin { X = 0.4, Y = 0.4 };
+        //        MapLayer.SetPositionOrigin(PinCurrent, origin);
+
+
+        //        //Better to use RenderTransform
+        //        if (Flight.airport.destination.code.iata == "TLV")
+        //        {
+
+        //            PinCurrent.Template = Application.Current.Resources["ToIsrael"] as (ControlTemplate);
+        //           // PinCurrent.Style = (Style)Resources["ToIsrael"];
+        //        }
+        //        else
+        //        {
+        //            PinCurrent.Style = (Style)Resources["FromIsrael"];
+        //        }
+
+        //        CurrentPlace = OrderedPlaces.Last<BE.Trail>();
+        //        var PlaneLocation = new Location { Latitude = CurrentPlace.lat, Longitude = CurrentPlace.lng };
+        //        PinCurrent.Location = PlaneLocation;
+
+
+        //        CurrentPlace = OrderedPlaces.First<BE.Trail>();
+        //        PlaneLocation = new Location { Latitude = CurrentPlace.lat, Longitude = CurrentPlace.lng };
+        //        PinOrigin.Location = PlaneLocation;
+
+        //        //PinCurrent.MouseDown += Pin_MouseDown;
+
+        //        myMap.Children.Add(PinOrigin);
+        //        myMap.Children.Add(PinCurrent);
+
+        //    }
+        //}
         public ICommand ReadAllCommand
         {
             get

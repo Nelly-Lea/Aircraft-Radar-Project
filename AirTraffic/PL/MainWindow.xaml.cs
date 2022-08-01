@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using AirTraffic.Radar;
+using PL.Historic;
 //On peut mettre les fenetres ds PL, et pa sujet elle a mis les 3 couches model, viewmodel et view
 // elle a fait des dossiers par fenetre
 namespace AirTraffic
@@ -24,7 +25,7 @@ namespace AirTraffic
     public partial class MainWindow : Window
     {
         private RadarView radarview;
-
+        private HistoricView historicView;
         public MainWindow()
         {
             InitializeComponent();
@@ -37,6 +38,16 @@ namespace AirTraffic
                 radarview = new RadarView();
             }
             MainWindowUC.Content = radarview;
+
+        }
+
+        private void ButtonHistoric(object sender, RoutedEventArgs e)
+        {
+            if (!(MainWindowUC.Content is HistoricView))
+            {
+               historicView= new HistoricView();
+            }
+            MainWindowUC.Content = historicView;
 
         }
     }

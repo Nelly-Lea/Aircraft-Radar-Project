@@ -118,15 +118,26 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\SelectionChangedCommand.cs" />
+    <Compile Include="Commands\SearchHistoric.cs" />
+    <Compile Include="Converters\TwoDatesToOneConverter.cs" />
     <Compile Include="FlightData\FlightDataView.xaml.cs">
       <DependentUpon>FlightDataView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Historic\HistoricModel.cs" />
+    <Compile Include="Historic\HistoricView.xaml.cs">
+      <DependentUpon>HistoricView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Historic\HistoricViewModel.cs" />
     <Compile Include="Radar\RadarModel.cs" />
     <Compile Include="Radar\RadarView.xaml.cs">
       <DependentUpon>RadarView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Radar\RadarViewModel.cs" />
     <Page Include="FlightData\FlightDataView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Historic\HistoricView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

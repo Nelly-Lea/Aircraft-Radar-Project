@@ -32,7 +32,7 @@
 
             <Button
             Style="{StaticResource MaterialDesignRaisedButton}"
-            ToolTip="Resource name: MaterialDesignRaisedButton" Content="Historic" Grid.Row="0" Height="49" Margin="0,0,840,0" Background="#FFE2D8CD" BorderBrush="#FFE2D8CD" Foreground="Black" FontFamily="Harrington" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Right" Width="217" Grid.RowSpan="2" />
+            ToolTip="Resource name: MaterialDesignRaisedButton" Content="Historic" Grid.Row="0" Height="49" Margin="0,0,840,0" Background="#FFE2D8CD" BorderBrush="#FFE2D8CD" Foreground="Black" FontFamily="Harrington" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Right" Width="217" Grid.RowSpan="2" Click="ButtonHistoric" />
             <Grid>
                 <MediaElement Stretch="UniformToFill" x:Name="player" HorizontalAlignment="Center"
                       Source="C:\Projet c# radar avions\AirTrafficProject\images\\aircraft radar.mp4" Margin="253,125,264.6,-493.2" Width="756"  />

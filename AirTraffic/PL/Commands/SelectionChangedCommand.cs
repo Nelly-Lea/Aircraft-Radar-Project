@@ -27,8 +27,12 @@ namespace PL.Commands
             BE.FlightInfoPartial SelectedFlight = new BE.FlightInfoPartial();
             SelectedFlight = parameter as BE.FlightInfoPartial;
             string key = SelectedFlight.SourceId;
-            currentVM.DisplayFlightData(key);
+            BE.Root flight= currentVM.DisplayFlightData(key);
+
             currentVM.SaveFlightToDB(SelectedFlight);
+           // currentVM.UpdateMap(flight, SelectedFlight);
+
+
         }
         public RadarViewModel currentVM { get; set; }
 

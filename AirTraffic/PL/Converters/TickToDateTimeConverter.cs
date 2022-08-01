@@ -31,6 +31,7 @@ namespace AirTraffic.Converters
             return null;
         }
 
+
         //object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
         //{
         //    throw new NotImplementedException();

@@ -22,5 +22,9 @@ namespace AirTraffic.Radar
         {
             return BL.GetFlightData(key);
         }
+        public void RMSaveFlightToDB(BE.FlightInfoPartial SelectedFlight)
+        {
+            BL.SaveFlightToDataBase(SelectedFlight);
+        }
     }
 }

@@ -42,8 +42,7 @@
 
 
 
-                <FlightData:FlightDataView HorizontalAlignment="Left" Height="564" Margin="963,-26,-0.2,-18" VerticalAlignment="Top" Width="310"/>
-
+               
 
             </UserControl>
             <Label  HorizontalAlignment="Right" VerticalAlignment="Center"  Height="45" Width="54" Margin="0,2,1220,1.8">

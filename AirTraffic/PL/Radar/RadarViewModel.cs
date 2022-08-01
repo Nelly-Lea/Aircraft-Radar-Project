@@ -1,5 +1,6 @@
 ﻿using AirTraffic.Commands;
 using PL.Commands;
+using PL.FlightData;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -106,10 +107,14 @@ namespace AirTraffic.Radar
             if (CurrentFlight.Count != 0)
                 CurrentFlight.Clear();
             CurrentFlight.Add(FlightData);
-        
+    
             IsMyUserControlVisible = true;
 
 
+        }
+        public void SaveFlightToDB(BE.FlightInfoPartial SelectedFlight)
+        {
+            radarModel.RMSaveFlightToDB(SelectedFlight);
         }
         public ICommand ReadAllCommand
         {

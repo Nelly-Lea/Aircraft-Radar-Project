@@ -130,6 +130,7 @@ namespace DAL
         }
         public void SaveFlightToDB(BE.FlightInfoPartial flight)
         {
+            
             using (var ctx = new FlightContext())
             {
                 ctx.Flights.Add(flight);
@@ -139,7 +140,7 @@ namespace DAL
         }
         public class FlightContext : DbContext
         {
-            public FlightContext() : base("FlightsDB")
+            public FlightContext() : base("FlightsDataBase")
             {
 
             }

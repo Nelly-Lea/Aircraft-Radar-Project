@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="AirTraffic.Radar.RadarView"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,17 +7,18 @@
              xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
              xmlns:converters="clr-namespace:AirTraffic.Converters" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:FlightData="clr-namespace:PL.FlightData" x:Class="AirTraffic.Radar.RadarView"
              mc:Ignorable="d" Height="600" Width="1280.334">
 
     <UserControl.Resources>
         <converters:TickToDateTimeConverter x:Key="TickConvert"/>
         <BooleanToVisibilityConverter x:Key="visibilityConverter" />
     </UserControl.Resources>
-    <Grid Background="#FFE2D8CD"  >
-        <ListBox Name="InFlightsListBox"   ItemsSource="{Binding FlightIncoming, Mode=OneWay}" HorizontalAlignment="Left" Height="162" Margin="101,59,0,0" VerticalAlignment="Top" Width="158">
+    <Grid Background="#FFE2D8CD" x:Name="radarviewgrid" >
+        <ListBox x:Name="InFlightsListBox"   ItemsSource="{Binding FlightIncoming, Mode=OneWay}" HorizontalAlignment="Left" Height="162" Margin="101,59,0,0" VerticalAlignment="Top" Width="158">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" CommandParameter="{Binding ElementName= InFlightsListBox, Path=SelectedItem}"/>
+                    <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" CommandParameter="{Binding SelectedItem, ElementName=InFlightsListBox}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <ListBox.ItemTemplate>
@@ -32,10 +33,10 @@
         </ListBox>
         <Label Content="Incoming" HorizontalAlignment="Left" Margin="138,25,0,0" VerticalAlignment="Top" Height="34" Width="77" FontFamily="Harrington" FontWeight="Bold"/>
         <Label Content="Outgoing" HorizontalAlignment="Left" Margin="138,231,0,0" VerticalAlignment="Top" Width="77" Height="26" FontFamily="Harrington" FontWeight="Bold"/>
-        <ListBox ItemsSource="{Binding FlightOutgoing, Mode=OneWay}" Name="OutFlightsListBox" HorizontalAlignment="Left" Height="162" Margin="101,257,0,0" VerticalAlignment="Top" Width="158" >
+        <ListBox ItemsSource="{Binding FlightOutgoing, Mode=OneWay}" x:Name="OutFlightsListBox" HorizontalAlignment="Left" Height="162" Margin="101,257,0,0" VerticalAlignment="Top" Width="158" >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" CommandParameter="{Binding ElementName= OutFlightsListBox, Path=SelectedItem}"/>
+                    <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" CommandParameter="{Binding SelectedItem, ElementName=OutFlightsListBox}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <ListBox.ItemTemplate>
@@ -48,13 +49,12 @@
         </ListBox>
         <m:Map x:Name="myMap" CredentialsProvider="ApINLKklvvkm_3CQRgDQ2s-J4VMwZ1PzoRJ_guhxBVIGnlNYyTIfNhBQOlFeMlfR" Margin="383,20,38,33" ZoomLevel="5.0" Center="32.000454,34.870743" AnimationLevel="None" MouseDown="Pin_MouseDown"/>
         <Button Content="Read All" HorizontalAlignment="Left" Margin="112,479,0,0" VerticalAlignment="Top" Width="141" Height="38" FontFamily="Harrington" Background="MidnightBlue" BorderBrush="MidnightBlue"
-            Command="{Binding ReadAllCommand}"  CommandParameter="{Binding}">
-        </Button>
+            Command="{Binding ReadAllCommand}"  CommandParameter="{Binding}"/>
 
 
-        <ItemsControl   ItemsSource="{Binding CurrentFlight , Mode=OneWay}" Margin="1021,0,0,259">
+        <ItemsControl   ItemsSource="{Binding CurrentFlight, Mode=OneWay}" Margin="1021,0,0,259">
 
-            
+
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Background="Aquamarine" >
@@ -70,7 +70,7 @@
                         <Label Content="registration"/>
                         <TextBlock Text="{Binding aircraft.registration}"/>
                         <Label Content="departure time and date"/>
-                        <TextBlock Text="{Binding time.estimated.arrival, Converter = {StaticResource TickConvert}}"/>
+                        <TextBlock Text="{Binding time.estimated.arrival, Converter={StaticResource TickConvert}}"/>
                         <Label Content="time and date of arrival"/>
                         <TextBlock Text="{Binding status.text}"/>
 
@@ -78,7 +78,14 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <ItemsControl   ItemsSource="{Binding CurrentFlight , Mode=OneWay}" Margin="1021,0,0,259">
+      
+
+
+
+    </Grid>
+</UserControl>
+
+<!--<ItemsControl   ItemsSource="{Binding CurrentFlight, Mode=OneWay}" Margin="1021,0,0,259">
             <ControlTemplate >
                 <StackPanel Background="Aquamarine" >
                     <TextBlock Text="{Binding identification.callsign}"/>
@@ -93,24 +100,20 @@
                     <Label Content="registration"/>
                     <TextBlock Text="{Binding aircraft.registration}"/>
                     <Label Content="departure time and date"/>
-                    <TextBlock Text="{Binding time.estimated.arrival, Converter = {StaticResource TickConvert}}"/>
+                    <TextBlock Text="{Binding time.estimated.arrival, Converter={StaticResource TickConvert}}"/>
                     <Label Content="time and date of arrival"/>
                     <TextBlock Text="{Binding status.text}"/>
 
                 </StackPanel>
 
             </ControlTemplate>
-        </ItemsControl>
-
-
-
-
-    </Grid>
-</UserControl>
+        </ItemsControl>-->
 
 <!--<StackPanel Background="#FFD2B488"  Margin="1021,0,0,189" >
 
-    --><!--<materialDesign:PackIcon Kind="Close" Height="23" Width="30" Margin="229,0,0,0"/>--><!--
+    -->
+<!--<materialDesign:PackIcon Kind="Close" Height="23" Width="30" Margin="229,0,0,0"/>-->
+<!--
 
     <TextBlock Text="{Binding identification.callsign}" Margin="10,0,0.2,0"/>
     <TextBlock Text="{Binding airline.name}" Margin="10,0,0.2,0"/>

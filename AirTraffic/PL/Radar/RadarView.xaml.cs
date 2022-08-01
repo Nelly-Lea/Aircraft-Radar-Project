@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Maps.MapControl.WPF;
 using System.Windows.Interactivity;
-
+using PL.FlightData;
 
 namespace AirTraffic.Radar
 {
@@ -31,7 +31,9 @@ namespace AirTraffic.Radar
             radarViewModel = new RadarViewModel();
             InitializeComponent();
             
-            this.DataContext = radarViewModel; 
+            this.DataContext = radarViewModel;
+            //FlightDataView fv = new FlightDataView();
+            //radarviewgrid.Children.Add(fv);
           
 
         }
@@ -43,6 +45,13 @@ namespace AirTraffic.Radar
                 MessageBox.Show(pin.ToolTip.ToString());
         }
 
-      
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            FlightDataView fv = new FlightDataView();
+            radarviewgrid.Children.Add(fv);
+
+
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Maps.MapControl.WPF;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,21 @@ namespace DAL
 
         BE.Root GetFlight(string Key);
         void SaveFlightToDB(BE.FlightInfoPartial flight);
+
+        List<BE.FlightInfoPartial> GetAllFlightInDB();
+
+        void DeleteFlight(BE.FlightInfoPartial flight);
+        List<BE.Trail> getTrail(BE.Root flight);
+        BE.Trail GetOriginAirport(List<BE.Trail> OrderedPlaces);
+
+        BE.Trail GetCurrentPosition(List<BE.Trail> OrderedPlaces);
+
+        Location GetPosition(BE.Root flight);
+
+        Location GetPosition(BE.Trail trail);
+      
+
+
         #endregion
     }
 }

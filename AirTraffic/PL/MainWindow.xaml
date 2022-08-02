@@ -38,11 +38,12 @@
                       Source="C:\Projet c# radar avions\AirTrafficProject\images\\aircraft radar.mp4" Margin="253,125,264.6,-493.2" Width="756"  />
             </Grid>
             <UserControl x:Name="MainWindowUC" Margin="10,40,-9,10.4" Grid.RowSpan="2" >
+                <Label Content="Welcome to the Aircraft Radar Application " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="239,10,0,0" VerticalAlignment="Top" Height="64" Width="770" FontFamily="Harrington" FontSize="36" FontWeight="Bold"/>
 
 
 
 
-               
+
 
             </UserControl>
             <Label  HorizontalAlignment="Right" VerticalAlignment="Center"  Height="45" Width="54" Margin="0,2,1220,1.8">
@@ -53,6 +54,8 @@
             <Label  HorizontalAlignment="Left" Margin="217,2,0,0" VerticalAlignment="Top">
                 <materialDesign:PackIcon Kind="History" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="44"/>
             </Label>
+
+
         </Grid>
     </Grid>
 

@@ -4,20 +4,35 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
-             xmlns:converters="clr-namespace:AirTraffic.Converters"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:PL.Historic" xmlns:converters1="clr-namespace:PL.Converters"
+             xmlns:local="clr-namespace:PL.Historic" xmlns:converters="clr-namespace:PL.Converters"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
             Height="600" Width="1280.334">
     <UserControl.Resources>
-        <converters1:TwoDatesToOneConverter x:Key="MyConverter"/>
+        <converters:TwoDatesToOneConverter x:Key="TwoDatesToOneConverter"/>
     </UserControl.Resources>
-    
+
     <Grid Background="#FFE2D8CD" >
-        <StackPanel HorizontalAlignment="Left" Height="100" Margin="258,99,0,0" VerticalAlignment="Top" Width="100">
-            <DatePicker>
+        <StackPanel HorizontalAlignment="Left" Height="100" Margin="352,127,0,0" VerticalAlignment="Top" Width="100">
+            <DatePicker  SelectedDate="{x:Static sys:DateTime.Now}" x:Name="From" Height="36">
                 <DatePicker.CalendarStyle>
-                    <Style TargetType="Calendar" x:Name="From" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
+                    <Style TargetType="{x:Type Calendar}">
+                        <Style.Resources>
+                            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="MidnightBlue" />
+                            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="Green" />
+                        </Style.Resources>
+                        <Style.BasedOn>
+                            <StaticResource ResourceKey="MaterialDesignCalendarPortrait"/>
+                        </Style.BasedOn>
+                    </Style>
+                </DatePicker.CalendarStyle>
+            </DatePicker>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left" Height="100" Margin="751,127,0,0" VerticalAlignment="Top" Width="100">
+            <DatePicker  SelectedDate="{x:Static sys:DateTime.Now}" x:Name="To" Height="38">
+                <DatePicker.CalendarStyle>
+                    <Style TargetType="Calendar"   BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
                         <Style.Resources>
                             <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="MidnightBlue" />
                             <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="Green" />
@@ -26,40 +41,75 @@
                 </DatePicker.CalendarStyle>
             </DatePicker>
         </StackPanel>
-        <StackPanel HorizontalAlignment="Left" Height="100" Margin="799,99,0,0" VerticalAlignment="Top" Width="100">
-            <DatePicker>
-                <DatePicker.CalendarStyle>
-                    <Style TargetType="Calendar" x:Name="To"  BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
-                        <Style.Resources>
-                            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="MidnightBlue" />
-                            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="Green" />
-                        </Style.Resources>
-                    </Style>
-                </DatePicker.CalendarStyle>
-            </DatePicker>
-        </StackPanel>
-        <Label Content="From" HorizontalAlignment="Left" Margin="258,64,0,0" VerticalAlignment="Top" Height="35" Width="135" FontWeight="Bold" FontSize="16"/>
-        <Label Content="To" HorizontalAlignment="Left" Margin="795,64,0,0" VerticalAlignment="Top" Height="35" Width="135" FontWeight="Bold" RenderTransformOrigin="0.142,0.697" FontSize="16"/>
+        <Label Content="From" HorizontalAlignment="Left" Margin="352,92,0,0" VerticalAlignment="Top" Height="35" Width="135" FontWeight="Bold" FontSize="16"/>
+        <Label Content="To" HorizontalAlignment="Left" Margin="751,92,0,0" VerticalAlignment="Top" Height="35" Width="135" FontWeight="Bold" RenderTransformOrigin="0.142,0.697" FontSize="16"/>
         <Label Content="Your search history" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="380,18,452,0" VerticalAlignment="Top" Height="55" Width="448" FontFamily="Harrington" FontWeight="Bold" FontSize="36"/>
-        <ListView x:Name="ListHistoric" HorizontalAlignment="Left" Height="265" Margin="80,173,0,0" VerticalAlignment="Top" Width="1112">
+        <ListView x:Name="ListHistoric" Background="Tan" ItemsSource="{Binding FlightBetweenTwoDates , Mode=OneWay}" HorizontalAlignment="Left" Height="333" Margin="132,194,0,0" VerticalAlignment="Top" Width="1062"  >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Button Content="Search"  HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="1061,73,0,0" VerticalAlignment="Top" Width="131" Height="46" Background="MidnightBlue" BorderBrush="MidnightBlue" FontFamily="Harrington" FontWeight="Bold" Command="{Binding SearchHistoric}"/>
+                    <GridViewColumn Header="Flight Code" DisplayMemberBinding="{Binding FlightCode}" Width="150"/>
+                    <GridViewColumn Header="From" DisplayMemberBinding="{Binding Source}" Width="150"/>
+                    <GridViewColumn Header="To" DisplayMemberBinding="{Binding Destination}" Width="150"/>
+                    <GridViewColumn Header="Date and Time" DisplayMemberBinding="{Binding DateAndTime}" Width="150"/>
+                    <GridViewColumn Width="120">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button  Command="{Binding ElementName=ListHistoric, Path=DataContext.DeleteFlightCommand}" CommandParameter="{Binding}" FontFamily="Kristen ITC"  Width="100" Height="40" VerticalAlignment="Center" Background="Transparent" BorderBrush="Transparent" >
+                                    <Button.Content>
+                                        <materialDesign:PackIcon Kind="TrashCanCircleOutline" Height="30" Width="30" Foreground="MidnightBlue" MouseDoubleClick="PackIcon_MouseDoubleClick"/>
+                                    </Button.Content>
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
 
-        <Label  HorizontalAlignment="Left" Margin="1140,76,0,0" VerticalAlignment="Top">
-            <materialDesign:PackIcon Kind="Search" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="44" Foreground="#DDFFFFFF"/>
-       
+
+
+                </GridView>
+               
+
+
+
+
+            </ListView.View>
+
+        </ListView>
+
+        <Button Command="{Binding SHCommand}" Width="141" Height="38" FontFamily="Harrington" Background="MidnightBlue" BorderBrush="MidnightBlue" HorizontalAlignment="Left" Margin="976,103,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"  >
+            <StackPanel Orientation="Horizontal" Width="132">
+                <Label Content="Search" Height="24" Width="71" Foreground="White" FontWeight="Normal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <materialDesign:PackIcon Kind="Search" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="44" Foreground="#DDFFFFFF"/>
+            </StackPanel>
+            <Button.CommandParameter>
+                <MultiBinding Converter="{StaticResource TwoDatesToOneConverter}">
+                    <Binding Path="SelectedDate" ElementName="From"/>
+                    <Binding Path="SelectedDate" ElementName="To"/>
+                </MultiBinding>
+            </Button.CommandParameter>
+        </Button>
+
+
+
+
+
 
     </Grid>
 </UserControl>
+
+
+
+<!---->
 <!--<Button.CommandParameter>           
     <MultiBinding Converter="{StaticResource MyConverter}">               
         <Binding Path="SelectedDate.Value" ElementName="From"/>
         <Binding Path="Text" ElementName="To"/>                
     </MultiBinding>            
 </Button.CommandParameter>
+</Button>-->
+<!--<Button Content="Search"  HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="1061,73,0,0" VerticalAlignment="Top" Width="131" Height="46" Background="MidnightBlue" BorderBrush="MidnightBlue" FontFamily="Harrington" FontWeight="Bold" Command="{Binding SHCommand }" >
+    <Button.CommandParameter>           
+        <MultiBinding>
+
+        </MultiBinding>          
+    </Button.CommandParameter>
 </Button>-->

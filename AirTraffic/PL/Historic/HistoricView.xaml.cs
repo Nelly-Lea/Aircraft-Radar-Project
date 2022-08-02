@@ -30,5 +30,10 @@ namespace PL.Historic
             this.DataContext = historicViewModel;
             
         }
+
+        private void PackIcon_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            return;
+        }
     }
 }

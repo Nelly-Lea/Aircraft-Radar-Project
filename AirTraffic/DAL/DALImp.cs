@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using BE;
 using System.Data.Entity;
+using Microsoft.Maps.MapControl.WPF;
 //on recoit des BE.class, ds les fonctions on fait ctx=class.DB on le retourne
 //on retourne List<BE.Class>
 //on s'occupe de la data
@@ -130,13 +131,89 @@ namespace DAL
         }
         public void SaveFlightToDB(BE.FlightInfoPartial flight)
         {
-            
+            List<BE.FlightInfoPartial> listFlights = new List<FlightInfoPartial>();
+
             using (var ctx = new FlightContext())
             {
-                ctx.Flights.Add(flight);
-                ctx.SaveChanges();
+                listFlights=(from f in ctx.Flights
+                             where f.SourceId==flight.SourceId
+                             select f).ToList<BE.FlightInfoPartial>();
+                if (listFlights.Count == 0)
+                {
+                    ctx.Flights.Add(flight);
+                    ctx.SaveChanges();
+                }
             }
 
+        }
+
+        public void DeleteFlight(BE.FlightInfoPartial flight)
+        {
+            List<BE.FlightInfoPartial> listFlights = new List<FlightInfoPartial>();
+
+            using (var ctx = new FlightContext())
+            {
+                //collection Flights est dans BL
+                listFlights = ( from f in ctx.Flights
+                                where f.SourceId==flight.SourceId
+                                select f).ToList<BE.FlightInfoPartial>();
+                if (listFlights.Count != 0)
+                {
+
+                    ctx.Flights.Remove(listFlights.First());
+                    ctx.SaveChanges();
+
+                }
+            }
+          
+        }
+
+        public BE.Trail GetOriginAirport(List<BE.Trail> OrderedPlaces)
+        {
+            return OrderedPlaces.First<BE.Trail>();
+        }
+
+        public BE.Trail GetCurrentPosition(List<BE.Trail> OrderedPlaces)
+        {
+            return OrderedPlaces.Last<BE.Trail>();
+        }
+
+        public Location GetPosition(BE.Root flight)
+        {
+            Location loc = new Location();
+            loc.Latitude = flight.airport.destination.position.latitude;
+            loc.Longitude = flight.airport.destination.position.longitude;
+            return loc;
+        }
+
+        public Location GetPosition(BE.Trail trail)
+        {
+            Location loc = new Location();
+            loc.Latitude = trail.lat;
+            loc.Longitude = trail.lng;
+            return loc;
+
+        }
+
+
+        public List<BE.Trail> getTrail(BE.Root flight)
+        {
+            var OrderedPlaces = (from f in flight.trail    //ds DALImp
+                                 orderby f.ts
+                                 select f).ToList<BE.Trail>();
+            return OrderedPlaces;
+        }
+
+        public List<BE.FlightInfoPartial> GetAllFlightInDB()
+        {
+            List<BE.FlightInfoPartial> Flights = new List<FlightInfoPartial>();
+            using (var ctx = new FlightContext())
+            {
+                //collection Flights est dans BL
+                 Flights = (from f in ctx.Flights
+                               select f).ToList<BE.FlightInfoPartial>();
+            }
+            return Flights;
         }
         public class FlightContext : DbContext
         {

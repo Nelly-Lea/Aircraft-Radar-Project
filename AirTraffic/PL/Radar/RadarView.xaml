@@ -7,6 +7,7 @@
              xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
              xmlns:converters="clr-namespace:AirTraffic.Converters" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:rh="http://schemas.rollinghours.com/wpf"
              xmlns:FlightData="clr-namespace:PL.FlightData" x:Class="AirTraffic.Radar.RadarView"
              mc:Ignorable="d" Height="600" Width="1280.334">
 
@@ -18,7 +19,7 @@
                 <Setter.Value>
                     <ControlTemplate>
                         <Grid>
-                            <Image Source="C:\Projet aircraft radar\AirTraffic\PL\\images\airplane.png"/>
+                            <Image Source="C:\Projet aircraft radar\AirTraffic\PL\images\airplane.png"/>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -28,20 +29,18 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Image Source="C:\Projet aircraft radar\AirTraffic\PL\\images\airplaneToIsrael.png"/>
+                        <Image Source="C:\Projet aircraft radar\AirTraffic\PL\images\airplaneToIsrael.png"/>
 
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
+
     </UserControl.Resources>
     <Grid Background="#FFE2D8CD" x:Name="radarviewgrid" >
-        <ListBox x:Name="InFlightsListBox"   ItemsSource="{Binding FlightIncoming, Mode=OneWay}" HorizontalAlignment="Left" Height="162" Margin="101,59,0,0" VerticalAlignment="Top" Width="158">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" CommandParameter="{Binding SelectedItem, ElementName=InFlightsListBox}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+
+        <ListBox x:Name="InFlightsListBox"   ItemsSource="{Binding FlightIncoming, Mode=OneWay}" HorizontalAlignment="Left" Height="162" Margin="101,59,0,0" VerticalAlignment="Top" Width="158" SelectionChanged="FlightsListBox_SelectionChanged">
+
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -52,14 +51,10 @@
 
 
         </ListBox>
+
         <Label Content="Incoming" HorizontalAlignment="Left" Margin="138,25,0,0" VerticalAlignment="Top" Height="34" Width="77" FontFamily="Harrington" FontWeight="Bold"/>
         <Label Content="Outgoing" HorizontalAlignment="Left" Margin="138,231,0,0" VerticalAlignment="Top" Width="77" Height="26" FontFamily="Harrington" FontWeight="Bold"/>
-        <ListBox ItemsSource="{Binding FlightOutgoing, Mode=OneWay}" x:Name="OutFlightsListBox" HorizontalAlignment="Left" Height="162" Margin="101,257,0,0" VerticalAlignment="Top" Width="158" >
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" CommandParameter="{Binding SelectedItem, ElementName=OutFlightsListBox}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+        <ListBox ItemsSource="{Binding FlightOutgoing, Mode=OneWay}" x:Name="OutFlightsListBox" HorizontalAlignment="Left" Height="162" Margin="101,257,0,0" VerticalAlignment="Top" Width="158" SelectionChanged="FlightsListBox_SelectionChanged" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -73,41 +68,51 @@
             Command="{Binding ReadAllCommand}"  CommandParameter="{Binding}"/>
 
 
-        <ItemsControl   ItemsSource="{Binding CurrentFlight, Mode=OneWay}" Margin="1021,0,0,259">
 
 
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Background="Tan" >
-                        <TextBlock Text="{Binding identification.callsign}"/>
-                        <TextBlock Text="{Binding airline.name}"/>
-                        <TextBlock Text="{Binding airport.origin.code.iata}"/>
-                        <TextBlock Text="{Binding airport.origin.position.country.name}"/>
-                        <Image Source="C:\Projet aircraft radar\AirTraffic\PL\images\aircraft.png" Height="39"  VerticalAlignment="Top" Width="44"/>
-                        <TextBlock Text="{Binding airport.destination.code.iata}"/>
-                        <TextBlock Text="{Binding airport.destination.position.country.name}"/>
-                        <Label Content="aircraft"/>
-                        <TextBlock Text="{Binding aircraft.model.text}"/>
-                        <Label Content="registration"/>
-                        <TextBlock Text="{Binding aircraft.registration}"/>
-                        <Label Content="departure time and date"/>
-                        <TextBlock Text="{Binding time.estimated.arrival, Converter={StaticResource TickConvert}}"/>
-                        <Label Content="time and date of arrival"/>
-                        <TextBlock Text="{Binding status.text}"/>
+        <Grid x:Name="myGrid" HorizontalAlignment="Left" Height="600" VerticalAlignment="Top" Width="1280">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1001*"/>
+                <ColumnDefinition Width="276*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
 
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-        <Button  HorizontalAlignment="Left" Margin="285,462,0,0" VerticalAlignment="Top" Width="75" Height="55" Background="#FF191670" BorderBrush="#FF191670" Click="Button_Click">
-            <Image Source="C:\Projet c# radar avions\AirTrafficProject\images\airplaneToIsrael.png"/>
-        </Button>
+
 
 
 
 
     </Grid>
 </UserControl>
+
+<!--<Style TargetType="m:Pushpin" x:Key="FromIsrael" >
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate>
+                <Grid>
+                    <StackPanel>
+                        <Image Source="C:\Projet aircraft radar\AirTraffic\PL\\images\airplane.png"/>
+                        <Button x:Name="Pushpin" Click="PushpinClick" Background="Transparent" BorderBrush="Black"/>
+                    </StackPanel>
+                </Grid>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+</Style>
+<Style TargetType="m:Pushpin" x:Key="ToIsrael">
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate>
+                <StackPanel>
+                    <Image Source="C:\Projet aircraft radar\AirTraffic\PL\\images\airplaneToIsrael.png"/>
+                    <Button x:Name="Pushpin1" Click="PushpinClick" Background="Transparent" BorderBrush="Black"/>
+                </StackPanel>
+
+
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+</Style>-->
 
 <!--<ItemsControl   ItemsSource="{Binding CurrentFlight, Mode=OneWay}" Margin="1021,0,0,259">
             <ControlTemplate >
@@ -184,3 +189,16 @@
         </Border>
     </DataTemplate>
 </UserControl.Resources>-->
+
+<!--<i:Interaction.Triggers>
+    <i:EventTrigger EventName="SelectionChanged">
+        <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" CommandParameter="{Binding SelectedItem, ElementName=InFlightsListBox}"/>
+    </i:EventTrigger>
+</i:Interact <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" CommandParameter="{Binding SelectedItem, ElementName=OutFlightsListBox}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>ion.Triggers>-->
+<!--<Button  HorizontalAlignment="Left" Margin="285,462,0,0" VerticalAlignment="Top" Width="75" Height="55" Background="#FF191670" BorderBrush="#FF191670" >
+    <Image Source="C:\Projet c# radar avions\AirTrafficProject\images\airplaneToIsrael.png"/>
+</Button-->

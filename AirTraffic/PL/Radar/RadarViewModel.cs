@@ -121,13 +121,38 @@ namespace AirTraffic.Radar
         {
             radarModel.RMSaveFlightToDB(SelectedFlight);
         }
-         public BE.Root ConvertFlightIPToFlighInfo(BE.FlightInfoPartial FlightIP)
+        public BE.Root ConvertFlightIPToFlighInfo(BE.FlightInfoPartial FlightIP)
         {
             BE.Root Flight = new BE.Root();
             string key = FlightIP.SourceId;
-            Flight=radarModel.RMDisplayFlightData(key);
+            Flight = radarModel.RMDisplayFlightData(key);
             return Flight;
 
+        }
+
+        public List<BE.Trail> RVMGetTrail(BE.Root flight)
+        {
+            return radarModel.RMGetTrail(flight);
+        }
+
+        public BE.Trail RVMGetOriginAirport(List<BE.Trail> OrderedPlaces)
+        {
+            return radarModel.RMGetOriginAirport(OrderedPlaces);
+        }
+
+        public BE.Trail RVMGetCurrentPosition(List<BE.Trail> OrderedPlaces)
+        {
+            return radarModel.RMGetCurrentPosition(OrderedPlaces);
+        }
+
+        public Location RVMGetPosition(BE.Root flight)
+        {
+            return radarModel.RMGetPosition(flight);
+        }
+
+        public Location RVMGetPosition(BE.Trail trail)
+        {
+            return radarModel.RMGetPosition(trail);
         }
 
         //public void UpdateMap(BE.Root Flight, BE.FlightInfoPartial selected)

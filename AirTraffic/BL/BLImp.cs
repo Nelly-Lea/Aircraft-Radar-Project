@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL;
+using Microsoft.Maps.MapControl.WPF;
 
 namespace BL
 {
@@ -45,6 +47,49 @@ namespace BL
         public void SaveFlightToDataBase(BE.FlightInfoPartial flight)
         {
             dal.SaveFlightToDB(flight);
+        
         }
+
+        public ObservableCollection<BE.FlightInfoPartial> GetFlightsBetweenTwoDates(DateTime dateFrom, DateTime dateTo)
+        {
+            List<BE.FlightInfoPartial> ListOfFlightInDB = dal.GetAllFlightInDB();
+            List<BE.FlightInfoPartial> ListPred=ListOfFlightInDB.FindAll(p => p.DateAndTime.Date <= dateTo.Date && p.DateAndTime.Date >= dateFrom.Date);
+            ObservableCollection<BE.FlightInfoPartial> Obs = new ObservableCollection<BE.FlightInfoPartial>(ListOfFlightInDB);
+            return Obs;
+        }
+
+        public void DeleteFlight(BE.FlightInfoPartial flight)
+        {
+            dal.DeleteFlight(flight);
+        }
+
+        public List<BE.Trail> getTrail(BE.Root flight)
+        {
+           return dal.getTrail(flight);
+
+        }
+
+      
+
+        public BE.Trail GetOriginAirport(List<BE.Trail> OrderedPlaces)
+        {
+            return dal.GetOriginAirport(OrderedPlaces);
+        }
+
+        public BE.Trail GetCurrentPosition(List<BE.Trail> OrderedPlaces)
+        {
+           return dal.GetCurrentPosition(OrderedPlaces);
+        }
+
+        public Location GetPosition(BE.Root flight)
+        {
+            return dal.GetPosition(flight);
+        }
+
+        public Location GetPosition(BE.Trail trail)
+        {
+            return dal.GetPosition(trail);
+        }
+
     }
 }

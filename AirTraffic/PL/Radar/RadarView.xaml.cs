@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using Microsoft.Maps.MapControl.WPF;
 using System.Windows.Interactivity;
 using PL.FlightData;
+using System.Web.Script.Serialization;
 
 namespace AirTraffic.Radar
 {
@@ -26,6 +27,9 @@ namespace AirTraffic.Radar
     {
       
         public RadarViewModel radarViewModel;
+        private const string AllURL = @" https://data-cloud.flightradar24.com/zones/fcgi/feed.js?faa=1&bounds=38.805%2C24.785%2C29.014%2C40.505&satellite=1&mlat=1&flarm=1&adsb=1&gnd=1&air=1&vehicles=1&estimated=1&maxage=14400&gliders=1&stats=1";
+        private const string FlightURL = @"https://data-live.flightradar24.com/clickhandler/?version=1.5&flight=";
+
         public RadarView()
         {
             radarViewModel = new RadarViewModel();
@@ -46,7 +50,7 @@ namespace AirTraffic.Radar
         }
 
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Button_Click_1(object sender, RoutedEventArgs e) // pr rajouter l'onglet
         {
             FlightDataView fv = new FlightDataView();
             radarviewgrid.Children.Add(fv);
@@ -54,47 +58,43 @@ namespace AirTraffic.Radar
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void FlightsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            myMap.Children.Clear();
-            if (OutFlightsListBox.SelectedItem==null&& InFlightsListBox.SelectedItem==null)
-            {
-                MessageBox.Show("you didn't click on item");
-                return;
-            }
-            BE.FlightInfoPartial FlightIP = new BE.FlightInfoPartial();
-            bool inflight=true;
-            if (InFlightsListBox.SelectedItem != null)
-                inflight = true;
-            if (OutFlightsListBox.SelectedItem != null)
-                inflight = false;
+            BE.FlightInfoPartial SelectedFlight = null;
+            SelectedFlight = e.AddedItems[0] as BE.FlightInfoPartial; //InFlightsListBox.SelectedItem as FlightInfoPartial;
+            UpdateFlight(SelectedFlight);
+            
+            FlightDataView fv = new FlightDataView();
             BE.Root Flight = new BE.Root();
-            if (inflight == true)
-            {
-                FlightIP = InFlightsListBox.SelectedItem as BE.FlightInfoPartial;
-                InFlightsListBox.SelectedItem = null;
-                Flight = radarViewModel.ConvertFlightIPToFlighInfo(FlightIP);
-                    }
-            else
-            {
-                FlightIP = OutFlightsListBox.SelectedItem as BE.FlightInfoPartial;
-                OutFlightsListBox.SelectedItem = null;
-                Flight = radarViewModel.ConvertFlightIPToFlighInfo(FlightIP);
-            }
-                
+            Flight = radarViewModel.ConvertFlightIPToFlighInfo(SelectedFlight);
+            fv.DetailsPanel.DataContext = Flight;
+            myGrid.Children.Add(fv);
+            Grid.SetColumn(fv, 1);
+            
 
+
+        }
+
+        private void UpdateFlight(BE.FlightInfoPartial selected)
+        {
+
+
+            // DetailsPanel.DataContext = Flight;
+             BE.Root Flight = new BE.Root();
+             Flight = radarViewModel.ConvertFlightIPToFlighInfo(selected);
+
+            // Update map
             if (Flight != null)
             {
-                var OrderedPlaces = (from f in Flight.trail
-                                     orderby f.ts
-                                     select f).ToList<BE.Trail>();
+
+                var OrderedPlaces = radarViewModel.RVMGetTrail(Flight);
 
                 addNewPolyLine(OrderedPlaces);
 
                 //MessageBox.Show(Flight.airport.destination.code.iata);
                 BE.Trail CurrentPlace = null;
 
-                Pushpin PinCurrent = new Pushpin { ToolTip = FlightIP.Id };
+                Pushpin PinCurrent = new Pushpin { ToolTip = selected.SourceId };
                 Pushpin PinOrigin = new Pushpin { ToolTip = Flight.airport.origin.name };
                 Pushpin PinDestination = new Pushpin { ToolTip = Flight.airport.destination.name };
 
@@ -114,27 +114,31 @@ namespace AirTraffic.Radar
                     PinCurrent.Style = (Style)Resources["FromIsrael"];
                 }
 
-                CurrentPlace = OrderedPlaces.Last<BE.Trail>();
-                var PlaneLocation = new Location { Latitude = CurrentPlace.lat, Longitude = CurrentPlace.lng };
+                CurrentPlace = radarViewModel.RVMGetCurrentPosition(OrderedPlaces);
+                var PlaneLocation = radarViewModel.RVMGetPosition(CurrentPlace);
                 PinCurrent.Location = PlaneLocation;
 
 
-                CurrentPlace = OrderedPlaces.First<BE.Trail>();
-                PlaneLocation = new Location { Latitude = CurrentPlace.lat, Longitude = CurrentPlace.lng };
+                var OriginPlace =radarViewModel.RVMGetOriginAirport(OrderedPlaces);
+                PlaneLocation = radarViewModel.RVMGetPosition(OriginPlace);
                 PinOrigin.Location = PlaneLocation;
 
-                var AirportLocation = new Location { Latitude = Flight.airport.destination.position.latitude, Longitude = Flight.airport.destination.position.longitude };
-                PinDestination.Location = AirportLocation;
 
+                var AirportDst = radarViewModel.RVMGetPosition(Flight);              
+                PinDestination.Location = AirportDst;
                 //PinCurrent.MouseDown += Pin_MouseDown;
+
+
 
                 myMap.Children.Add(PinOrigin);
                 myMap.Children.Add(PinCurrent);
                 myMap.Children.Add(PinDestination);
 
             }
-
         }
+
+
+       
         void addNewPolyLine(List<BE.Trail> Route)
         {
             MapPolyline polyline = new MapPolyline();
@@ -151,6 +155,43 @@ namespace AirTraffic.Radar
             myMap.Children.Clear();
             myMap.Children.Add(polyline);
         }
+
+        //private void PushpinClick(object sender, RoutedEventArgs e)
+        //{
+        //    Pushpin p = sender as Pushpin;
+        //   // string flight = p.Tag.ToString();
+        //    //BE.Root Flight = new BE.Root();
+        //    //Flight = GetFlight(flight);
+
+        //    FlightDataView fv = new FlightDataView();
+        //    radarviewgrid.Children.Add(fv);
+
+
+        //}
+
+        public BE.Root GetFlight(string Key)
+        {
+            var CurrentUrl = FlightURL + Key;
+            BE.Root CurrentFlight = null;
+            //must use try-catch
+            using (var webClient = new System.Net.WebClient())
+            {
+                var json = webClient.DownloadString(CurrentUrl);
+                try
+                {
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    CurrentFlight = serializer.Deserialize<BE.Root>(json);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                   // Debug.WriteLine(e.Message);
+                }
+
+            }
+            return CurrentFlight;
+        }
+       
     }
    
 }

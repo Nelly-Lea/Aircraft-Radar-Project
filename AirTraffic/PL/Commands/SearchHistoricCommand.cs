@@ -21,18 +21,17 @@ namespace PL.Commands
 
         public bool CanExecute(object parameter) // pas oublie de verifier que date apres
         {
-            // return true;
-            var Result = false;
+            ObservableCollection<string> ObsDate = new ObservableCollection<string>();
+            DateTime DTFrom = new DateTime();
+            ObsDate = parameter as ObservableCollection<string>;
+            DTFrom = DateTime.Parse(ObsDate[0]);
+            DateTime DTTo = new DateTime();
+            DTTo = DateTime.Parse(ObsDate[1]);
+            if (DTTo.Date < DTFrom.Date)
+                return false;
+            else
+                return true;
 
-            if (parameter != null)
-            {
-                var txt = parameter.ToString();
-                if (txt.Length > 0)
-                    Result = true;
-
-            }
-
-            return Result;
         }
 
         public void Execute(object parameter)

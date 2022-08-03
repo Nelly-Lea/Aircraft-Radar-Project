@@ -1,6 +1,8 @@
 ﻿using AirTraffic.Radar;
+using PL.Historic;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +10,7 @@ using System.Windows.Input;
 
 namespace PL.Commands
 {
-    class SelectionChangedCommand : ICommand
+    public class HolidaysCommand : ICommand
     {
         public event EventHandler CanExecuteChanged
         {
@@ -24,19 +26,19 @@ namespace PL.Commands
 
         public void Execute(object parameter)
         {
-            BE.FlightInfoPartial SelectedFlight = new BE.FlightInfoPartial();
-            SelectedFlight = parameter as BE.FlightInfoPartial;
-            string key = SelectedFlight.SourceId;
-            BE.Root flight= currentVM.DisplayFlightData(key);
-
-            currentVM.SaveFlightToDB(SelectedFlight);
-           // currentVM.UpdateMap(flight, SelectedFlight);
 
 
+            ObservableCollection<string> ObsDate = new ObservableCollection<string>();
+            DateTime DTFrom = new DateTime();
+            ObsDate = parameter as ObservableCollection<string>;
+            DTFrom = DateTime.Parse(ObsDate[0]);
+            DateTime DTTo = new DateTime();
+            DTTo = DateTime.Parse(ObsDate[1]);
+            currentVM.HVMDisplayHolidayMessage(DTFrom, DTTo);
         }
-        public RadarViewModel currentVM { get; set; }
+        public HistoricViewModel currentVM { get; set; }
 
-        public SelectionChangedCommand(RadarViewModel CurrentVM)
+        public HolidaysCommand(HistoricViewModel CurrentVM)
         {
             currentVM = CurrentVM;
         }

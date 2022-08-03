@@ -7,27 +7,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace PL.Historic
 {
-   
-    public class HistoricViewModel
+
+    public class HistoricViewModel:INotifyPropertyChanged
     {
         public HistoricModel historicModel { get; set; }
         public SearchHistoricCommand SHCommand { get; set; }
+        public HolidaysCommand HCommand{get;set;}
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public HistoricViewModel()
         {
            historicModel = new HistoricModel();
             SHCommand = new SearchHistoricCommand(this);
-
+            HCommand = new HolidaysCommand(this);
 
         }
 
-     //   public ObservableCollection<BE.FlightInfoPartial> FlightBetweenTwoDates { get; set; }
+        //   public ObservableCollection<BE.FlightInfoPartial> FlightBetweenTwoDates { get; set; }
 
+        public void RaisePropertyChanged(string Name)
+        {
+            var handler = this.PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(Name));
+            }
+        }
 
 
         private ObservableCollection<BE.FlightInfoPartial> flightBetweenTwoDates;
+
+        
+
         public ObservableCollection<BE.FlightInfoPartial> FlightBetweenTwoDates
         {
             get
@@ -36,16 +51,71 @@ namespace PL.Historic
                     flightBetweenTwoDates = new ObservableCollection<BE.FlightInfoPartial>();
                 return flightBetweenTwoDates;
             }
+            set
+            {
+                flightBetweenTwoDates = value;
+                RaisePropertyChanged("FlightBetweenTwoDates");
+            }
 
         }
+        private string holidaysMessage { get; set; }
+        public void OnPropertyChanged(string Name) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(Name));
+        public string HolidaysMessage
+        {
+            get
+            {
+                return holidaysMessage;
+            }
+            set
+            {
+                holidaysMessage = value;
+                OnPropertyChanged("HolidaysMessage");
+           }
+        }
+        
+        public void HVMDisplayHolidayMessage(DateTime from, DateTime To)
+        {
+            bool FromBool = historicModel.HMDisplayHolidaysMessage(from);
+            bool ToBool = historicModel.HMDisplayHolidaysMessage(To);
+            if (FromBool && ToBool)
+            {
+                HolidaysMessage = "Your both dates are less than a week before holidays";
+            
+                return;
+            }
+            if (FromBool)
+            {
+                HolidaysMessage = "Your first date is less than a week before holidays";
+                
+                return;
+            }
+            if (ToBool)
+            {
+                HolidaysMessage = "Your second date is less than a week before holidays";
+                
+                return;
+            }
+            if(!FromBool && !ToBool)
+            {
+                HolidaysMessage = "Your both dates aren't close to holidays ";
+               
+                return;
+            }
+            
+        }
 
+       
 
         public void HVMDisplayFlightBetweenTwoDates(DateTime dateFrom, DateTime dateTo)
         {
             ObservableCollection<BE.FlightInfoPartial> obs= new ObservableCollection<BE.FlightInfoPartial>();
             obs =historicModel.DisplayFlightBetweenTwoDates(dateFrom, dateTo);
+            flightBetweenTwoDates.Clear();
+            FlightBetweenTwoDates.Clear();
+            
             foreach(var item in obs)
             {
+                
                 FlightBetweenTwoDates.Add(item);
             }
 

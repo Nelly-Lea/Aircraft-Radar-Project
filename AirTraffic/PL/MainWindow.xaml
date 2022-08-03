@@ -36,9 +36,14 @@
             <Grid>
                 <MediaElement Stretch="UniformToFill" x:Name="player" HorizontalAlignment="Center"
                       Source="C:\Projet c# radar avions\AirTrafficProject\images\\aircraft radar.mp4" Margin="253,125,264.6,-493.2" Width="756"  />
+                <Button Content="Holidays" Style="{StaticResource MaterialDesignRaisedButton}"
+                   ToolTip="Resource name: MaterialDesignRaisedButton" Grid.Row="0"  Width="217" Height="49" Background="#FFE2D8CD" BorderBrush="#FFE2D8CD" Foreground="Black" FontFamily="Harrington" HorizontalAlignment="Left" Margin="435,0,0,-0.2" VerticalAlignment="Top"  FontWeight="Bold" Click="ButtonHolidays"/>
+
             </Grid>
             <UserControl x:Name="MainWindowUC" Margin="10,40,-9,10.4" Grid.RowSpan="2" >
-                <Label Content="Welcome to the Aircraft Radar Application " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="239,10,0,0" VerticalAlignment="Top" Height="64" Width="770" FontFamily="Harrington" FontSize="36" FontWeight="Bold"/>
+                <Label  HorizontalAlignment="Left" Margin="429,-37,0,0" VerticalAlignment="Top">
+                    <materialDesign:PackIcon Kind="Jewish" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="44"/>
+                </Label>
 
 
 

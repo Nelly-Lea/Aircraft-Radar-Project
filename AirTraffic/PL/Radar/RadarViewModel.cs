@@ -210,13 +210,13 @@ namespace AirTraffic.Radar
                 return new ReadAllCommand(this);
             }
         }
-        public ICommand SelectionChangedCommand
-        {
-            get
-            {
-                return new SelectionChangedCommand(this);
-            }
-        }
+        //public ICommand HolidaysCommand
+        //{
+        //    get
+        //    {
+        //        return new HolidaysCommand(this);
+        //    }
+        //}
     }
 }
 

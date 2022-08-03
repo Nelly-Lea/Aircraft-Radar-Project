@@ -26,5 +26,10 @@ namespace BL
 
         Location GetPosition(BE.Trail trail);
         #endregion
+
+        #region Holidays
+        bool IsBeforeHolidays(DateTime date);
+        
+        #endregion
     }
 }

@@ -27,9 +27,14 @@ namespace DAL
         Location GetPosition(BE.Root flight);
 
         Location GetPosition(BE.Trail trail);
-      
 
 
+
+        #endregion
+
+        #region HebCal
+        bool IsBeforeHolidayAsync(DateTime date);
+       // bool IsBeforeHolidayAsync1();
         #endregion
     }
 }

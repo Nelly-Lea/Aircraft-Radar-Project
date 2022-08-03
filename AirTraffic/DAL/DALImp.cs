@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,6 +10,7 @@ using System.Web.Script.Serialization;
 using BE;
 using System.Data.Entity;
 using Microsoft.Maps.MapControl.WPF;
+//using Newtonsoft.Json;
 //on recoit des BE.class, ds les fonctions on fait ctx=class.DB on le retourne
 //on retourne List<BE.Class>
 //on s'occupe de la data
@@ -17,6 +19,7 @@ namespace DAL
     public class DALImp : IDAL
     {
         public DALImp() { }
+        public  bool Holiday = false;
         //public class TrafficAdapter
         //{
         //    //ancien url
@@ -225,6 +228,37 @@ namespace DAL
 
 
 
+        }
+        //public bool IsBeforeHolidayAsync1()
+        //{
+        //    return Holiday;
+        //}
+        public bool IsBeforeHolidayAsync(DateTime date)
+        {
+
+            using (var webClient = new System.Net.WebClient())
+            {
+                var yyyy = date.ToString("yyyy");
+                var mm = date.ToString("MM");
+                var dd = date.ToString("dd");
+                string URL = $"https://www.hebcal.com/converter?cfg=json&date={yyyy}-{mm}-{dd}&g2h=1&strict=1";
+                var json = webClient.DownloadString(URL);
+                RootCal Data = JsonConvert.DeserializeObject<RootCal>(json);
+
+                foreach (var item in Data.events)
+                {
+                    if (item.Contains("Erev"))
+                    {
+                        return true;
+
+                        //Holiday = true;
+                        //return;
+                    }
+                }
+                return false;
+
+            }
+            
         }
     }
     //}

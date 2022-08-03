@@ -14,6 +14,7 @@
     <UserControl.Resources>
         <converters:TickToDateTimeConverter x:Key="TickConvert"/>
         <BooleanToVisibilityConverter x:Key="visibilityConverter" />
+      
         <Style TargetType="m:Pushpin" x:Key="FromIsrael">
             <Setter Property="Template">
                 <Setter.Value>
@@ -63,7 +64,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <m:Map x:Name="myMap" CredentialsProvider="ApINLKklvvkm_3CQRgDQ2s-J4VMwZ1PzoRJ_guhxBVIGnlNYyTIfNhBQOlFeMlfR" Margin="383,20,38,33" ZoomLevel="5.0" Center="32.000454,34.870743" AnimationLevel="None" MouseDown="Pin_MouseDown"/>
+        <m:Map x:Name="myMap" CredentialsProvider="ApINLKklvvkm_3CQRgDQ2s-J4VMwZ1PzoRJ_guhxBVIGnlNYyTIfNhBQOlFeMlfR" Margin="383,20,38,33" ZoomLevel="5.0" Center="32.000454,34.870743" AnimationLevel="None"/>
         <Button Content="Read All" HorizontalAlignment="Left" Margin="112,479,0,0" VerticalAlignment="Top" Width="141" Height="38" FontFamily="Harrington" Background="MidnightBlue" BorderBrush="MidnightBlue"
             Command="{Binding ReadAllCommand}"  CommandParameter="{Binding}"/>
 

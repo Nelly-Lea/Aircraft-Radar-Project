@@ -47,14 +47,15 @@ namespace BL
         public void SaveFlightToDataBase(BE.FlightInfoPartial flight)
         {
             dal.SaveFlightToDB(flight);
-        
+
         }
 
         public ObservableCollection<BE.FlightInfoPartial> GetFlightsBetweenTwoDates(DateTime dateFrom, DateTime dateTo)
         {
             List<BE.FlightInfoPartial> ListOfFlightInDB = dal.GetAllFlightInDB();
-            List<BE.FlightInfoPartial> ListPred=ListOfFlightInDB.FindAll(p => p.DateAndTime.Date <= dateTo.Date && p.DateAndTime.Date >= dateFrom.Date);
-            ObservableCollection<BE.FlightInfoPartial> Obs = new ObservableCollection<BE.FlightInfoPartial>(ListOfFlightInDB);
+            List<BE.FlightInfoPartial> ListPred = ListOfFlightInDB.FindAll(p => p.DateAndTime.Date <= dateTo.Date && p.DateAndTime.Date >= dateFrom.Date);
+
+            ObservableCollection<BE.FlightInfoPartial> Obs = new ObservableCollection<BE.FlightInfoPartial>(ListPred);
             return Obs;
         }
 
@@ -65,11 +66,11 @@ namespace BL
 
         public List<BE.Trail> getTrail(BE.Root flight)
         {
-           return dal.getTrail(flight);
+            return dal.getTrail(flight);
 
         }
 
-      
+
 
         public BE.Trail GetOriginAirport(List<BE.Trail> OrderedPlaces)
         {
@@ -78,7 +79,7 @@ namespace BL
 
         public BE.Trail GetCurrentPosition(List<BE.Trail> OrderedPlaces)
         {
-           return dal.GetCurrentPosition(OrderedPlaces);
+            return dal.GetCurrentPosition(OrderedPlaces);
         }
 
         public Location GetPosition(BE.Root flight)
@@ -91,5 +92,19 @@ namespace BL
             return dal.GetPosition(trail);
         }
 
+        #region Holidays
+        public bool IsBeforeHolidays(DateTime date)
+        {
+            DateTime dateIn6days = date.AddDays(6);
+            for (DateTime i = date; i <= dateIn6days; i = i.AddDays(1))
+            {
+                //dal.IsBeforeHolidayAsync(i);
+                if (dal.IsBeforeHolidayAsync(i))
+                    return true;
+            }
+            return false;
+            #endregion
+
+        }
     }
 }

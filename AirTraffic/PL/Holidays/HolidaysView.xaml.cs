@@ -13,27 +13,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PL.Historic
+namespace PL.Holidays
 {
     /// <summary>
-    /// Interaction logic for HistoricView.xaml
+    /// Interaction logic for HolidaysView.xaml
     /// </summary>
-    public partial class HistoricView : UserControl
+    public partial class HolidaysView : UserControl
     {
-        public HistoricViewModel historicViewModel;
-        public HistoricView()
+        public HolidaysViewModel holidaysViewModel;
+        public HolidaysView()
         {
             InitializeComponent();
-            historicViewModel = new HistoricViewModel();
-           
-
-            this.DataContext = historicViewModel;
-            
-        }
-
-        private void PackIcon_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            return;
+            holidaysViewModel = new HolidaysViewModel();
         }
     }
 }

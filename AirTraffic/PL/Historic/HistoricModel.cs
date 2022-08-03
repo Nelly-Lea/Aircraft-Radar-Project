@@ -26,5 +26,10 @@ namespace PL.Historic
         {
             BL.DeleteFlight(flight);
         }
+
+        public bool HMDisplayHolidaysMessage(DateTime date)
+        {
+            return BL.IsBeforeHolidays(date);
+        }
     }
 }

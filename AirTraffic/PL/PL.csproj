@@ -27,6 +27,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,6 +37,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Dragablz, Version=0.0.3.223, Culture=neutral, processorArchitecture=MSIL">
@@ -122,7 +124,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\DeleteFlightCommand.cs" />
-    <Compile Include="Commands\SelectionChangedCommand.cs" />
+    <Compile Include="Commands\HolidaysCommand.cs" />
     <Compile Include="Commands\SearchHistoricCommand.cs" />
     <Compile Include="Converters\TwoDatesToOneConverter.cs" />
     <Compile Include="FlightData\FlightDataView.xaml.cs">
@@ -133,6 +135,11 @@
       <DependentUpon>HistoricView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Historic\HistoricViewModel.cs" />
+    <Compile Include="Holidays\HolidaysModel.cs" />
+    <Compile Include="Holidays\HolidaysView.xaml.cs">
+      <DependentUpon>HolidaysView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Holidays\HolidaysViewModel.cs" />
     <Compile Include="Radar\RadarModel.cs" />
     <Compile Include="Radar\RadarView.xaml.cs">
       <DependentUpon>RadarView.xaml</DependentUpon>
@@ -143,6 +150,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Historic\HistoricView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Holidays\HolidaysView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

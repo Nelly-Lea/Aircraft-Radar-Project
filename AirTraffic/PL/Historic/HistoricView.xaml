@@ -11,10 +11,21 @@
             Height="600" Width="1280.334">
     <UserControl.Resources>
         <converters:TwoDatesToOneConverter x:Key="TwoDatesToOneConverter"/>
+
+        <Style x:Key="RoundButton" TargetType="Button">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+
+
+
     </UserControl.Resources>
 
-    <Grid Background="#FFE2D8CD" >
-        <StackPanel HorizontalAlignment="Left" Height="100" Margin="352,127,0,0" VerticalAlignment="Top" Width="100">
+    <Grid Background="#FFE2D8CD" Margin="6,0,-6,0" >
+        <StackPanel HorizontalAlignment="Left" Height="100" Margin="408,127,0,0" VerticalAlignment="Top" Width="100">
             <DatePicker  SelectedDate="{x:Static sys:DateTime.Now}" x:Name="From" Height="36">
                 <DatePicker.CalendarStyle>
                     <Style TargetType="{x:Type Calendar}">
@@ -29,7 +40,7 @@
                 </DatePicker.CalendarStyle>
             </DatePicker>
         </StackPanel>
-        <StackPanel HorizontalAlignment="Left" Height="100" Margin="751,127,0,0" VerticalAlignment="Top" Width="100">
+        <StackPanel HorizontalAlignment="Left" Height="100" Margin="783,127,0,0" VerticalAlignment="Top" Width="100">
             <DatePicker  SelectedDate="{x:Static sys:DateTime.Now}" x:Name="To" Height="38">
                 <DatePicker.CalendarStyle>
                     <Style TargetType="Calendar"   BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
@@ -41,16 +52,17 @@
                 </DatePicker.CalendarStyle>
             </DatePicker>
         </StackPanel>
-        <Label Content="From" HorizontalAlignment="Left" Margin="352,92,0,0" VerticalAlignment="Top" Height="35" Width="135" FontWeight="Bold" FontSize="16"/>
-        <Label Content="To" HorizontalAlignment="Left" Margin="751,92,0,0" VerticalAlignment="Top" Height="35" Width="135" FontWeight="Bold" RenderTransformOrigin="0.142,0.697" FontSize="16"/>
+        <Label Content="From" HorizontalAlignment="Left" Margin="408,92,0,0" VerticalAlignment="Top" Height="35" Width="135" FontWeight="Bold" FontSize="16"/>
+        <Label Content="To" HorizontalAlignment="Left" Margin="783,92,0,0" VerticalAlignment="Top" Height="35" Width="135" FontWeight="Bold" RenderTransformOrigin="0.142,0.697" FontSize="16"/>
         <Label Content="Your search history" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="380,18,452,0" VerticalAlignment="Top" Height="55" Width="448" FontFamily="Harrington" FontWeight="Bold" FontSize="36"/>
-        <ListView x:Name="ListHistoric" Background="Tan" ItemsSource="{Binding FlightBetweenTwoDates , Mode=OneWay}" HorizontalAlignment="Left" Height="333" Margin="132,194,0,0" VerticalAlignment="Top" Width="1062"  >
+        <ListView x:Name="ListHistoric" Background="Tan" ItemsSource="{Binding FlightBetweenTwoDates , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="333" Margin="132,194,0,0" VerticalAlignment="Top" Width="1062"  >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Flight Code" DisplayMemberBinding="{Binding FlightCode}" Width="150"/>
                     <GridViewColumn Header="From" DisplayMemberBinding="{Binding Source}" Width="150"/>
                     <GridViewColumn Header="To" DisplayMemberBinding="{Binding Destination}" Width="150"/>
                     <GridViewColumn Header="Date and Time" DisplayMemberBinding="{Binding DateAndTime}" Width="150"/>
+
                     <GridViewColumn Width="120">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -66,7 +78,7 @@
 
 
                 </GridView>
-               
+
 
 
 
@@ -75,7 +87,7 @@
 
         </ListView>
 
-        <Button Command="{Binding SHCommand}" Width="141" Height="38" FontFamily="Harrington" Background="MidnightBlue" BorderBrush="MidnightBlue" HorizontalAlignment="Left" Margin="976,103,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"  >
+        <Button Style="{DynamicResource RoundButton}" Command="{Binding SHCommand}" Width="141" Height="38" FontFamily="Harrington" Background="MidnightBlue" BorderBrush="MidnightBlue" HorizontalAlignment="Left" Margin="1008,103,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"  >
             <StackPanel Orientation="Horizontal" Width="132">
                 <Label Content="Search" Height="24" Width="71" Foreground="White" FontWeight="Normal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <materialDesign:PackIcon Kind="Search" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="44" Foreground="#DDFFFFFF"/>
@@ -87,7 +99,21 @@
                 </MultiBinding>
             </Button.CommandParameter>
         </Button>
+        <Button Style="{DynamicResource RoundButton}" Command="{Binding HCommand}" Width="141" Height="38" HorizontalAlignment="Left" Margin="113,103,0,0" VerticalAlignment="Top" FontFamily="Harrington" Background="MidnightBlue"  >
 
+            <StackPanel Orientation="Horizontal" Width="132">
+                <Label Content="Event" Height="24" Width="71" Foreground="White" FontWeight="Normal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <materialDesign:PackIcon Kind="Jewish" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="44" Foreground="#DDFFFFFF"/>
+            </StackPanel>
+            <Button.CommandParameter>
+                <MultiBinding Converter="{StaticResource TwoDatesToOneConverter}">
+                    <Binding Path="SelectedDate" ElementName="From"/>
+                    <Binding Path="SelectedDate" ElementName="To"/>
+                </MultiBinding>
+            </Button.CommandParameter>
+        </Button>
+
+        <TextBlock x:Name="HolidayLabel" Foreground="Red" Text="{Binding HolidaysMessage}" HorizontalAlignment="Left" Margin="490,176,0,0" VerticalAlignment="Top" Height="29" Width="393" FontWeight="Bold" FontFamily="Arial"/>
 
 
 

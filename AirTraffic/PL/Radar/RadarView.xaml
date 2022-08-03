@@ -14,8 +14,10 @@
     <UserControl.Resources>
         <converters:TickToDateTimeConverter x:Key="TickConvert"/>
         <BooleanToVisibilityConverter x:Key="visibilityConverter" />
-        <Style TargetType="m:Pushpin" x:Key="FromIsrael">
-            <Setter Property="Template">
+        <m:Pushpin x:Key="pushpinp" MouseDoubleClick="Pin_MouseDown" Background="Transparent" Style="{DynamicResource FromIsrael}"/>
+        <m:Pushpin x:Key="pushpinp1" MouseDoubleClick="Pin_MouseDown" Background="Transparent" Style="{DynamicResource ToIsrael}"/>
+        <Style TargetType="m:Pushpin"   x:Key="FromIsrael" >
+            <Setter Property="Template" >
                 <Setter.Value>
                     <ControlTemplate>
                         <Grid>
@@ -76,9 +78,9 @@
                 <ColumnDefinition Width="276*"/>
                 <ColumnDefinition Width="39*"/>
             </Grid.ColumnDefinitions>
+            
         </Grid>
-
-
+    
 
 
 

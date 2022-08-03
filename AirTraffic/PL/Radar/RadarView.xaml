@@ -72,10 +72,15 @@
 
         <Grid x:Name="myGrid" HorizontalAlignment="Left" Height="600" VerticalAlignment="Top" Width="1280">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="969*"/>
+                <ColumnDefinition Width="966*"/>
                 <ColumnDefinition Width="276*"/>
-                <ColumnDefinition Width="39*"/>
+                <ColumnDefinition Width="35*"/>
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="417"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
         </Grid>
 
 

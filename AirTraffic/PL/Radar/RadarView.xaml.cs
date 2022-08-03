@@ -70,6 +70,7 @@ namespace AirTraffic.Radar
             fv.DetailsPanel.DataContext = Flight;
             myGrid.Children.Add(fv);
             Grid.SetColumn(fv, 1);
+            Grid.SetRow(fv, 1);
             
 
 

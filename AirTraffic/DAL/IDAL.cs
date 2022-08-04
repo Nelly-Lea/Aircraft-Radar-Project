@@ -1,6 +1,7 @@
 ﻿using Microsoft.Maps.MapControl.WPF;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ namespace DAL
 {
     public interface IDAL
     {
+       // static bool Holiday;
+
         #region Flight
         List<BE.FlightInfoPartial> GetAllCurrentFlights();
 
@@ -33,8 +36,12 @@ namespace DAL
         #endregion
 
         #region HebCal
+       
         bool IsBeforeHolidayAsync(DateTime date);
-       // bool IsBeforeHolidayAsync1();
+        // bool IsBeforeHolidayAsync1();
+        #endregion
+        #region Weahter
+        BE.RootWeather GetWeatherOfAirport(double latitude, double longitude);
         #endregion
     }
 }

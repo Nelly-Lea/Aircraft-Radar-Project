@@ -6,15 +6,53 @@
              xmlns:local="clr-namespace:AirTraffic.Radar"
              xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
-             xmlns:converters="clr-namespace:AirTraffic.Converters" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:converters="clr-namespace:AirTraffic.Converters" 
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:rh="http://schemas.rollinghours.com/wpf"
              xmlns:FlightData="clr-namespace:PL.FlightData" x:Class="AirTraffic.Radar.RadarView"
+             xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" 
+             
              mc:Ignorable="d" Height="600" Width="1280.334">
 
     <UserControl.Resources>
         <converters:TickToDateTimeConverter x:Key="TickConvert"/>
         <BooleanToVisibilityConverter x:Key="visibilityConverter" />
-      
+        
+
+        <Style x:Key="RoundButton" TargetType="Button">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="m:Pushpin" x:Key="FromIsraelRed">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <Image Source="C:\Projet aircraft radar\AirTraffic\PL\images\airplaneRed.jpg"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="m:Pushpin" x:Key="ToIsraelRed">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <Image Source="C:\Projet aircraft radar\AirTraffic\PL\images\airplaneToIsraelRed.png"/>
+
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+
         <Style TargetType="m:Pushpin" x:Key="FromIsrael">
             <Setter Property="Template">
                 <Setter.Value>
@@ -31,6 +69,7 @@
                 <Setter.Value>
                     <ControlTemplate>
                         <Image Source="C:\Projet aircraft radar\AirTraffic\PL\images\airplaneToIsrael.png"/>
+
 
                     </ControlTemplate>
                 </Setter.Value>
@@ -64,8 +103,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <m:Map x:Name="myMap" CredentialsProvider="ApINLKklvvkm_3CQRgDQ2s-J4VMwZ1PzoRJ_guhxBVIGnlNYyTIfNhBQOlFeMlfR" Margin="383,20,38,33" ZoomLevel="5.0" Center="32.000454,34.870743" AnimationLevel="None"/>
-        <Button Content="Read All" HorizontalAlignment="Left" Margin="112,479,0,0" VerticalAlignment="Top" Width="141" Height="38" FontFamily="Harrington" Background="MidnightBlue" BorderBrush="MidnightBlue"
+        <m:Map x:Name="myMap" CredentialsProvider="ApINLKklvvkm_3CQRgDQ2s-J4VMwZ1PzoRJ_guhxBVIGnlNYyTIfNhBQOlFeMlfR" Margin="383,111,54,33" ZoomLevel="5.0" Center="32.000454,34.870743" AnimationLevel="None"/>
+        <Button Content="Read All" HorizontalAlignment="Left" Margin="112,479,0,0" VerticalAlignment="Top" Width="141" Height="38"  Style="{DynamicResource RoundButton}" Foreground="White" FontFamily="Harrington" Background="MidnightBlue" BorderBrush="MidnightBlue"
             Command="{Binding ReadAllCommand}"  CommandParameter="{Binding}"/>
 
 
@@ -82,6 +121,11 @@
                 <RowDefinition Height="417"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
+            <Button HorizontalAlignment="Left"  Style="{DynamicResource RoundButton}" Foreground="White" Margin="570,22,0,0" Grid.Row="1" VerticalAlignment="Top" Width="66" Height="38" FontFamily="Harrington" Background="MidnightBlue" Click="ButtonCounter">
+                <materialDesign:PackIcon Kind="Clock" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="44" Foreground="#DDFFFFFF"/>
+            </Button>
+
+            <TextBox x:Name="Counter" HorizontalAlignment="Left" Margin="656,22,0,0" Grid.Row="1" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="1" VerticalAlignment="Top" Height="38" Width="39"/>
         </Grid>
 
 

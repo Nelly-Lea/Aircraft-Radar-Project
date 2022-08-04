@@ -215,6 +215,26 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="images\airplaneRed.jpg" />
+    <Resource Include="images\airplaneToIsraelRed.png" />
+    <Resource Include="images\01d.png" />
+    <Resource Include="images\01n.png" />
+    <Resource Include="images\02d.png" />
+    <Resource Include="images\02n.png" />
+    <Resource Include="images\03d.png" />
+    <Resource Include="images\03n.png" />
+    <Resource Include="images\04d.png" />
+    <Resource Include="images\04n.png" />
+    <Resource Include="images\09d.png" />
+    <Resource Include="images\09n.png" />
+    <Resource Include="images\10d.png" />
+    <Resource Include="images\10n.png" />
+    <Resource Include="images\11d.png" />
+    <Resource Include="images\11n.png" />
+    <Resource Include="images\13d.png" />
+    <Resource Include="images\13n.png" />
+    <Resource Include="images\50d.png" />
+    <Resource Include="images\50n.png" />
     <Content Include="images\aircraft radar.mp4" />
     <Resource Include="images\aircraft.png" />
     <Resource Include="images\airplane.png" />

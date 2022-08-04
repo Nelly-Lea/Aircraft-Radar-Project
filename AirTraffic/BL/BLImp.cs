@@ -99,12 +99,31 @@ namespace BL
             for (DateTime i = date; i <= dateIn6days; i = i.AddDays(1))
             {
                 //dal.IsBeforeHolidayAsync(i);
-                if (dal.IsBeforeHolidayAsync(i))
+                var res = dal.IsBeforeHolidayAsync(i);
+                
+                if (res)
                     return true;
             }
             return false;
             #endregion
 
         }
+
+        public ObservableCollection<BE.RootWeather> DisplayWeather(BE.Root flight)
+        {
+            Double latOrigin = flight.airport.origin.position.latitude;
+            Double lngOrigin = flight.airport.origin.position.longitude;
+            Double latDestination = flight.airport.destination.position.latitude;
+            Double lngDestination = flight.airport.destination.position.longitude;
+            ObservableCollection<BE.RootWeather> obsWeather = new ObservableCollection<BE.RootWeather>();
+            
+            obsWeather.Add(dal.GetWeatherOfAirport(latOrigin, lngOrigin));
+            obsWeather.Add(dal.GetWeatherOfAirport(latDestination, lngDestination));
+            obsWeather[0].main.temp -= 273.15;
+            obsWeather[1].main.temp -= 273.15;
+            return obsWeather;
+        }
+
+      //  public ObservableCollection<string> AirportWeather()
     }
 }

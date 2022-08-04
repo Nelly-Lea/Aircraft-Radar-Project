@@ -77,27 +77,28 @@ namespace PL.Historic
         {
             bool FromBool = historicModel.HMDisplayHolidaysMessage(from);
             bool ToBool = historicModel.HMDisplayHolidaysMessage(To);
+            
             if (FromBool && ToBool)
             {
-                HolidaysMessage = "Your both dates are less than a week before holidays";
+                HolidaysMessage = "התאריכים בשבוע לפני חג";
             
                 return;
             }
             if (FromBool)
             {
-                HolidaysMessage = "Your first date is less than a week before holidays";
+                HolidaysMessage = "התאריך הראשון בשבוע לפני חג";
                 
                 return;
             }
             if (ToBool)
             {
-                HolidaysMessage = "Your second date is less than a week before holidays";
+                HolidaysMessage = "התאריך השני בשבוע חג";
                 
                 return;
             }
             if(!FromBool && !ToBool)
             {
-                HolidaysMessage = "Your both dates aren't close to holidays ";
+                HolidaysMessage = "אין חג קרוב לתאריכים שבחרת";
                
                 return;
             }

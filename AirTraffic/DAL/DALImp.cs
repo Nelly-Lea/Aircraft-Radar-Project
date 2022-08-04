@@ -19,7 +19,7 @@ namespace DAL
     public class DALImp : IDAL
     {
         public DALImp() { }
-        public  bool Holiday = false;
+        public bool Holiday = false;
         //public class TrafficAdapter
         //{
         //    //ancien url
@@ -94,16 +94,16 @@ namespace DAL
                         if (key == "version") continue;
                         // il a mis id=-1 parce qu'on doit rajouter le id et savoir le gerer
                         if (item.Value[11].ToString() == "TLV" || item.Value[12].ToString() == "TLV")
-                            if(item.Value[11].ToString()!=""&& item.Value[12].ToString()!=""&& item.Value[13].ToString()!="")
+                            if (item.Value[11].ToString() != "" && item.Value[12].ToString() != "" && item.Value[13].ToString() != "")
                                 AllCurrentFlights.Add(new BE.FlightInfoPartial { Id = -1, Source = item.Value[11].ToString(), Destination = item.Value[12].ToString(), SourceId = key, Long = Convert.ToDouble(item.Value[1]), Lat = Convert.ToDouble(item.Value[2]), DateAndTime = Helper.GetDateTimeFromEpoch(Convert.ToDouble(item.Value[10])), FlightCode = item.Value[13].ToString() });
                         //  if (item.Value[12].ToString() == "TLV") Incoming.Add(new BE.FlightInfoPartial { Id = -1, Source = item.Value[11].ToString(), Destination = item.Value[12].ToString(), SourceId = key, Long = Convert.ToDouble(item.Value[1]), Lat = Convert.ToDouble(item.Value[2]), DateAndTime = Helper.GetDateTimeFromEpoch(Convert.ToDouble(item.Value[10])), FlightCode = item.Value[13].ToString() });
                         // la on rajoute a la list d'avion rentrant et sortant de TLV
                     }
-                    
+
                 }
                 catch (Exception e)
                 {
-                    
+
                     Debug.Print(e.Message);
                 }
                 return AllCurrentFlights;
@@ -138,9 +138,9 @@ namespace DAL
 
             using (var ctx = new FlightContext())
             {
-                listFlights=(from f in ctx.Flights
-                             where f.SourceId==flight.SourceId
-                             select f).ToList<BE.FlightInfoPartial>();
+                listFlights = (from f in ctx.Flights
+                               where f.SourceId == flight.SourceId
+                               select f).ToList<BE.FlightInfoPartial>();
                 if (listFlights.Count == 0)
                 {
                     ctx.Flights.Add(flight);
@@ -157,9 +157,9 @@ namespace DAL
             using (var ctx = new FlightContext())
             {
                 //collection Flights est dans BL
-                listFlights = ( from f in ctx.Flights
-                                where f.SourceId==flight.SourceId
-                                select f).ToList<BE.FlightInfoPartial>();
+                listFlights = (from f in ctx.Flights
+                               where f.SourceId == flight.SourceId
+                               select f).ToList<BE.FlightInfoPartial>();
                 if (listFlights.Count != 0)
                 {
 
@@ -168,7 +168,7 @@ namespace DAL
 
                 }
             }
-          
+
         }
 
         public BE.Trail GetOriginAirport(List<BE.Trail> OrderedPlaces)
@@ -213,8 +213,8 @@ namespace DAL
             using (var ctx = new FlightContext())
             {
                 //collection Flights est dans BL
-                 Flights = (from f in ctx.Flights
-                               select f).ToList<BE.FlightInfoPartial>();
+                Flights = (from f in ctx.Flights
+                           select f).ToList<BE.FlightInfoPartial>();
             }
             return Flights;
         }
@@ -233,33 +233,51 @@ namespace DAL
         //{
         //    return Holiday;
         //}
+     
         public bool IsBeforeHolidayAsync(DateTime date)
         {
 
             using (var webClient = new System.Net.WebClient())
             {
+
                 var yyyy = date.ToString("yyyy");
                 var mm = date.ToString("MM");
                 var dd = date.ToString("dd");
                 string URL = $"https://www.hebcal.com/converter?cfg=json&date={yyyy}-{mm}-{dd}&g2h=1&strict=1";
                 var json = webClient.DownloadString(URL);
                 RootCal Data = JsonConvert.DeserializeObject<RootCal>(json);
+                if (Data.hd == 24 && Data.hm == "Kislev")
+                    return true;
 
                 foreach (var item in Data.events)
                 {
                     if (item.Contains("Erev"))
                     {
                         return true;
-
-                        //Holiday = true;
-                        //return;
                     }
                 }
                 return false;
 
             }
-            
+
         }
+
+        public RootWeather GetWeatherOfAirport (double latitude, double longitude)
+        {
+            
+            using (var webClient = new System.Net.WebClient())
+            {
+                string key = "085845fad636a5a47a3f041f98275e2c";
+                var lat = latitude.ToString();
+                var lon = longitude.ToString();
+                string URL = $"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={key}";
+                var json = webClient.DownloadString(URL);
+                RootWeather Data = JsonConvert.DeserializeObject<RootWeather>(json);
+                return Data;
+                
+            }
+
+    
     }
-    //}
+    }
 }

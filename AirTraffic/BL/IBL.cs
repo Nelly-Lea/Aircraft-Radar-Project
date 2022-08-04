@@ -29,7 +29,11 @@ namespace BL
 
         #region Holidays
         bool IsBeforeHolidays(DateTime date);
-        
+
+        #endregion
+
+        #region Weather
+        ObservableCollection<BE.RootWeather> DisplayWeather(BE.Root flight);
         #endregion
     }
 }

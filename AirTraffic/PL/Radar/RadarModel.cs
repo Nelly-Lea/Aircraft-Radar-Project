@@ -53,9 +53,18 @@ namespace AirTraffic.Radar
         {
             return BL.GetPosition(trail);
         }
+
+        public Location RMGetBeforeLastPosition(List<BE.Trail>OrderedPlaces)
+        {
+            return BL.GetBeforeLastPosition(OrderedPlaces);
+        }
         public ObservableCollection<BE.RootWeather> RMDisplayWeather(BE.Root flight)
         {
             return BL.DisplayWeather(flight);
+        }
+        public double Angle(double lat1, double long1, double lat2, double long2)
+        {
+            return BL.Angle(lat1, long1, lat2, long2);
         }
     }
 }

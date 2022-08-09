@@ -75,10 +75,10 @@ namespace PL.Historic
         
         public void HVMDisplayHolidayMessage(DateTime from, DateTime To)
         {
-            bool FromBool = historicModel.HMDisplayHolidaysMessage(from);
+             bool FromBool = historicModel.HMDisplayHolidaysMessage(from);
             bool ToBool = historicModel.HMDisplayHolidaysMessage(To);
             
-            if (FromBool && ToBool)
+           if (FromBool && ToBool)
             {
                 HolidaysMessage = "התאריכים בשבוע לפני חג";
             

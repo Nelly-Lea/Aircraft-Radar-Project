@@ -10,6 +10,7 @@ using System.Web.Script.Serialization;
 using BE;
 using System.Data.Entity;
 using Microsoft.Maps.MapControl.WPF;
+using System.Collections.ObjectModel;
 //using Newtonsoft.Json;
 //on recoit des BE.class, ds les fonctions on fait ctx=class.DB on le retourne
 //on retourne List<BE.Class>
@@ -19,7 +20,7 @@ namespace DAL
     public class DALImp : IDAL
     {
         public DALImp() { }
-        public bool Holiday = false;
+        public ObservableCollection<bool> obsHolidays = new ObservableCollection<bool>();
         //public class TrafficAdapter
         //{
         //    //ancien url
@@ -181,6 +182,16 @@ namespace DAL
             return OrderedPlaces.Last<BE.Trail>();
         }
 
+        public Location GetBeforeLastPosition(List<BE.Trail> OrderedPlaces)
+        {
+            Location loc = new Location();
+            int size = OrderedPlaces.Count();
+            int BeforeLast = size - 2;
+            loc.Latitude = OrderedPlaces[BeforeLast].lat;
+            loc.Longitude = OrderedPlaces[BeforeLast].lng;
+            return loc;
+        }
+
         public Location GetPosition(BE.Root flight)
         {
             Location loc = new Location();
@@ -229,12 +240,44 @@ namespace DAL
 
 
         }
-        //public bool IsBeforeHolidayAsync1()
+        //public bool IsBeforeHolidayAsync1(string json)
         //{
-        //    return Holiday;
+        //    ObsHoliday.Add(json);
+
+        //    foreach (var item in ObsHoliday)
+        //    {
+        //        //RootCal Data = JsonConvert.DeserializeObject<RootCal>(item);
+        //        //if (Data.hd == 24 && Data.hm == "Kislev")
+        //        //    return true;
+
+        //        //foreach (var item1 in Data.events)
+        //        //{
+        //        //    if (item1.Contains("Erev"))
+        //        //    {
+        //        //        return true;
+        //        //    }
+        //        //}
+
+        //    }
+        //    //return false;
         //}
-     
-        public bool IsBeforeHolidayAsync(DateTime date)
+        public ObservableCollection<bool> GetObsHolidays()
+        {
+            return obsHolidays;
+        }
+        public async Task IsBeforeHolidayAsync1(DateTime date)
+        {
+            obsHolidays.Clear();
+            DateTime dateIn6days = date.AddDays(6);
+            for (DateTime i = date; i <= dateIn6days; i = i.AddDays(1))
+            {
+                bool b = await IsBeforeHolidayAsync(i);
+                obsHolidays.Add(b);
+            }
+
+        }
+
+        public async Task<bool> IsBeforeHolidayAsync(DateTime date)
         {
 
             using (var webClient = new System.Net.WebClient())

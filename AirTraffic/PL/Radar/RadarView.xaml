@@ -18,6 +18,7 @@
         <converters:TickToDateTimeConverter x:Key="TickConvert"/>
         <BooleanToVisibilityConverter x:Key="visibilityConverter" />
         
+        
 
         <Style x:Key="RoundButton" TargetType="Button">
             <Style.Resources>
@@ -26,55 +27,43 @@
                 </Style>
             </Style.Resources>
         </Style>
-        <Style TargetType="m:Pushpin" x:Key="FromIsraelRed">
+        
+
+        <Style TargetType="m:Pushpin" x:Key="IsraelRed">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
                         <Grid>
-                            <Image Source="C:\Projet aircraft radar\AirTraffic\PL\images\airplaneRed.jpg"/>
+                            <Image Source="C:\Projet aircraft radar\AirTraffic\PL\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5">
+                                <Image.RenderTransform>
+                                    <RotateTransform Angle="{Binding AngleRot}"/>
+                                </Image.RenderTransform>
+                            </Image>
+
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
 
-        <Style TargetType="m:Pushpin" x:Key="ToIsraelRed">
+
+
+        <Style TargetType="m:Pushpin" x:Key="IsraelYellow">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
                         <Grid>
-                            <Image Source="C:\Projet aircraft radar\AirTraffic\PL\images\airplaneToIsraelRed.png"/>
-
+                            <Image Source="C:\Projet aircraft radar\AirTraffic\PL\images\airplaneYellow.png"  RenderTransformOrigin="0.5,0.5">
+                                <Image.RenderTransform>
+                                    <RotateTransform Angle="{Binding AngleRot}"/>
+                                </Image.RenderTransform>
+                            </Image>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-
-
-
-        <Style TargetType="m:Pushpin" x:Key="FromIsrael">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Grid>
-                            <Image Source="C:\Projet aircraft radar\AirTraffic\PL\images\airplane.png"/>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style TargetType="m:Pushpin" x:Key="ToIsrael">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Image Source="C:\Projet aircraft radar\AirTraffic\PL\images\airplaneToIsrael.png"/>
-
-
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        
 
     </UserControl.Resources>
     <Grid Background="#FFE2D8CD" x:Name="radarviewgrid" >

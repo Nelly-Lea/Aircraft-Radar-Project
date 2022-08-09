@@ -49,6 +49,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="GoogleMaps.LocationServices, Version=1.2.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GoogleMaps.LocationServices.1.2.0.5\lib\netstandard2.0\GoogleMaps.LocationServices.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=2.0.6.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.2.0.6\lib\net452\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -215,8 +218,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\airplaneRed.jpg" />
-    <Resource Include="images\airplaneToIsraelRed.png" />
+    <Resource Include="images\airplaneRed.png" />
+    <Resource Include="images\airplaneYellow.png" />
     <Resource Include="images\01d.png" />
     <Resource Include="images\01n.png" />
     <Resource Include="images\02d.png" />
@@ -237,8 +240,6 @@
     <Resource Include="images\50n.png" />
     <Content Include="images\aircraft radar.mp4" />
     <Resource Include="images\aircraft.png" />
-    <Resource Include="images\airplane.png" />
-    <Resource Include="images\airplaneToIsrael.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

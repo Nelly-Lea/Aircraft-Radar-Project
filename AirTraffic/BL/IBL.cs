@@ -17,14 +17,19 @@ namespace BL
         void SaveFlightToDataBase(BE.FlightInfoPartial flight);
         ObservableCollection<BE.FlightInfoPartial> GetFlightsBetweenTwoDates(DateTime dateFrom, DateTime dateTo);
         void DeleteFlight(BE.FlightInfoPartial flight);
+        #endregion
+        #region Position
         List<BE.Trail> getTrail(BE.Root flight);
+
         BE.Trail GetOriginAirport(List<BE.Trail> OrderedPlaces);
+ 
 
         BE.Trail GetCurrentPosition(List<BE.Trail> OrderedPlaces);
 
         Location GetPosition(BE.Root flight);
 
         Location GetPosition(BE.Trail trail);
+        Location GetBeforeLastPosition(List<BE.Trail> OrderedPlaces);
         #endregion
 
         #region Holidays
@@ -35,5 +40,6 @@ namespace BL
         #region Weather
         ObservableCollection<BE.RootWeather> DisplayWeather(BE.Root flight);
         #endregion
+        double Angle(double lat1, double long1, double lat2, double long2);
     }
 }

@@ -11,7 +11,9 @@ namespace DAL
 {
     public interface IDAL
     {
-       // static bool Holiday;
+        
+
+        // static bool Holiday;
 
         #region Flight
         List<BE.FlightInfoPartial> GetAllCurrentFlights();
@@ -22,25 +24,35 @@ namespace DAL
         List<BE.FlightInfoPartial> GetAllFlightInDB();
 
         void DeleteFlight(BE.FlightInfoPartial flight);
+        #endregion
+        #region Position
         List<BE.Trail> getTrail(BE.Root flight);
+   
         BE.Trail GetOriginAirport(List<BE.Trail> OrderedPlaces);
 
         BE.Trail GetCurrentPosition(List<BE.Trail> OrderedPlaces);
+
 
         Location GetPosition(BE.Root flight);
 
         Location GetPosition(BE.Trail trail);
 
-
-
+        Location GetBeforeLastPosition(List<BE.Trail> OrderedPlaces);
         #endregion
+
+
+
 
         #region HebCal
-       
-        bool IsBeforeHolidayAsync(DateTime date);
-        // bool IsBeforeHolidayAsync1();
+
+        // bool IsBeforeHolidayAsync1(string jason);
+        ObservableCollection<bool> GetObsHolidays();
+        Task IsBeforeHolidayAsync1(DateTime date);
+        Task<bool> IsBeforeHolidayAsync(DateTime date);
+
+
         #endregion
-        #region Weahter
+        #region Weather
         BE.RootWeather GetWeatherOfAirport(double latitude, double longitude);
         #endregion
     }

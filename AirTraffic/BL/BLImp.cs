@@ -27,10 +27,13 @@ namespace BL
             List<BE.FlightInfoPartial> Outgoing = new List<BE.FlightInfoPartial>();
             foreach (var item in AllFlights)
             {
-                if (item.Source == "TLV")
+                if (item.Source == "TLV" && dal.GetFlight(item.SourceId) != null)
                     Outgoing.Add(item);
-                else //if item.Destination== TLV
-                    Incoming.Add(item);
+                else
+                {
+                    if (item.Destination == "TLV" && dal.GetFlight(item.SourceId) != null)
+                        Incoming.Add(item);
+                }
             }
             Result.Add("Incoming", Incoming);
             Result.Add("Outgoing", Outgoing);
@@ -92,22 +95,28 @@ namespace BL
             return dal.GetPosition(trail);
         }
 
+        public Location GetBeforeLastPosition(List<BE.Trail> OrderedPlaces)
+        {
+            return dal.GetBeforeLastPosition(OrderedPlaces);
+        }
+
         #region Holidays
         public bool IsBeforeHolidays(DateTime date)
         {
-            DateTime dateIn6days = date.AddDays(6);
-            for (DateTime i = date; i <= dateIn6days; i = i.AddDays(1))
+
+            dal.IsBeforeHolidayAsync1(date);
+            ObservableCollection<bool> obsHol = new ObservableCollection<bool>();
+            obsHol = dal.GetObsHolidays();
+            foreach (var item in obsHol)
             {
-                //dal.IsBeforeHolidayAsync(i);
-                var res = dal.IsBeforeHolidayAsync(i);
-                
-                if (res)
+                if (item)
                     return true;
             }
             return false;
-            #endregion
+
 
         }
+        #endregion
 
         public ObservableCollection<BE.RootWeather> DisplayWeather(BE.Root flight)
         {
@@ -124,6 +133,21 @@ namespace BL
             return obsWeather;
         }
 
-      //  public ObservableCollection<string> AirportWeather()
+      public double Angle(double lat1, double long1, double lat2, double long2)
+        {
+            double dLon = (long2 - long1);
+
+            double y = Math.Sin(dLon) * Math.Cos(lat2);
+            double x = Math.Cos(lat1) * Math.Sin(lat2) - Math.Sin(lat1)
+                    * Math.Cos(lat2) * Math.Cos(dLon);
+
+
+            double brng = Math.Atan2(y, x);
+
+            brng = brng * 57.296;
+            brng = (brng + 360) % 360;
+            brng = 360 - brng; // count degrees counter-clockwise - remove to make clockwise
+            return brng;
+        }
     }
 }

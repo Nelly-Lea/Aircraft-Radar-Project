@@ -36,6 +36,8 @@ namespace AirTraffic.Radar
         //private const string AllURL = @" https://data-cloud.flightradar24.com/zones/fcgi/feed.js?faa=1&bounds=38.805%2C24.785%2C29.014%2C40.505&satellite=1&mlat=1&flarm=1&adsb=1&gnd=1&air=1&vehicles=1&estimated=1&maxage=14400&gliders=1&stats=1";
         //private const string FlightURL = @"https://data-live.flightradar24.com/clickhandler/?version=1.5&flight=";
 
+       
+       
         public RadarView()
         {
             radarViewModel = new RadarViewModel();
@@ -100,6 +102,8 @@ namespace AirTraffic.Radar
 
         }
 
+
+
         private void UpdateFlight(BE.FlightInfoPartial selected)
         {
 
@@ -129,21 +133,26 @@ namespace AirTraffic.Radar
                 PositionOrigin origin = new PositionOrigin { X = 0.4, Y = 0.4 };
                 MapLayer.SetPositionOrigin(PinCurrent, origin);
 
+                PinCurrent.Style = (Style)Resources["IsraelYellow"];
 
 
                 //Better to use RenderTransform
-                if (Flight.airport.destination.code.iata == "TLV")
-                {
-                    PinCurrent.Style = (Style)Resources["ToIsrael"];
-                }
-                else
-                {
-                    PinCurrent.Style = (Style)Resources["FromIsrael"];
-                }
+                //if (Flight.airport.destination.code.iata == "TLV")
+                //{
+                //    PinCurrent.Style = (Style)Resources["ToIsrael"];
+                //}
+                //else
+                //{
+                //    PinCurrent.Style = (Style)Resources["FromIsrael"];
+                //}
 
                 CurrentPlace = radarViewModel.RVMGetCurrentPosition(OrderedPlaces);
                 var PlaneLocation = radarViewModel.RVMGetPosition(CurrentPlace);
                 PinCurrent.Location = PlaneLocation;
+
+                Location BeforeLastPosition = radarViewModel.RVMGetBeforeLastPosition(OrderedPlaces);
+                
+                radarViewModel.angleFromCoordinat(BeforeLastPosition.Latitude, BeforeLastPosition.Longitude, PinCurrent.Location.Latitude, PinCurrent.Location.Longitude);
 
 
                 var OriginPlace =radarViewModel.RVMGetOriginAirport(OrderedPlaces);
@@ -165,18 +174,21 @@ namespace AirTraffic.Radar
             }
         }
 
+       
+
         private void PinCurrent_MouseEnter(object sender, MouseEventArgs e)
         {
             Pushpin pushpin = sender as Pushpin;
+            pushpin.Style = (Style)Resources["IsraelRed"];
             
-            if (Flight.airport.destination.code.iata == "TLV")
-            {
-                pushpin.Style = (Style)Resources["ToIsraelRed"];
-            }
-            else
-            {
-                pushpin.Style = (Style)Resources["FromIsraelRed"];
-            }
+            //if (Flight.airport.destination.code.iata == "TLV")
+            //{
+            //    pushpin.Style = (Style)Resources["ToIsraelRed"];
+            //}
+            //else
+            //{
+            //    pushpin.Style = (Style)Resources["FromIsraelRed"];
+            //}
 
 
             pushpin.MouseLeave += Pushpin_MouseLeave;
@@ -185,15 +197,15 @@ namespace AirTraffic.Radar
         private void Pushpin_MouseLeave(object sender, MouseEventArgs e)
         {
             Pushpin pushpin = sender as Pushpin;
-            
-            if (Flight.airport.destination.code.iata == "TLV")
-            {
-                pushpin.Style = (Style)Resources["ToIsrael"];
-            }
-            else
-            {
-                pushpin.Style = (Style)Resources["FromIsrael"];
-            }
+            pushpin.Style = (Style)Resources["IsraelYellow"];
+            //if (Flight.airport.destination.code.iata == "TLV")
+            //{
+            //    pushpin.Style = (Style)Resources["ToIsrael"];
+            //}
+            //else
+            //{
+            //    pushpin.Style = (Style)Resources["FromIsrael"];
+            //}
 
         }
 
@@ -229,25 +241,6 @@ namespace AirTraffic.Radar
             Counter.Text = (Convert.ToInt32(Counter.Text) + 1).ToString();
         }
 
-
-        //private double angleFromCoordinate(double lat1, double long1, double lat2,
-        //double long2)
-        //{
-
-        //    double dLon = (long2 - long1);
-
-        //    double y = Math.Sin(dLon) * Math.Cos(lat2);
-        //    double x = Math.Cos(lat1) * Math.Sin(lat2) - Math.Sin(lat1)
-        //            * Math.Cos(lat2) * Math.Cos(dLon);
-
-        //    double brng = Math.Atan2(y, x);
-
-        //    brng = brng*57.296;
-        //    brng = (brng + 360) % 360;
-        //    brng = 360 - brng; // count degrees counter-clockwise - remove to make clockwise
-
-        //    return brng;
-        //}
 
         //private void PushpinClick(object sender, RoutedEventArgs e)
         //{

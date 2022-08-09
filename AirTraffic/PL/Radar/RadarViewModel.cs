@@ -39,14 +39,14 @@ namespace AirTraffic.Radar
          
         }
 
-        private bool _isMyUserControlVisible;
-        public bool IsMyUserControlVisible
+        private double anglerot;
+        public double  AngleRot
         {
-            get { return _isMyUserControlVisible; }
+            get { return anglerot; }
             set
             {
-                _isMyUserControlVisible = value;
-                OnPropertyChanged("IsMyUserControlVisible");
+                anglerot = value;
+                OnPropertyChanged("AngleRot");
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -57,7 +57,14 @@ namespace AirTraffic.Radar
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(v));
         }
 
-        
+        public void angleFromCoordinat(double lat1, double long1, double lat2, double long2)
+        {
+
+            AngleRot = radarModel.Angle(lat1, long1, lat2, long2);
+            //return brng;
+        }
+
+
 
         private ObservableCollection<BE.FlightInfoPartial> flightOutgoing;
         public ObservableCollection<BE.FlightInfoPartial> FlightOutgoing
@@ -111,7 +118,6 @@ namespace AirTraffic.Radar
                 CurrentFlight.Clear();
             CurrentFlight.Add(FlightData);
     
-            IsMyUserControlVisible = true;
             return FlightData;
             
 
@@ -155,6 +161,10 @@ namespace AirTraffic.Radar
             return radarModel.RMGetPosition(trail);
         }
 
+        public Location RVMGetBeforeLastPosition(List<BE.Trail>OrderedPlaces)
+        {
+            return radarModel.RMGetBeforeLastPosition(OrderedPlaces);
+        }
         public ObservableCollection<BE.RootWeather> RVMDisplayWeather(BE.Root flight)
         {
             return radarModel.RMDisplayWeather(flight);

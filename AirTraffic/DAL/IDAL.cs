@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maps.MapControl.WPF;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,14 +12,18 @@ namespace DAL
 {
     public interface IDAL
     {
-        
+
 
         // static bool Holiday;
 
         #region Flight
-        List<BE.FlightInfoPartial> GetAllCurrentFlights();
+        // List<BE.FlightInfoPartial> GetAllCurrentFlights();
+         Task GetAllCurrentFlight1();
+        Task<JObject> GetAllCurrentFlights();
+        List<BE.FlightInfoPartial> GetAllCurrentFlightsL();
 
-        BE.Root GetFlight(string Key);
+        Task<BE.Root> GetFlightRoot(string Key);
+        Task GetFlightAsync(string Key);
         void SaveFlightToDB(BE.FlightInfoPartial flight);
 
         List<BE.FlightInfoPartial> GetAllFlightInDB();

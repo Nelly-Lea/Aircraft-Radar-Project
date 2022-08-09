@@ -21,17 +21,17 @@ namespace BL
         public Dictionary<string, List<BE.FlightInfoPartial>> GetCurrentFlights()
         {
             Dictionary<string, List<BE.FlightInfoPartial>> Result = new Dictionary<string, List<BE.FlightInfoPartial>>();
-
-            List<BE.FlightInfoPartial> AllFlights = dal.GetAllCurrentFlights();
+            dal.GetAllCurrentFlight1();
+            List<BE.FlightInfoPartial> AllFlights = dal.GetAllCurrentFlightsL();
             List<BE.FlightInfoPartial> Incoming = new List<BE.FlightInfoPartial>();
             List<BE.FlightInfoPartial> Outgoing = new List<BE.FlightInfoPartial>();
             foreach (var item in AllFlights)
             {
-                if (item.Source == "TLV" && dal.GetFlight(item.SourceId) != null)
+                if (item.Source == "TLV" && dal.GetFlightRoot(item.SourceId)!=null)
                     Outgoing.Add(item);
                 else
                 {
-                    if (item.Destination == "TLV" && dal.GetFlight(item.SourceId) != null)
+                    if (item.Destination == "TLV" && dal.GetFlightRoot(item.SourceId) != null)
                         Incoming.Add(item);
                 }
             }
@@ -44,7 +44,7 @@ namespace BL
 
         public BE.Root GetFlightData(string Key)
         {
-            return dal.GetFlight(Key);
+            return dal.GetFlightRoot(Key).Result;
         }
 
         public void SaveFlightToDataBase(BE.FlightInfoPartial flight)

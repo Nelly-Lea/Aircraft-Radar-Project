@@ -21,6 +21,8 @@ namespace DAL
     {
         public DALImp() { }
         public ObservableCollection<bool> obsHolidays = new ObservableCollection<bool>();
+        public List<BE.FlightInfoPartial> AllCurrentFlights = new List<BE.FlightInfoPartial>();
+        public BE.Root CurrentFlight = null;
         //public class TrafficAdapter
         //{
         //    //ancien url
@@ -74,48 +76,75 @@ namespace DAL
 
         //    //return Result;
         //}
-        public List<BE.FlightInfoPartial> GetAllCurrentFlights() //faudrait se debrouiller pr faire async 
+
+
+        public List<BE.FlightInfoPartial> GetAllCurrentFlightsL()
         {
-            List<BE.FlightInfoPartial> AllCurrentFlights = new List<BE.FlightInfoPartial>();
-            JObject AllFlightData = null;
-
-            using (var webClient = new System.Net.WebClient())
-            {
-                var json = webClient.DownloadString(AllURL);
-
-                BE.HelperClass Helper = new BE.HelperClass();
-                AllFlightData = JObject.Parse(json);
-
-                try
-                {
-                    foreach (var item in AllFlightData)
-                    {
-                        var key = item.Key;
-                        if (key == "full_count") continue;
-                        if (key == "version") continue;
-                        // il a mis id=-1 parce qu'on doit rajouter le id et savoir le gerer
-                        if (item.Value[11].ToString() == "TLV" || item.Value[12].ToString() == "TLV")
-                            if (item.Value[11].ToString() != "" && item.Value[12].ToString() != "" && item.Value[13].ToString() != "")
-                                AllCurrentFlights.Add(new BE.FlightInfoPartial { Id = -1, Source = item.Value[11].ToString(), Destination = item.Value[12].ToString(), SourceId = key, Long = Convert.ToDouble(item.Value[1]), Lat = Convert.ToDouble(item.Value[2]), DateAndTime = Helper.GetDateTimeFromEpoch(Convert.ToDouble(item.Value[10])), FlightCode = item.Value[13].ToString() });
-                        //  if (item.Value[12].ToString() == "TLV") Incoming.Add(new BE.FlightInfoPartial { Id = -1, Source = item.Value[11].ToString(), Destination = item.Value[12].ToString(), SourceId = key, Long = Convert.ToDouble(item.Value[1]), Lat = Convert.ToDouble(item.Value[2]), DateAndTime = Helper.GetDateTimeFromEpoch(Convert.ToDouble(item.Value[10])), FlightCode = item.Value[13].ToString() });
-                        // la on rajoute a la list d'avion rentrant et sortant de TLV
-                    }
-
-                }
-                catch (Exception e)
-                {
-
-                    Debug.Print(e.Message);
-                }
-                return AllCurrentFlights;
-            }
+            return AllCurrentFlights;
         }
+        public async Task GetAllCurrentFlight1()
+        {
+            AllCurrentFlights.Clear();
+            BE.HelperClass Helper = new BE.HelperClass();
+            JObject AllFlightData = await GetAllCurrentFlights();
+            try
+            {
+                foreach (var item in AllFlightData)
+                {
+                    var key = item.Key;
+                    if (key == "full_count") continue;
+                    if (key == "version") continue;
+                    // il a mis id=-1 parce qu'on doit rajouter le id et savoir le gerer
+                    if (item.Value[11].ToString() == "TLV" || item.Value[12].ToString() == "TLV")
+                        if (item.Value[11].ToString() != "" && item.Value[12].ToString() != "" && item.Value[13].ToString() != "")
+                            AllCurrentFlights.Add(new BE.FlightInfoPartial { Id = -1, Source = item.Value[11].ToString(), Destination = item.Value[12].ToString(), SourceId = key, Long = Convert.ToDouble(item.Value[1]), Lat = Convert.ToDouble(item.Value[2]), DateAndTime = Helper.GetDateTimeFromEpoch(Convert.ToDouble(item.Value[10])), FlightCode = item.Value[13].ToString() });
+                    //  if (item.Value[12].ToString() == "TLV") Incoming.Add(new BE.FlightInfoPartial { Id = -1, Source = item.Value[11].ToString(), Destination = item.Value[12].ToString(), SourceId = key, Long = Convert.ToDouble(item.Value[1]), Lat = Convert.ToDouble(item.Value[2]), DateAndTime = Helper.GetDateTimeFromEpoch(Convert.ToDouble(item.Value[10])), FlightCode = item.Value[13].ToString() });
+                    // la on rajoute a la list d'avion rentrant et sortant de TLV
+                }
+
+            }
+            catch (Exception e)
+            {
+
+                Debug.Print(e.Message);
+            }
+        //    return AllCurrentFlights;
+        }
+
+
+    
+    public async Task<JObject> GetAllCurrentFlights() //faudrait se debrouiller pr faire async 
+    {
+        //List<BE.FlightInfoPartial> AllCurrentFlights = new List<BE.FlightInfoPartial>();
+        JObject AllFlightData = null;
+
+        using (var webClient = new System.Net.WebClient())
+        {
+            var json = webClient.DownloadString(AllURL);
+
+           
+            AllFlightData = JObject.Parse(json);
+
+        }
+        return AllFlightData;
+    }
         //Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
         //change root name to FlightData
-        public BE.Root GetFlight(string Key)
+        public async Task<BE.Root> GetFlightRoot(string Key)
+        {
+            await GetFlightAsync(Key);
+            return CurrentFlight;
+        }
+        //public async Task GetFlightAsync(string key)
+        //{
+        //    await GetFlight(key);
+        //}
+
+
+        public async Task GetFlightAsync(string Key)
         {
             var CurrentUrl = FlightURL + Key;
-            BE.Root CurrentFlight = null;
+            //BE.Root CurrentFlight = null;
             //must use try-catch
             using (var webClient = new System.Net.WebClient())
             {
@@ -123,15 +152,17 @@ namespace DAL
                 try
                 {
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    CurrentFlight = null;
                     CurrentFlight = serializer.Deserialize<BE.Root>(json);
                 }
                 catch (Exception e)
                 {
                     Debug.WriteLine(e.Message);
+                    CurrentFlight = null;
                 }
 
             }
-            return CurrentFlight;
+            //return CurrentFlight;
         }
         public void SaveFlightToDB(BE.FlightInfoPartial flight)
         {

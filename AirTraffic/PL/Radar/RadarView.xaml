@@ -34,7 +34,7 @@
                 <Setter.Value>
                     <ControlTemplate>
                         <Grid>
-                            <Image Source="C:\Projet aircraft radar\AirTraffic\PL\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5">
+                            <Image Source="C:\Projet aircraft radar\AirTraffic\PL\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
                                 <Image.RenderTransform>
                                     <RotateTransform Angle="{Binding AngleRot}"/>
                                 </Image.RenderTransform>

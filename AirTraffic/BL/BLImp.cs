@@ -25,13 +25,15 @@ namespace BL
             List<BE.FlightInfoPartial> AllFlights = dal.GetAllCurrentFlightsL();
             List<BE.FlightInfoPartial> Incoming = new List<BE.FlightInfoPartial>();
             List<BE.FlightInfoPartial> Outgoing = new List<BE.FlightInfoPartial>();
+            
             foreach (var item in AllFlights)
             {
-                if (item.Source == "TLV" && dal.GetFlightRoot(item.SourceId)!=null)
+                BE.Root CurrentFlightBL = dal.GetFlightRoot(item.SourceId).Result;
+                if (item.Source == "TLV" && CurrentFlightBL!=null)
                     Outgoing.Add(item);
                 else
                 {
-                    if (item.Destination == "TLV" && dal.GetFlightRoot(item.SourceId) != null)
+                    if (item.Destination == "TLV" && CurrentFlightBL != null)
                         Incoming.Add(item);
                 }
             }

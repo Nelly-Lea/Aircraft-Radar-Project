@@ -222,7 +222,7 @@ namespace AirTraffic.Radar
                 polyline.Locations.Add(new Location(item.lat, item.lng));
             }
 
-           // myMap.Children.Clear();
+            myMap.Children.Clear();
             myMap.Children.Add(polyline);
         }
 

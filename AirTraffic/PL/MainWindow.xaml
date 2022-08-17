@@ -40,7 +40,7 @@
                    ToolTip="Resource name: MaterialDesignRaisedButton" Grid.Row="0"  Width="217" Height="49" Background="#FFE2D8CD" BorderBrush="#FFE2D8CD" Foreground="Black" FontFamily="Harrington" HorizontalAlignment="Left" Margin="435,0,0,-0.2" VerticalAlignment="Top"  FontWeight="Bold" Click="ButtonHolidays"/>
 
             </Grid>
-            <UserControl x:Name="MainWindowUC" Margin="10,40,-9,10.4" Grid.RowSpan="2" >
+            <UserControl x:Name="MainWindowUC" Margin="0,4,0,0" Grid.Row="1" >
                 <Label  HorizontalAlignment="Left" Margin="429,-37,0,0" VerticalAlignment="Top">
                     <materialDesign:PackIcon Kind="Jewish" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="44"/>
                 </Label>

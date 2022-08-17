@@ -113,7 +113,7 @@ namespace DAL
 
 
     
-    public async Task<JObject> GetAllCurrentFlights() //faudrait se debrouiller pr faire async 
+    public Task<JObject> GetAllCurrentFlights() //faudrait se debrouiller pr faire async 
     {
         //List<BE.FlightInfoPartial> AllCurrentFlights = new List<BE.FlightInfoPartial>();
         JObject AllFlightData = null;
@@ -126,7 +126,7 @@ namespace DAL
             AllFlightData = JObject.Parse(json);
 
         }
-        return AllFlightData;
+        return Task.FromResult(AllFlightData);
     }
         //Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
         //change root name to FlightData

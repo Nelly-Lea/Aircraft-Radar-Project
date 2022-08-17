@@ -218,6 +218,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="images\airplane.png" />
     <Resource Include="images\airplaneRed.png" />
     <Resource Include="images\airplaneYellow.png" />
     <Resource Include="images\01d.png" />

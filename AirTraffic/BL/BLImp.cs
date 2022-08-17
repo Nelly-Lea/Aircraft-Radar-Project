@@ -25,11 +25,11 @@ namespace BL
             List<BE.FlightInfoPartial> AllFlights = dal.GetAllCurrentFlightsL();
             List<BE.FlightInfoPartial> Incoming = new List<BE.FlightInfoPartial>();
             List<BE.FlightInfoPartial> Outgoing = new List<BE.FlightInfoPartial>();
-            
+
             foreach (var item in AllFlights)
             {
                 BE.Root CurrentFlightBL = dal.GetFlightRoot(item.SourceId).Result;
-                if (item.Source == "TLV" && CurrentFlightBL!=null)
+                if (item.Source == "TLV" && CurrentFlightBL != null)
                     Outgoing.Add(item);
                 else
                 {
@@ -127,7 +127,7 @@ namespace BL
             Double latDestination = flight.airport.destination.position.latitude;
             Double lngDestination = flight.airport.destination.position.longitude;
             ObservableCollection<BE.RootWeather> obsWeather = new ObservableCollection<BE.RootWeather>();
-            
+
             obsWeather.Add(dal.GetWeatherOfAirport(latOrigin, lngOrigin));
             obsWeather.Add(dal.GetWeatherOfAirport(latDestination, lngDestination));
             obsWeather[0].main.temp -= 273.15;
@@ -135,7 +135,7 @@ namespace BL
             return obsWeather;
         }
 
-      public double Angle(double lat1, double long1, double lat2, double long2)
+        public double Angle(double lat1, double long1, double lat2, double long2)
         {
             double dLon = (long2 - long1);
 
@@ -151,5 +151,21 @@ namespace BL
             brng = 360 - brng; // count degrees counter-clockwise - remove to make clockwise
             return brng;
         }
+        public List<BE.Root> GetAllFlightRoot()
+        {
+            List<BE.Root> listFlights = new List<BE.Root>();
+            dal.GetAllCurrentFlight1();
+            List<BE.FlightInfoPartial> AllFlights = dal.GetAllCurrentFlightsL();
+            BE.Root flight = new BE.Root();
+            foreach(var item in AllFlights)
+            {
+                flight = dal.GetFlightRoot(item.SourceId).Result;
+                if(flight!=null)
+                    listFlights.Add(flight);
+            }
+            return listFlights;
+        }
     }
+
+  
 }

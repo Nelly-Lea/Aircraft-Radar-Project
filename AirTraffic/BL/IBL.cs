@@ -17,6 +17,7 @@ namespace BL
         void SaveFlightToDataBase(BE.FlightInfoPartial flight);
         ObservableCollection<BE.FlightInfoPartial> GetFlightsBetweenTwoDates(DateTime dateFrom, DateTime dateTo);
         void DeleteFlight(BE.FlightInfoPartial flight);
+        List<BE.Root> GetAllFlightRoot();
         #endregion
         #region Position
         List<BE.Trail> getTrail(BE.Root flight);

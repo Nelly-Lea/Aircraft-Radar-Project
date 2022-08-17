@@ -17,8 +17,8 @@
     <UserControl.Resources>
         <converters:TickToDateTimeConverter x:Key="TickConvert"/>
         <BooleanToVisibilityConverter x:Key="visibilityConverter" />
-        
-        
+
+
 
         <Style x:Key="RoundButton" TargetType="Button">
             <Style.Resources>
@@ -27,79 +27,385 @@
                 </Style>
             </Style.Resources>
         </Style>
-        
+
 
         <Style TargetType="m:Pushpin" x:Key="IsraelRed">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Grid>
-                            <Image Source="C:\Projet aircraft radar\AirTraffic\PL\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
-                                <Image.RenderTransform>
-                                    <RotateTransform Angle="{Binding AngleRot}"/>
-                                </Image.RenderTransform>
-                            </Image>
 
-                        </Grid>
+                        <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" Width="40" Height="34" RenderOptions.BitmapScalingMode="Fant" >
+                            <Image.RenderTransform>
+                                <RotateTransform Angle="{Binding AngleRot}"/>
+                            </Image.RenderTransform>
+                            <Image.BitmapEffect>
+                                <DropShadowBitmapEffect Direction="392" Color="Black"  Opacity="0.5" Softness="0.3" />
+
+                            </Image.BitmapEffect>
+                        </Image>
+
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+
+        </Style>
+
+
+        <Style TargetType="m:Pushpin" x:Key="IsraelRedNorth">
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate>
+
+
+                        <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
+                            <Image.BitmapEffect>
+                                <DropShadowBitmapEffect Direction="392" Color="Black"  Opacity="0.5" Softness="0.3" />
+
+                            </Image.BitmapEffect>
+                        </Image>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+
+        <Style TargetType="m:Pushpin" x:Key="IsraelRedEast">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+
+                        <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
+                            <Image.RenderTransform>
+                                <RotateTransform Angle="90"/>
+                            </Image.RenderTransform>
+                            <Image.BitmapEffect>
+                                <DropShadowBitmapEffect Direction="392" Color="Black"  Opacity="0.5" Softness="0.3" />
+
+                            </Image.BitmapEffect>
+                        </Image>
+
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+
+
+        <Style TargetType="m:Pushpin" x:Key="IsraelRedSouth">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+
+                        <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
+                            <Image.RenderTransform>
+                                <RotateTransform Angle="180"/>
+                            </Image.RenderTransform>
+                            <Image.BitmapEffect>
+                                <DropShadowBitmapEffect Direction="392" Color="Black"  Opacity="0.5" Softness="0.3" />
+
+                            </Image.BitmapEffect>
+                        </Image>
+
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+
+
+        <Style TargetType="m:Pushpin" x:Key="IsraelRedWest">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+
+                        <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
+                            <Image.RenderTransform>
+                                <RotateTransform Angle="270"/>
+                            </Image.RenderTransform>
+                            <Image.BitmapEffect>
+                                <DropShadowBitmapEffect Direction="392" Color="Black"  Opacity="0.5" Softness="0.3" />
+
+                            </Image.BitmapEffect>
+                        </Image>
+
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+
+        <Style TargetType="m:Pushpin" x:Key="IsraelRedNorthEast">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+
+                        <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
+                            <Image.RenderTransform>
+                                <RotateTransform Angle="45"/>
+                            </Image.RenderTransform>
+                            <Image.BitmapEffect>
+                                <DropShadowBitmapEffect Direction="392" Color="Black"  Opacity="0.5" Softness="0.3" />
+
+                            </Image.BitmapEffect>
+                        </Image>
+
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="m:Pushpin" x:Key="IsraelRedEastSouth">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
+                            <Image.RenderTransform>
+                                <RotateTransform Angle="135"/>
+                            </Image.RenderTransform>
+                            <Image.BitmapEffect>
+                                <DropShadowBitmapEffect Direction="392" Color="Black"  Opacity="0.5" Softness="0.3" />
+                            </Image.BitmapEffect>
+                        </Image>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
 
 
+        <Style TargetType="m:Pushpin" x:Key="IsraelRedSouthWest">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
+                            <Image.RenderTransform>
+                                <RotateTransform Angle="225"/>
+                            </Image.RenderTransform>
+                            <Image.BitmapEffect>
+                                <DropShadowBitmapEffect Direction="392" Color="Black"  Opacity="0.5" Softness="0.3" />
+                            </Image.BitmapEffect>
+                        </Image>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <Style TargetType="m:Pushpin" x:Key="IsraelRedWestNorth">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
+                            <Image.RenderTransform>
+                                <RotateTransform Angle="315"/>
+                            </Image.RenderTransform>
+                            <Image.BitmapEffect>
+                                <DropShadowBitmapEffect Direction="392" Color="Black"  Opacity="0.5" Softness="0.3" />
+                            </Image.BitmapEffect>
+                        </Image>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
         <Style TargetType="m:Pushpin" x:Key="IsraelYellow">
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate>
+                    <ControlTemplate x:Name="controlTemp">
                         <Grid>
-                            <Image Source="C:\Projet aircraft radar\AirTraffic\PL\images\airplaneYellow.png"  RenderTransformOrigin="0.5,0.5">
+                            <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
                                 <Image.RenderTransform>
-                                    <RotateTransform Angle="{Binding AngleRot}"/>
+                                    <RotateTransform  Angle="{Binding AngleRot}"/>
                                 </Image.RenderTransform>
+                                <Image.BitmapEffect>
+                                    <DropShadowBitmapEffect Direction="392" Color="Black"  Opacity="0.5" Softness="0.3" />
+
+                                </Image.BitmapEffect>
+                            </Image>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+
+
+        <Style TargetType="m:Pushpin" x:Key="IsraelYellowNorth" >
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate x:Name="controlTemp">
+                        <Grid>
+                            <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
+                                <Image.BitmapEffect>
+                                    <DropShadowBitmapEffect Direction="392" Color="Black"  Opacity="0.5" Softness="0.3" />
+
+                                </Image.BitmapEffect>
+                            </Image>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+
+
+        <Style TargetType="m:Pushpin" x:Key="IsraelYellowSouth">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate x:Name="controlTemp">
+                        <Grid>
+                            <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
+                                <Image.RenderTransform>
+                                    <RotateTransform  Angle="180"/>
+                                </Image.RenderTransform>
+                                <Image.BitmapEffect>
+                                    <DropShadowBitmapEffect Direction="392" Color="Black"  Opacity="0.5" Softness="0.3" />
+
+                                </Image.BitmapEffect>
+                            </Image>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+
+        <Style TargetType="m:Pushpin" x:Key="IsraelYellowEast">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate x:Name="controlTemp">
+                        <Grid>
+                            <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
+                                <Image.RenderTransform>
+                                    <RotateTransform  Angle="90"/>
+                                </Image.RenderTransform>
+                                <Image.BitmapEffect>
+                                    <DropShadowBitmapEffect Direction="392" Color="Black"  Opacity="0.5" Softness="0.3" />
+
+                                </Image.BitmapEffect>
                             </Image>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        
 
+        <Style TargetType="m:Pushpin" x:Key="IsraelYellowWest">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate x:Name="controlTemp">
+                        <Grid>
+                            <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
+                                <Image.RenderTransform>
+                                    <RotateTransform  Angle="270"/>
+                                </Image.RenderTransform>
+                                <Image.BitmapEffect>
+                                    <DropShadowBitmapEffect Direction="392" Color="Black"  Opacity="0.5" Softness="0.3" />
+
+                                </Image.BitmapEffect>
+                            </Image>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="m:Pushpin" x:Key="IsraelYellowNorthEast">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate x:Name="controlTemp">
+                        <Grid>
+                            <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
+                                <Image.RenderTransform>
+                                    <RotateTransform  Angle="45"/>
+                                </Image.RenderTransform>
+                                <Image.BitmapEffect>
+                                    <DropShadowBitmapEffect Direction="392" Color="Black"  Opacity="0.5" Softness="0.3" />
+
+                                </Image.BitmapEffect>
+                            </Image>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="m:Pushpin" x:Key="IsraelYellowEastSouth">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate x:Name="controlTemp">
+                        <Grid>
+                            <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
+                                <Image.RenderTransform>
+                                    <RotateTransform  Angle="135"/>
+                                </Image.RenderTransform>
+                                <Image.BitmapEffect>
+                                    <DropShadowBitmapEffect Direction="392" Color="Black"  Opacity="0.5" Softness="0.3" />
+
+                                </Image.BitmapEffect>
+                            </Image>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="m:Pushpin" x:Key="IsraelYellowSouthWest">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate x:Name="controlTemp">
+                        <Grid>
+                            <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
+                                <Image.RenderTransform>
+                                    <RotateTransform  Angle="225"/>
+                                </Image.RenderTransform>
+                                <Image.BitmapEffect>
+                                    <DropShadowBitmapEffect Direction="392" Color="Black"  Opacity="0.5" Softness="0.3" />
+
+                                </Image.BitmapEffect>
+                            </Image>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="m:Pushpin" x:Key="IsraelYellowWestNorth">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate x:Name="controlTemp">
+                        <Grid>
+                            <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
+                                <Image.RenderTransform>
+                                    <RotateTransform  Angle="315"/>
+                                </Image.RenderTransform>
+                                <Image.BitmapEffect>
+                                    <DropShadowBitmapEffect Direction="392" Color="Black"  Opacity="0.5" Softness="0.3" />
+
+                                </Image.BitmapEffect>
+                            </Image>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
+
     <Grid Background="#FFE2D8CD" x:Name="radarviewgrid" >
 
-        <ListBox x:Name="InFlightsListBox"   ItemsSource="{Binding FlightIncoming, Mode=OneWay}" HorizontalAlignment="Left" Height="162" Margin="101,59,0,0" VerticalAlignment="Top" Width="158" SelectionChanged="FlightsListBox_SelectionChanged">
 
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding FlightCode}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-
-
-        </ListBox>
-
-        <Label Content="Incoming" HorizontalAlignment="Left" Margin="138,25,0,0" VerticalAlignment="Top" Height="34" Width="77" FontFamily="Harrington" FontWeight="Bold"/>
-        <Label Content="Outgoing" HorizontalAlignment="Left" Margin="138,231,0,0" VerticalAlignment="Top" Width="77" Height="26" FontFamily="Harrington" FontWeight="Bold"/>
-        <ListBox ItemsSource="{Binding FlightOutgoing, Mode=OneWay}" x:Name="OutFlightsListBox" HorizontalAlignment="Left" Height="162" Margin="101,257,0,0" VerticalAlignment="Top" Width="158" SelectionChanged="FlightsListBox_SelectionChanged" >
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding FlightCode}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <m:Map x:Name="myMap" CredentialsProvider="ApINLKklvvkm_3CQRgDQ2s-J4VMwZ1PzoRJ_guhxBVIGnlNYyTIfNhBQOlFeMlfR" Margin="383,111,54,33" ZoomLevel="5.0" Center="32.000454,34.870743" AnimationLevel="None"/>
-        <Button Content="Read All" HorizontalAlignment="Left" Margin="112,479,0,0" VerticalAlignment="Top" Width="141" Height="38"  Style="{DynamicResource RoundButton}" Foreground="White" FontFamily="Harrington" Background="MidnightBlue" BorderBrush="MidnightBlue"
-            Command="{Binding ReadAllCommand}"  CommandParameter="{Binding}"/>
+        <m:Map x:Name="myMap" CredentialsProvider="ApINLKklvvkm_3CQRgDQ2s-J4VMwZ1PzoRJ_guhxBVIGnlNYyTIfNhBQOlFeMlfR" ZoomLevel="5.0" Center="32.000454,34.870743" AnimationLevel="None"/>
 
 
 
-
-        <Grid x:Name="myGrid" HorizontalAlignment="Left" Height="600" VerticalAlignment="Top" Width="1280">
+        <Grid x:Name="myGrid" HorizontalAlignment="Center" Height="600" VerticalAlignment="Center" Width="1280">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="966*"/>
                 <ColumnDefinition Width="276*"/>
@@ -110,11 +416,72 @@
                 <RowDefinition Height="417"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button HorizontalAlignment="Left"  Style="{DynamicResource RoundButton}" Foreground="White" Margin="570,22,0,0" Grid.Row="1" VerticalAlignment="Top" Width="66" Height="38" FontFamily="Harrington" Background="MidnightBlue" Click="ButtonCounter">
+            <ListBox x:Name="InFlightsListBox" Visibility="Hidden" Foreground="White"  Grid.Row="1"  ItemsSource="{Binding FlightIncoming, Mode=OneWay}" HorizontalAlignment="Left" Height="162" Margin="47,60,0,0" VerticalAlignment="Top" Width="158" SelectionChanged="FlightsListBox_SelectionChanged">
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding FlightCode}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.Background>
+                    <SolidColorBrush Color= "Black" Opacity="0.4"/>
+                </ListBox.Background>
+
+            </ListBox>
+            <ListBox ItemsSource="{Binding FlightOutgoing, Mode=OneWay}" Foreground="White" x:Name="OutFlightsListBox"  Visibility="Hidden" HorizontalAlignment="Left" Height="162" Margin="47,258,0,0" VerticalAlignment="Top" Width="158" SelectionChanged="FlightsListBox_SelectionChanged" Grid.RowSpan="2" Grid.Row="1" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding FlightCode}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.Background>
+                    <SolidColorBrush Color= "Black" Opacity="0.4"/>
+                </ListBox.Background>
+            </ListBox>
+            <Button x:Name="ButtonCounterOneFlight" Visibility="Hidden" HorizontalAlignment="Left"  Style="{DynamicResource RoundButton}" Foreground="White" Margin="570,22,0,0" Grid.Row="1" VerticalAlignment="Top" Width="66" Height="38" Click="ButtonCounterOneFlightClick">
                 <materialDesign:PackIcon Kind="Clock" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="44" Foreground="#DDFFFFFF"/>
+                <Button.Background>
+                    <SolidColorBrush Color= "Black" Opacity="0.4"/>
+                </Button.Background>
             </Button>
 
-            <TextBox x:Name="Counter" HorizontalAlignment="Left" Margin="656,22,0,0" Grid.Row="1" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="1" VerticalAlignment="Top" Height="38" Width="39"/>
+
+
+            <Label x:Name="labelIncom"  Visibility="Hidden"  Content="Incoming" Foreground="White" Grid.Row="1" HorizontalAlignment="Left" Margin="47,34,0,0" VerticalAlignment="Top" Height="26" Width="158" FontFamily="Arial" FontWeight="Bold">
+                <Label.Background>
+                    <SolidColorBrush Color= "Black" Opacity="0.4"/>
+                </Label.Background>
+            </Label>
+            <Label x:Name="LabelOut"  Visibility="Hidden"  Content="Outgoing" Grid.Row="1" Foreground="White" HorizontalAlignment="Left" Margin="47,232,0,0" VerticalAlignment="Top" Width="158" Height="26" FontFamily="Arial" FontWeight="Bold">
+                <Label.Background>
+                    <SolidColorBrush Color= "Black" Opacity="0.4"/>
+                </Label.Background>
+            </Label>
+            <Button x:Name="ButtonReadAll" Visibility="Hidden" Content="Read All" HorizontalAlignment="Left" Margin="77,43,0,0" VerticalAlignment="Top" Width="96" Height="38"  Style="{DynamicResource RoundButton}" Foreground="White" FontFamily="Arial"
+            Command="{Binding ReadAllCommand}" Grid.Row="2"  CommandParameter="{Binding}">
+                <Button.Background>
+                    <SolidColorBrush Color= "Black" Opacity="0.4"/>
+                </Button.Background>
+            </Button>
+
+
+            <TextBox x:Name="CounterOneFlight" Visibility="Hidden" Foreground="DarkMagenta"  HorizontalAlignment="Left" Margin="656,22,0,0" Grid.Row="1" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="1" VerticalAlignment="Top" Height="38" Width="39"  FontWeight="Bold" FontFamily="Arial" FontSize="20"/>
+
+            <Button x:Name="FocusOneFlightButton" Content="Focus on one flight" Grid.Column="1" Style="{DynamicResource RoundButton}" Foreground="White"  HorizontalAlignment="Left" Margin="165,10,0,0" Grid.Row="1" VerticalAlignment="Top" Click="FocusOneFlightButton_Click" Width="112" Height="37" FontFamily="Arial" Grid.ColumnSpan="2">
+                <Button.Background>
+                    <SolidColorBrush Color= "Black" Opacity="0.4"/>
+                </Button.Background>
+            </Button>
+
+            <Button x:Name="DisplayAllFlightsButton" Visibility="Hidden" Content="Display all flights" Grid.Column="1" Style="{DynamicResource RoundButton}" Foreground="White"  HorizontalAlignment="Left" Margin="155,58,0,0" Grid.Row="2" VerticalAlignment="Top" Click="DisplayAllFlightsButton_Click" Width="112" Height="37" FontFamily="Arial">
+                <Button.Background>
+                    <SolidColorBrush Color= "Black" Opacity="0.4"/>
+                </Button.Background>
+            </Button>
         </Grid>
 
 

@@ -66,5 +66,9 @@ namespace AirTraffic.Radar
         {
             return BL.Angle(lat1, long1, lat2, long2);
         }
+        public List<BE.Root> RMGetAllFLightsRoot()
+        {
+            return BL.GetAllFlightRoot();
+        }
     }
 }

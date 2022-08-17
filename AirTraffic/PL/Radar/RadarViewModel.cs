@@ -12,11 +12,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace AirTraffic.Radar
 {
 
-    public class RadarViewModel
+    public class RadarViewModel:INotifyPropertyChanged
     {
         public RadarModel radarModel { get; set; }
 
@@ -38,6 +39,32 @@ namespace AirTraffic.Radar
             }
          
         }
+        private Image image;
+        public Image imageYellow
+        {
+            get 
+            {
+                image = new Image();
+
+                // string s= "C:/Users/USER/Documents/project maarehot halonot/vrai projet git/AirTraffic/PL/images/airplaneYellow.png";
+                //   Uri imageUri = new Uri(s, UriKind.Relative);
+           
+                    var uriSource = new Uri(@"C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneYellow.png", UriKind.Relative);
+               // BitmapImage bitmapImage = new BitmapImage(imageUri);
+                image.Source= new BitmapImage(uriSource);
+                return image;
+            }
+            set
+            {
+                image = value;
+                OnPropertyChanged("imageYellow");
+            }
+        }
+
+        public string DisplayImage
+        {
+            get { return @"~\..\images\airplaneYellow.png"; }
+        }
 
         private double anglerot;
         public double  AngleRot
@@ -57,14 +84,36 @@ namespace AirTraffic.Radar
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(v));
         }
 
-        public void angleFromCoordinat(double lat1, double long1, double lat2, double long2)
+        public double angleFromCoordinat(double lat1, double long1, double lat2, double long2)
         {
-
-            AngleRot = radarModel.Angle(lat1, long1, lat2, long2);
+            double angle= radarModel.Angle(lat1, long1, lat2, long2);
+            
+            AngleRot =0;
+            AngleRot = angle;
+            return AngleRot;
             //return brng;
         }
 
-
+        public string PlaneDirection(double angle)
+        {
+            if ((angle >= 0 && angle <= 22.5) || (angle > 337.5 && angle <= 360))
+                return "north";
+            if (angle > 22.5 && angle <= 67.5)
+                return "northEast";
+            if (angle > 67.5 && angle <= 112.5)
+                return "east";
+            if (angle > 112.5 && angle <= 157.5)
+                return "eastSouth";
+            if (angle > 157.5 && angle <= 202.5)
+                return "south";
+            if (angle > 202.5 && angle <= 247.5)
+                return "southWest";
+            if (angle > 247.5 && angle <= 292.5)
+                return "west";
+            if (angle > 292.5 && angle <= 337.5)
+                return "westNorth";
+            return "north";
+        }
 
         private ObservableCollection<BE.FlightInfoPartial> flightOutgoing;
         public ObservableCollection<BE.FlightInfoPartial> FlightOutgoing
@@ -176,13 +225,11 @@ namespace AirTraffic.Radar
                 return new ReadAllCommand(this);
             }
         }
-        //public ICommand HolidaysCommand
-        //{
-        //    get
-        //    {
-        //        return new HolidaysCommand(this);
-        //    }
-        //}
+
+        public List<BE.Root> RVMGetAllFlightsRoot()
+        {
+            return radarModel.RMGetAllFLightsRoot();
+        }
     }
 }
 

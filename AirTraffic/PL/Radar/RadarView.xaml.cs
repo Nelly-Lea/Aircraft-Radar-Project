@@ -20,6 +20,8 @@ using System.Web.Script.Serialization;
 using System.Windows.Threading;
 using MaterialDesignExtensions.Controls;
 using MaterialDesignThemes.Wpf;
+using System.Windows.Media.Animation;
+using System.Diagnostics;
 
 namespace AirTraffic.Radar
 {
@@ -28,29 +30,48 @@ namespace AirTraffic.Radar
     /// </summary>
     public partial class RadarView : UserControl
     {
-        
+
         BE.FlightInfoPartial SelectedFlight = null;
         public BE.Root Flight = new BE.Root();
         public RadarViewModel radarViewModel;
-        public string ImagePath= "C:\\Projet aircraft radar\\AirTraffic\\PL\\images\\";
+        public string ImagePath = "C:\\Projet aircraft radar\\AirTraffic\\PL\\images\\";
         //private const string AllURL = @" https://data-cloud.flightradar24.com/zones/fcgi/feed.js?faa=1&bounds=38.805%2C24.785%2C29.014%2C40.505&satellite=1&mlat=1&flarm=1&adsb=1&gnd=1&air=1&vehicles=1&estimated=1&maxage=14400&gliders=1&stats=1";
         //private const string FlightURL = @"https://data-live.flightradar24.com/clickhandler/?version=1.5&flight=";
+        public List<BE.Root> ListAllFLightsRoot = new List<BE.Root>();
+        DispatcherTimer dispatcherTimerAllFlights = new DispatcherTimer();
+        DispatcherTimer dispatcherTimerOneFlight = new DispatcherTimer();
+        
 
-       
-       
         public RadarView()
         {
             radarViewModel = new RadarViewModel();
             InitializeComponent();
-            
+
             this.DataContext = radarViewModel;
-            
+            Init();
             //FlightDataView fv = new FlightDataView();
             //radarviewgrid.Children.Add(fv);
-          
+            dispatcherTimerAllFlights.Tick += DispatcherTimer_TickAllFlights;
+            dispatcherTimerAllFlights.Interval = new TimeSpan(0, 0, 15);
+            dispatcherTimerAllFlights.Start();
 
         }
-        //changer cette fonction
+
+        private void Init()
+        {
+            ListAllFLightsRoot = radarViewModel.RVMGetAllFlightsRoot();
+            foreach (var item in ListAllFLightsRoot)
+            {
+                UpdateFlight2(item);
+                
+            }
+
+            
+           
+        }
+
+        
+        //double click sur vol
         private void Pin_MouseDown(object sender, MouseButtonEventArgs e)
         {
             //var pin = e.OriginalSource as Pushpin;
@@ -91,12 +112,18 @@ namespace AirTraffic.Radar
 
         private void FlightsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
-            SelectedFlight = e.AddedItems[0] as BE.FlightInfoPartial; //InFlightsListBox.SelectedItem as FlightInfoPartial;
-            UpdateFlight(SelectedFlight);
-            Flight = radarViewModel.ConvertFlightIPToFlighInfo(SelectedFlight);
-            radarViewModel.SaveFlightToDB(SelectedFlight);
+            try
+            {
+                SelectedFlight = e.AddedItems[0] as BE.FlightInfoPartial; //InFlightsListBox.SelectedItem as FlightInfoPartial;
+                UpdateFlight(SelectedFlight);
+                Flight = radarViewModel.ConvertFlightIPToFlighInfo(SelectedFlight);
+                radarViewModel.SaveFlightToDB(SelectedFlight);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
 
+            }
 
 
 
@@ -133,8 +160,8 @@ namespace AirTraffic.Radar
                 PositionOrigin origin = new PositionOrigin { X = 0.4, Y = 0.4 };
                 MapLayer.SetPositionOrigin(PinCurrent, origin);
 
-                PinCurrent.Style = (Style)Resources["IsraelYellow"];
 
+                PinCurrent.Style = (Style)Resources["IsraelYellow"];
 
                 //Better to use RenderTransform
                 //if (Flight.airport.destination.code.iata == "TLV")
@@ -153,7 +180,7 @@ namespace AirTraffic.Radar
                 Location BeforeLastPosition = radarViewModel.RVMGetBeforeLastPosition(OrderedPlaces);
                 
                 radarViewModel.angleFromCoordinat(BeforeLastPosition.Latitude, BeforeLastPosition.Longitude, PinCurrent.Location.Latitude, PinCurrent.Location.Longitude);
-
+               
 
                 var OriginPlace =radarViewModel.RVMGetOriginAirport(OrderedPlaces);
                 PlaneLocation = radarViewModel.RVMGetPosition(OriginPlace);
@@ -164,9 +191,9 @@ namespace AirTraffic.Radar
                 PinDestination.Location = AirportDst;
                 //PinCurrent.MouseDown += Pin_MouseDown;
 
-              
 
 
+               
                 myMap.Children.Add(PinOrigin);
                 myMap.Children.Add(PinCurrent);
                 myMap.Children.Add(PinDestination);
@@ -181,32 +208,61 @@ namespace AirTraffic.Radar
             Pushpin pushpin = sender as Pushpin;
             pushpin.Style = (Style)Resources["IsraelRed"];
             
-            //if (Flight.airport.destination.code.iata == "TLV")
-            //{
-            //    pushpin.Style = (Style)Resources["ToIsraelRed"];
-            //}
-            //else
-            //{
-            //    pushpin.Style = (Style)Resources["FromIsraelRed"];
-            //}
-
-
+           
             pushpin.MouseLeave += Pushpin_MouseLeave;
         }
 
+        private void PinCurrent_MouseEnter2(object sender, MouseEventArgs e)
+        {
+            Pushpin pushpin = sender as Pushpin;
+            if(pushpin.Style== (Style)Resources["IsraelYellowNorth"])
+                pushpin.Style = (Style)Resources["IsraelRedNorth"];
+            if (pushpin.Style == (Style)Resources["IsraelYellowNorthEast"])
+                pushpin.Style = (Style)Resources["IsraelRedNorthEast"];
+            if (pushpin.Style == (Style)Resources["IsraelYellowEast"])
+                pushpin.Style = (Style)Resources["IsraelRedEast"];
+            if (pushpin.Style == (Style)Resources["IsraelYellowEastSouth"])
+                pushpin.Style = (Style)Resources["IsraelRedEastSouth"];
+            if (pushpin.Style== (Style)Resources["IsraelYellowSouth"])
+                pushpin.Style = (Style)Resources["IsraelRedSouth"];
+            if (pushpin.Style == (Style)Resources["IsraelYellowSouthWest"])
+                pushpin.Style = (Style)Resources["IsraelRedSouthWest"];
+            if (pushpin.Style == (Style)Resources["IsraelYellowWest"])
+                pushpin.Style = (Style)Resources["IsraelRedWest"];
+            if (pushpin.Style == (Style)Resources["IsraelYellowWestNorth"])
+                pushpin.Style = (Style)Resources["IsraelRedWestNorth"];
+
+
+
+            pushpin.MouseLeave += Pushpin_MouseLeave2;
+        }
         private void Pushpin_MouseLeave(object sender, MouseEventArgs e)
         {
             Pushpin pushpin = sender as Pushpin;
             pushpin.Style = (Style)Resources["IsraelYellow"];
-            //if (Flight.airport.destination.code.iata == "TLV")
-            //{
-            //    pushpin.Style = (Style)Resources["ToIsrael"];
-            //}
-            //else
-            //{
-            //    pushpin.Style = (Style)Resources["FromIsrael"];
-            //}
+      
+        }
+        private void Pushpin_MouseLeave2(object sender, MouseEventArgs e)
+        {
+            Pushpin pushpin = sender as Pushpin;
+            if (pushpin.Style == (Style)Resources["IsraelRedNorth"])
+                pushpin.Style = (Style)Resources["IsraelYellowNorth"];
+            if (pushpin.Style == (Style)Resources["IsraelRedNorthEast"])
+                pushpin.Style = (Style)Resources["IsraelYellowNorthEast"];
+            if (pushpin.Style == (Style)Resources["IsraelRedEast"])
+                pushpin.Style = (Style)Resources["IsraelYellowEast"];
+            if (pushpin.Style == (Style)Resources["IsraelRedEastSouth"])
+                pushpin.Style = (Style)Resources["IsraelYellowEastSouth"];
 
+            if (pushpin.Style == (Style)Resources["IsraelRedSouth"])
+                pushpin.Style = (Style)Resources["IsraelYellowSouth"];
+            if (pushpin.Style == (Style)Resources["IsraelRedSouthWest"])
+                pushpin.Style = (Style)Resources["IsraelYellowSouthWest"];
+
+            if (pushpin.Style == (Style)Resources["IsraelRedWest"])
+                pushpin.Style = (Style)Resources["IsraelYellowWest"];
+            if (pushpin.Style == (Style)Resources["IsraelRedWestNorth"])
+                pushpin.Style = (Style)Resources["IsraelYellowWestNorth"];
         }
 
         void addNewPolyLine(List<BE.Trail> Route)
@@ -226,58 +282,163 @@ namespace AirTraffic.Radar
             myMap.Children.Add(polyline);
         }
 
-        private void ButtonCounter(object sender, RoutedEventArgs e)
+        void addNewPolyLineAllFlights(List<BE.Trail> Route)
         {
-            DispatcherTimer dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer.Tick += DispatcherTimer_Tick;
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 15);
-            dispatcherTimer.Start();
+            MapPolyline polyline = new MapPolyline();
+            //polyline.Fill = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Blue);
+            polyline.Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Green);
+            polyline.StrokeThickness = 1;
+            polyline.Opacity = 0.7;
+            polyline.Locations = new LocationCollection();
+            foreach (var item in Route)
+            {
+                polyline.Locations.Add(new Location(item.lat, item.lng));
+            }
+
+            //myMap.Children.Clear();
+            myMap.Children.Add(polyline);
+        }
+
+        private void ButtonCounterOneFlightClick(object sender, RoutedEventArgs e)
+        {
+            dispatcherTimerOneFlight.Tick += DispatcherTimer_TickOneFlight;
+            dispatcherTimerOneFlight.Interval = new TimeSpan(0, 0, 15);
+            dispatcherTimerOneFlight.Start();
 
         }
 
-        private void DispatcherTimer_Tick(object sender, EventArgs e)
+        private void DispatcherTimer_TickOneFlight(object sender, EventArgs e)
         {
             UpdateFlight(SelectedFlight);
-            Counter.Text = (Convert.ToInt32(Counter.Text) + 1).ToString();
+            CounterOneFlight.Text = (Convert.ToInt32(CounterOneFlight.Text) + 1).ToString();
         }
 
+    
 
-        //private void PushpinClick(object sender, RoutedEventArgs e)
-        //{
-        //    Pushpin p = sender as Pushpin;
-        //   // string flight = p.Tag.ToString();
-        //    //BE.Root Flight = new BE.Root();
-        //    //Flight = GetFlight(flight);
+        private void DispatcherTimer_TickAllFlights(object sender, EventArgs e)
+        {
 
-        //    FlightDataView fv = new FlightDataView();
-        //    radarviewgrid.Children.Add(fv);
+            ListAllFLightsRoot = radarViewModel.RVMGetAllFlightsRoot();
+            myMap.Children.Clear();
+            foreach (var item in ListAllFLightsRoot)
+            {
+                UpdateFlight2(item);
+            }
+            
+        }
+
+        private void FocusOneFlightButton_Click(object sender, RoutedEventArgs e)
+        {
+            dispatcherTimerAllFlights.Stop();
+            myMap.Children.Clear();
+            LabelOut.Visibility = Visibility.Visible;
+            labelIncom.Visibility = Visibility.Visible;
+            InFlightsListBox.Visibility= Visibility.Visible;
+            OutFlightsListBox.Visibility = Visibility.Visible;
+            ButtonReadAll.Visibility = Visibility.Visible;
+            ButtonCounterOneFlight.Visibility = Visibility.Visible;
+            CounterOneFlight.Visibility = Visibility.Visible;
+            DisplayAllFlightsButton.Visibility = Visibility.Visible;
+            FocusOneFlightButton.Visibility = Visibility.Hidden;
+
+        }
+
+        private void UpdateFlight2(BE.Root flight)
+        {
 
 
-        //}
+            // DetailsPanel.DataContext = Flight;
+            BE.Root Flight = new BE.Root();
+            Flight = flight;
 
-        //public BE.Root GetFlight(string Key)
-        //{
-        //    var CurrentUrl = FlightURL + Key;
-        //    BE.Root CurrentFlight = null;
-        //    //must use try-catch
-        //    using (var webClient = new System.Net.WebClient())
-        //    {
-        //        var json = webClient.DownloadString(CurrentUrl);
-        //        try
-        //        {
-        //            JavaScriptSerializer serializer = new JavaScriptSerializer();
-        //            CurrentFlight = serializer.Deserialize<BE.Root>(json);
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            MessageBox.Show(e.Message);
-        //           // Debug.WriteLine(e.Message);
-        //        }
+            // Update map
+            if (Flight != null)
+            {
 
-        //    }
-        //    return CurrentFlight;
-        //}
+                var OrderedPlaces = radarViewModel.RVMGetTrail(Flight);
+                //MessageBox.Show(Flight.airport.destination.code.iata);
+                //addNewPolyLineAllFlights(OrderedPlaces);
+                BE.Trail CurrentPlace = null;
 
+                Pushpin PinCurrent = new Pushpin { ToolTip = flight.identification.number.@default};
+                Pushpin PinOrigin = new Pushpin { ToolTip = Flight.airport.origin.name };
+                Pushpin PinDestination = new Pushpin { ToolTip = Flight.airport.destination.name };
+                //PinCurrent.MouseDoubleClick += Pin_MouseDown;
+                PinCurrent.MouseEnter += PinCurrent_MouseEnter2;
+
+           
+                PositionOrigin origin = new PositionOrigin { X = 0.4, Y = 0.4 };
+                MapLayer.SetPositionOrigin(PinCurrent, origin);
+
+              
+
+                CurrentPlace = radarViewModel.RVMGetCurrentPosition(OrderedPlaces);
+                var PlaneLocation = radarViewModel.RVMGetPosition(CurrentPlace);
+                PinCurrent.Location = PlaneLocation;
+
+                Location BeforeLastPosition = radarViewModel.RVMGetBeforeLastPosition(OrderedPlaces);
+
+                //calculate AngleRot
+                double angleRot= radarViewModel.angleFromCoordinat(BeforeLastPosition.Latitude, BeforeLastPosition.Longitude, PinCurrent.Location.Latitude, PinCurrent.Location.Longitude);
+
+
+                var OriginPlace = radarViewModel.RVMGetOriginAirport(OrderedPlaces);
+                PlaneLocation = radarViewModel.RVMGetPosition(OriginPlace);
+                PinOrigin.Location = PlaneLocation;
+
+
+                var AirportDst = radarViewModel.RVMGetPosition(Flight);
+                PinDestination.Location = AirportDst;
+                string planeDirection=radarViewModel.PlaneDirection(angleRot);
+                
+
+                if(planeDirection=="north")
+                    PinCurrent.Style = (Style)Resources["IsraelYellowNorth"];
+                if(planeDirection=="northEast")
+                    PinCurrent.Style = (Style)Resources["IsraelYellowNorthEast"];
+                if (planeDirection=="east")
+                    PinCurrent.Style = (Style)Resources["IsraelYellowEast"];
+                if (planeDirection == "eastSouth")
+                    PinCurrent.Style = (Style)Resources["IsraelYellowEastSouth"];
+                if (planeDirection == "south")
+                    PinCurrent.Style = (Style)Resources["IsraelYellowSouth"];
+                if (planeDirection == "southWest")
+                    PinCurrent.Style = (Style)Resources["IsraelYellowSouthWest"];
+                if (planeDirection=="west")
+                    PinCurrent.Style = (Style)Resources["IsraelYellowWest"];
+                if (planeDirection == "westNorth")
+                    PinCurrent.Style = (Style)Resources["IsraelYellowWestNorth"];
+
+
+
+
+                myMap.Children.Add(PinOrigin);
+                myMap.Children.Add(PinCurrent);
+                myMap.Children.Add(PinDestination);
+
+            }
+        }
+
+        private void DisplayAllFlightsButton_Click(object sender, RoutedEventArgs e)
+        {
+            dispatcherTimerOneFlight.Stop();
+            myMap.Children.Clear();
+            LabelOut.Visibility = Visibility.Hidden;
+            labelIncom.Visibility = Visibility.Hidden;
+            InFlightsListBox.Visibility = Visibility.Hidden;
+            OutFlightsListBox.Visibility = Visibility.Hidden;
+            ButtonReadAll.Visibility = Visibility.Hidden;
+            ButtonCounterOneFlight.Visibility = Visibility.Hidden;
+            CounterOneFlight.Visibility = Visibility.Hidden;
+            DisplayAllFlightsButton.Visibility = Visibility.Hidden;
+            FocusOneFlightButton.Visibility = Visibility.Visible;
+            Init();
+            List<BE.FlightInfoPartial> listEmpty = new List<BE.FlightInfoPartial>(); ;
+            InFlightsListBox.ItemsSource = listEmpty;
+            OutFlightsListBox.ItemsSource=listEmpty;
+            dispatcherTimerAllFlights.Start();
+
+        }
     }
 
 }

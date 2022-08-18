@@ -22,6 +22,7 @@ using MaterialDesignExtensions.Controls;
 using MaterialDesignThemes.Wpf;
 using System.Windows.Media.Animation;
 using System.Diagnostics;
+using System.IO;
 
 namespace AirTraffic.Radar
 {
@@ -30,7 +31,7 @@ namespace AirTraffic.Radar
     /// </summary>
     public partial class RadarView : UserControl
     {
-
+        
         BE.FlightInfoPartial SelectedFlight = null;
         public BE.Root Flight = new BE.Root();
         public RadarViewModel radarViewModel;
@@ -94,8 +95,22 @@ namespace AirTraffic.Radar
             string pathDest = "/images/" + obsWeather[1].weather[0].icon.ToString() + ".png";
             Uri resourceUridest = new Uri(pathDest, UriKind.Relative);
             fv.IconWeatherDestination.Source = new BitmapImage(resourceUridest);
-            // fv.IconWeatherOrigin.Source= new BitmapImage(new Uri(ImagePath + obsWeather[0].weather[0].icon.ToString() + ".png"));
-            //fv.IconWeatherDestination.Source= new BitmapImage(new Uri(ImagePath + obsWeather[1].weather[0].icon.ToString()+".png"));
+
+            string pathImagePlane = "/images/"+Flight.airline.name.ToString()+ ".jpg";
+
+            Uri resourceImPlane = new Uri(pathImagePlane, UriKind.Relative);
+           
+            fv.ImagePlane.Source = new BitmapImage(resourceImPlane);
+            string s = "C:/Users/USER/Documents/project maarehot halonot/projet github/AirTraffic/PL";
+             FileInfo file = new FileInfo(s+pathImagePlane);
+            if (file.Exists.Equals(false))
+            {
+                string pathImagePlaneDefault = "/images/Default Image.jpg";
+                Uri resourcePlaneDefault = new Uri(pathImagePlaneDefault, UriKind.Relative);
+                fv.ImagePlane.Source = new BitmapImage(resourcePlaneDefault);
+            }
+
+            
             myGrid.Children.Add(fv);
             Grid.SetColumn(fv, 1);
             Grid.SetRow(fv, 1);
@@ -433,9 +448,15 @@ namespace AirTraffic.Radar
             DisplayAllFlightsButton.Visibility = Visibility.Hidden;
             FocusOneFlightButton.Visibility = Visibility.Visible;
             Init();
-            List<BE.FlightInfoPartial> listEmpty = new List<BE.FlightInfoPartial>(); ;
-            InFlightsListBox.ItemsSource = listEmpty;
-            OutFlightsListBox.ItemsSource=listEmpty;
+            var items = myGrid.Children.Cast<UIElement>().Where(i => Grid.GetRow(i) == 1 && Grid.GetColumn(i) == 1);
+            foreach(var item in items.ToList())
+            {
+                if (item is PL.FlightData.FlightDataView)
+                    myGrid.Children.Remove(item);
+            }
+            
+            radarViewModel.FlightOutgoing.Clear();
+            radarViewModel.FlightIncoming.Clear();
             dispatcherTimerAllFlights.Start();
 
         }

@@ -23,7 +23,7 @@ namespace DAL
         List<BE.FlightInfoPartial> GetAllCurrentFlightsL();
 
         Task<BE.Root> GetFlightRoot(string Key);
-        Task GetFlightAsync(string Key);
+        Task<BE.Root> GetFlightAsync(string Key);
         void SaveFlightToDB(BE.FlightInfoPartial flight);
 
         List<BE.FlightInfoPartial> GetAllFlightInDB();

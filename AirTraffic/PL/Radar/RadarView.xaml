@@ -401,19 +401,20 @@
     <Grid Background="#FFE2D8CD" x:Name="radarviewgrid" >
 
 
-        <m:Map x:Name="myMap" CredentialsProvider="ApINLKklvvkm_3CQRgDQ2s-J4VMwZ1PzoRJ_guhxBVIGnlNYyTIfNhBQOlFeMlfR" ZoomLevel="5.0" Center="32.000454,34.870743" AnimationLevel="None"/>
+        <m:Map x:Name="myMap" CredentialsProvider="ApINLKklvvkm_3CQRgDQ2s-J4VMwZ1PzoRJ_guhxBVIGnlNYyTIfNhBQOlFeMlfR" ZoomLevel="6.4" Center="32.000454,34.870743" AnimationLevel="None"/>
 
 
 
         <Grid x:Name="myGrid" HorizontalAlignment="Center" Height="600" VerticalAlignment="Center" Width="1280">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="966*"/>
-                <ColumnDefinition Width="276*"/>
-                <ColumnDefinition Width="35*"/>
+                <ColumnDefinition Width="919*"/>
+                <ColumnDefinition Width="347*"/>
+                <ColumnDefinition Width="14*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
-                <RowDefinition Height="417"/>
+                <RowDefinition Height="259"/>
+                <RowDefinition Height="321"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <ListBox x:Name="InFlightsListBox" Visibility="Hidden" Foreground="White"  Grid.Row="1"  ItemsSource="{Binding FlightIncoming, Mode=OneWay}" HorizontalAlignment="Left" Height="162" Margin="47,60,0,0" VerticalAlignment="Top" Width="158" SelectionChanged="FlightsListBox_SelectionChanged">
@@ -430,7 +431,7 @@
                 </ListBox.Background>
 
             </ListBox>
-            <ListBox ItemsSource="{Binding FlightOutgoing, Mode=OneWay}" Foreground="White" x:Name="OutFlightsListBox"  Visibility="Hidden" HorizontalAlignment="Left" Height="162" Margin="47,258,0,0" VerticalAlignment="Top" Width="158" SelectionChanged="FlightsListBox_SelectionChanged" Grid.RowSpan="2" Grid.Row="1" >
+            <ListBox ItemsSource="{Binding FlightOutgoing, Mode=OneWay}" Foreground="White" x:Name="OutFlightsListBox" Visibility="Hidden" HorizontalAlignment="Left" Height="162" Margin="47,258,0,0" VerticalAlignment="Top" Width="158" SelectionChanged="FlightsListBox_SelectionChanged" Grid.RowSpan="2" Grid.Row="1" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -442,7 +443,7 @@
                     <SolidColorBrush Color= "Black" Opacity="0.4"/>
                 </ListBox.Background>
             </ListBox>
-            <Button x:Name="ButtonCounterOneFlight" Visibility="Hidden" HorizontalAlignment="Left"  Style="{DynamicResource RoundButton}" Foreground="White" Margin="570,22,0,0" Grid.Row="1" VerticalAlignment="Top" Width="66" Height="38" Click="ButtonCounterOneFlightClick">
+            <Button x:Name="ButtonCounterOneFlight" HorizontalAlignment="Left" Visibility="Hidden" Style="{DynamicResource RoundButton}" Foreground="White" Margin="570,22,0,0" Grid.Row="1" VerticalAlignment="Top" Width="66" Height="38" Click="ButtonCounterOneFlightClick">
                 <materialDesign:PackIcon Kind="Clock" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="44" Foreground="#DDFFFFFF"/>
                 <Button.Background>
                     <SolidColorBrush Color= "Black" Opacity="0.4"/>
@@ -461,7 +462,7 @@
                     <SolidColorBrush Color= "Black" Opacity="0.4"/>
                 </Label.Background>
             </Label>
-            <Button x:Name="ButtonReadAll" Visibility="Hidden" Content="Read All" HorizontalAlignment="Left" Margin="77,43,0,0" VerticalAlignment="Top" Width="96" Height="38"  Style="{DynamicResource RoundButton}" Foreground="White" FontFamily="Arial"
+            <Button x:Name="ButtonReadAll" Visibility="Hidden" Content="Read All" HorizontalAlignment="Left" Margin="78,203,0,0" VerticalAlignment="Top" Width="96" Height="38"  Style="{DynamicResource RoundButton}" Foreground="White" FontFamily="Arial"
             Command="{Binding ReadAllCommand}" Grid.Row="2"  CommandParameter="{Binding}">
                 <Button.Background>
                     <SolidColorBrush Color= "Black" Opacity="0.4"/>
@@ -471,13 +472,13 @@
 
             <TextBox x:Name="CounterOneFlight" Visibility="Hidden" Foreground="DarkMagenta"  HorizontalAlignment="Left" Margin="656,22,0,0" Grid.Row="1" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="1" VerticalAlignment="Top" Height="38" Width="39"  FontWeight="Bold" FontFamily="Arial" FontSize="20"/>
 
-            <Button x:Name="FocusOneFlightButton" Content="Focus on one flight" Grid.Column="1" Style="{DynamicResource RoundButton}" Foreground="White"  HorizontalAlignment="Left" Margin="165,10,0,0" Grid.Row="1" VerticalAlignment="Top" Click="FocusOneFlightButton_Click" Width="112" Height="37" FontFamily="Arial" Grid.ColumnSpan="2">
+            <Button x:Name="FocusOneFlightButton" Content="Focus on one flight" Grid.Column="1" Style="{DynamicResource RoundButton}" Foreground="White"  HorizontalAlignment="Left" Margin="165,10,0,0" Grid.Row="1" VerticalAlignment="Top" Click="FocusOneFlightButton_Click" Width="127" Height="37" FontFamily="Arial">
                 <Button.Background>
                     <SolidColorBrush Color= "Black" Opacity="0.4"/>
                 </Button.Background>
             </Button>
 
-            <Button x:Name="DisplayAllFlightsButton" Visibility="Hidden" Content="Display all flights" Grid.Column="1" Style="{DynamicResource RoundButton}" Foreground="White"  HorizontalAlignment="Left" Margin="155,58,0,0" Grid.Row="2" VerticalAlignment="Top" Click="DisplayAllFlightsButton_Click" Width="112" Height="37" FontFamily="Arial">
+            <Button x:Name="DisplayAllFlightsButton" Visibility="Hidden" Content="Display all flights" Grid.Column="1" Style="{DynamicResource RoundButton}" Foreground="White"  HorizontalAlignment="Left" Margin="206,226,0,0" Grid.Row="2" VerticalAlignment="Top" Click="DisplayAllFlightsButton_Click" Width="112" Height="37" FontFamily="Arial">
                 <Button.Background>
                     <SolidColorBrush Color= "Black" Opacity="0.4"/>
                 </Button.Background>

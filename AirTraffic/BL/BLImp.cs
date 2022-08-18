@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,16 +26,23 @@ namespace BL
             List<BE.FlightInfoPartial> AllFlights = dal.GetAllCurrentFlightsL();
             List<BE.FlightInfoPartial> Incoming = new List<BE.FlightInfoPartial>();
             List<BE.FlightInfoPartial> Outgoing = new List<BE.FlightInfoPartial>();
-
+           
             foreach (var item in AllFlights)
             {
-                BE.Root CurrentFlightBL = dal.GetFlightRoot(item.SourceId).Result;
-                if (item.Source == "TLV" && CurrentFlightBL != null)
-                    Outgoing.Add(item);
-                else
+                try
                 {
-                    if (item.Destination == "TLV" && CurrentFlightBL != null)
-                        Incoming.Add(item);
+                    BE.Root CurrentFlightBL = dal.GetFlightRoot(item.SourceId).Result;
+                    if (item.Source == "TLV" && CurrentFlightBL != null)
+                        Outgoing.Add(item);
+                    else
+                    {
+                        if (item.Destination == "TLV" && CurrentFlightBL != null)
+                            Incoming.Add(item);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
                 }
             }
             Result.Add("Incoming", Incoming);
@@ -122,17 +130,26 @@ namespace BL
 
         public ObservableCollection<BE.RootWeather> DisplayWeather(BE.Root flight)
         {
-            Double latOrigin = flight.airport.origin.position.latitude;
-            Double lngOrigin = flight.airport.origin.position.longitude;
-            Double latDestination = flight.airport.destination.position.latitude;
-            Double lngDestination = flight.airport.destination.position.longitude;
             ObservableCollection<BE.RootWeather> obsWeather = new ObservableCollection<BE.RootWeather>();
 
-            obsWeather.Add(dal.GetWeatherOfAirport(latOrigin, lngOrigin));
-            obsWeather.Add(dal.GetWeatherOfAirport(latDestination, lngDestination));
-            obsWeather[0].main.temp -= 273.15;
-            obsWeather[1].main.temp -= 273.15;
+            try
+            {
+                Double latOrigin = flight.airport.origin.position.latitude;
+                Double lngOrigin = flight.airport.origin.position.longitude;
+                Double latDestination = flight.airport.destination.position.latitude;
+                Double lngDestination = flight.airport.destination.position.longitude;
+
+                obsWeather.Add(dal.GetWeatherOfAirport(latOrigin, lngOrigin));
+                obsWeather.Add(dal.GetWeatherOfAirport(latDestination, lngDestination));
+                obsWeather[0].main.temp -= 273.15;
+                obsWeather[1].main.temp -= 273.15;
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
             return obsWeather;
+            
         }
 
         public double Angle(double lat1, double long1, double lat2, double long2)
@@ -153,16 +170,26 @@ namespace BL
         }
         public List<BE.Root> GetAllFlightRoot()
         {
-            List<BE.Root> listFlights = new List<BE.Root>();
-            dal.GetAllCurrentFlight1();
-            List<BE.FlightInfoPartial> AllFlights = dal.GetAllCurrentFlightsL();
-            BE.Root flight = new BE.Root();
-            foreach(var item in AllFlights)
-            {
-                flight = dal.GetFlightRoot(item.SourceId).Result;
-                if(flight!=null)
-                    listFlights.Add(flight);
-            }
+           
+                List<BE.Root> listFlights = new List<BE.Root>();
+                dal.GetAllCurrentFlight1();
+                List<BE.FlightInfoPartial> AllFlights = dal.GetAllCurrentFlightsL();
+                BE.Root flight = new BE.Root();
+            
+                foreach (var item in AllFlights)
+                {
+                    try
+                    {
+                        flight = dal.GetFlightRoot(item.SourceId).Result;
+                        if (flight != null)
+                            listFlights.Add(flight);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex.Message);
+                    }
+                }
+          
             return listFlights;
         }
     }

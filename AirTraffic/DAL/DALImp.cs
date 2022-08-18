@@ -141,7 +141,7 @@ namespace DAL
         //}
 
 
-        public async Task GetFlightAsync(string Key)
+        public Task<BE.Root> GetFlightAsync(string Key)
         {
             var CurrentUrl = FlightURL + Key;
             //BE.Root CurrentFlight = null;
@@ -162,7 +162,7 @@ namespace DAL
                 }
 
             }
-            //return CurrentFlight;
+            return Task.FromResult(CurrentFlight);
         }
         public void SaveFlightToDB(BE.FlightInfoPartial flight)
         {

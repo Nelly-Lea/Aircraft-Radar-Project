@@ -27,6 +27,14 @@ namespace AirTraffic.Radar
 
 
         }
+        public void RaisePropertyChanged(string Name)
+        {
+            var handler = this.PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(Name));
+            }
+        }
 
         private ObservableCollection<BE.FlightInfoPartial> flightIncoming;
         public ObservableCollection<BE.FlightInfoPartial> FlightIncoming
@@ -37,34 +45,39 @@ namespace AirTraffic.Radar
                     flightIncoming = new ObservableCollection<BE.FlightInfoPartial>();
                 return flightIncoming;
             }
-         
-        }
-        private Image image;
-        public Image imageYellow
-        {
-            get 
-            {
-                image = new Image();
-
-                // string s= "C:/Users/USER/Documents/project maarehot halonot/vrai projet git/AirTraffic/PL/images/airplaneYellow.png";
-                //   Uri imageUri = new Uri(s, UriKind.Relative);
-           
-                    var uriSource = new Uri(@"C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneYellow.png", UriKind.Relative);
-               // BitmapImage bitmapImage = new BitmapImage(imageUri);
-                image.Source= new BitmapImage(uriSource);
-                return image;
-            }
             set
             {
-                image = value;
-                OnPropertyChanged("imageYellow");
+                flightIncoming= value;
+                RaisePropertyChanged("FlightIncoming");
             }
-        }
 
-        public string DisplayImage
-        {
-            get { return @"~\..\images\airplaneYellow.png"; }
         }
+        //private Image image;
+        //public Image imageYellow
+        //{
+        //    get 
+        //    {
+        //        image = new Image();
+
+        //        // string s= "C:/Users/USER/Documents/project maarehot halonot/vrai projet git/AirTraffic/PL/images/airplaneYellow.png";
+        //        //   Uri imageUri = new Uri(s, UriKind.Relative);
+           
+        //            var uriSource = new Uri(@"C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneYellow.png", UriKind.Relative);
+        //       // BitmapImage bitmapImage = new BitmapImage(imageUri);
+        //        image.Source= new BitmapImage(uriSource);
+        //        return image;
+        //    }
+        //    set
+        //    {
+        //        image = value;
+        //        OnPropertyChanged("imageYellow");
+        //    }
+        //}
+
+        //public string DisplayImage
+        //{
+        //    get { return @"~\..\images\airplaneYellow.png"; }
+        //}
 
         private double anglerot;
         public double  AngleRot
@@ -124,7 +137,11 @@ namespace AirTraffic.Radar
                     flightOutgoing = new ObservableCollection<BE.FlightInfoPartial>();
                 return flightOutgoing;
             }
-
+            set
+            {
+                flightOutgoing = value;
+                RaisePropertyChanged("FlightOutgoing");
+            }
         }
 
         private ObservableCollection< BE.Root> currentFlight { get; set; }
@@ -146,7 +163,11 @@ namespace AirTraffic.Radar
         }
         public void DisplayCurrentFilghts()
         {
-          
+
+            FlightIncoming.Clear();
+            flightIncoming.Clear();
+            FlightOutgoing.Clear();
+            flightOutgoing.Clear();
             var CurrentFlight = radarModel.RMDisplayCurrentFlight();
             foreach (var item in CurrentFlight["Incoming"])
             {

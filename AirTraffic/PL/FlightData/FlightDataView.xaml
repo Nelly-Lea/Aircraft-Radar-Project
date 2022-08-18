@@ -6,18 +6,20 @@
               xmlns:converters="clr-namespace:AirTraffic.Converters"
              xmlns:local="clr-namespace:PL.FlightData" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              
-             mc:Ignorable="d" Width="276" Height="416">
+             mc:Ignorable="d" Width="342" Height="259">
+
     <UserControl.Resources>
         <converters:TickToDateTimeConverter x:Key="TickConvert"/>
     </UserControl.Resources>
-    <Grid>
+    <Grid Margin="10,0,2,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="4*"/>
-            <RowDefinition Height="91*"/>
-            <RowDefinition Height="322*"/>
+            <RowDefinition Height="27*"/>
+            <RowDefinition Height="212*"/>
+
+
         </Grid.RowDefinitions>
 
-        <Border CornerRadius="8,8,8,8" BorderBrush="Black" BorderThickness="2" Grid.RowSpan="3" HorizontalAlignment="Right" Width="276" >
+        <Border CornerRadius="8,8,8,8"  BorderThickness="2" Grid.RowSpan="2" HorizontalAlignment="Center" Width="320" >
             <Border.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFE2D8CD"/>
@@ -29,64 +31,70 @@
             </Border.Effect>
 
         </Border>
+        <Border CornerRadius="8,8,0,0" Grid.Row="0" Background="Gray"/>
+        <Border CornerRadius="0,0,8,8" Background="#FFDBDFE0" Margin="0,29,0,0" Grid.RowSpan="2"/>
+        <Button HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent" Height="34" VerticalAlignment="Center" Width="92" Click="Button_Click" Margin="260,0,0,0">
+            <materialDesign:PackIcon Kind="Close " Foreground="White" HorizontalAlignment="Center" Height="28" Width="43" VerticalAlignment="Center"/>
+        </Button>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,29,0,0" Grid.RowSpan="2">
+
+            <StackPanel x:Name="DetailsPanel" Height="524" Width="301" Margin="0,0,0,-84" Grid.RowSpan="3">
+                <Grid Height="391" Width="296" Margin="5,5,5,0">
 
 
-        <StackPanel x:Name="DetailsPanel"  HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="276" Margin="0,0,0,-84" Grid.RowSpan="3">
-            <Grid Height="405" Width="270" Margin="5,5,5,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="99*"/>
+                        <ColumnDefinition Width="82*"/>
+                        <ColumnDefinition Width="90*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="23"/>
+                        <RowDefinition Height="23"/>
+                        <RowDefinition Height="49"/>
+                        <RowDefinition Height="18"/>
+                        <RowDefinition Height="41"/>
+                        <RowDefinition Height="23"/>
+                        <RowDefinition Height="23"/>
+                        <RowDefinition Height="23"/>
+                        <RowDefinition Height="23"/>
+                        <RowDefinition Height="23"/>
+                        <RowDefinition Height="23"/>
+                        <RowDefinition Height="23"/>
+                        <RowDefinition Height="23"/>
+                        <RowDefinition Height="23"/>
+                        <RowDefinition Height="23"/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="FlightNum" Content="{Binding identification.callsign}" VerticalAlignment="Center" Height="25" Grid.ColumnSpan="2" Margin="10,0,50,0"/>
+                    <Label Content="{Binding airline.name}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="23" Width="177" Grid.ColumnSpan="2" Grid.Row="1"/>
+                    <Label  Content="{Binding airport.origin.code.iata}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" FontSize="25" Grid.Row="2" VerticalAlignment="Center" Height="51" Width="92" Margin="6,0,0,0" FontFamily="Arial"/>
+                    <Image Source="C:\Projet aircraft radar\AirTraffic\PL\images\aircraft.png" HorizontalAlignment="Left" Height="60" VerticalAlignment="Center" Width="90" Margin="106,0,0,0" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
+                    <Label Content="{Binding airport.destination.code.iata}"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="2" HorizontalAlignment="Left" FontSize="25" Grid.Row="2" VerticalAlignment="Center" Height="49" Width="92" Margin="5,0,0,0"/>
+                    <Label Content="{Binding airport.origin.position.country.name}" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="87" Height="22" FontSize="11" FontFamily="Arial"/>
+                    <Label Content="{Binding airport.destination.position.country.name}" Grid.Column="2" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" Height="22" Width="96" FontSize="11" FontFamily="Arial" Margin="2,0,0,0"/>
+                    <Label Content="Aircraft:" HorizontalAlignment="Left" FontFamily="Harrington" VerticalContentAlignment="Top" FontWeight="Bold" FontSize="14" Margin="3,0,0,0" Grid.Row="6" VerticalAlignment="Center" Grid.ColumnSpan="2" Height="22" Width="144" Foreground="#DD4A3B3B" />
+                    <Label Content="{Binding aircraft.model.text}" FontFamily="Arial" HorizontalContentAlignment="Left"  VerticalContentAlignment="Top" HorizontalAlignment="Left" Grid.Row="7" VerticalAlignment="Center" Height="24" Width="144" Grid.ColumnSpan="2" Margin="19,0,0,0"/>
+                    <Label Content="Registration:" HorizontalAlignment="Left" FontFamily="Harrington" Foreground="#DD4A3B3B" FontWeight="Bold" Grid.Row="8" VerticalAlignment="Center" Height="24" Width="129" Grid.ColumnSpan="2" Margin="4,0,0,0" FontSize="14"/>
+                    <Label  Content="{Binding aircraft.registration}" HorizontalAlignment="Left" Grid.Row="9" VerticalAlignment="Center" Height="22" Width="148" Grid.ColumnSpan="2" Margin="19,0,0,0" FontFamily="Arial"/>
+                    <Label Content="Departure date and time:" Foreground="#DD4A3B3B" HorizontalAlignment="Left" Margin="2,0,0,0" Grid.Row="10" VerticalAlignment="Center" Height="26" FontFamily="Harrington" FontSize="14" FontWeight="Bold" Width="208" Grid.ColumnSpan="3"/>
+                    <Label Content="{Binding time.estimated.arrival, Converter={StaticResource TickConvert}}" HorizontalContentAlignment="Left" VerticalContentAlignment="Top"  HorizontalAlignment="Left" Grid.Row="11" VerticalAlignment="Top" Height="26" Width="210" Grid.ColumnSpan="3" Margin="19,2,0,0" Grid.RowSpan="2" FontFamily="Arial" />
+                    <Label Content="Estimated time of arrival:" Foreground="#DD4A3B3B" HorizontalAlignment="Left" Margin="2,0,0,0" Grid.Row="12" VerticalAlignment="Center" Height="28" FontFamily="Harrington" FontSize="14" FontWeight="Bold" Width="210" Grid.ColumnSpan="3" />
+                    <Label Content="{Binding status.text}" HorizontalAlignment="Left"  HorizontalContentAlignment="Left" VerticalContentAlignment="Top"  Grid.Row="13" VerticalAlignment="Center" Height="22" Width="282" FontFamily="Arial" Grid.ColumnSpan="3" Margin="19,0,0,0"/>
 
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="99*"/>
-                    <ColumnDefinition Width="82*"/>
-                    <ColumnDefinition Width="90*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="23"/>
-                    <RowDefinition Height="23"/>
-                    <RowDefinition Height="49"/>
-                    <RowDefinition Height="18"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="23"/>
-                    <RowDefinition Height="23"/>
-                    <RowDefinition Height="23"/>
-                    <RowDefinition Height="23"/>
-                    <RowDefinition Height="23"/>
-                    <RowDefinition Height="23"/>
-                    <RowDefinition Height="23"/>
-                    <RowDefinition Height="23"/>
-                    <RowDefinition Height="23"/>
-                    <RowDefinition Height="23"/>
-                </Grid.RowDefinitions>
-                <Label x:Name="FlightNum" Content="{Binding identification.callsign}" VerticalAlignment="Center" Height="25" Grid.ColumnSpan="2" Margin="10,24,49.8,22.2" Grid.RowSpan="3"/>
-                <Label Content="{Binding airline.name}" HorizontalAlignment="Left" Margin="10,0,0,0.2" VerticalAlignment="Center" Height="23" Width="177" Grid.ColumnSpan="3" Grid.Row="2"/>
-                <Label  Content="{Binding airport.origin.code.iata}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" FontSize="25" Grid.Row="2" VerticalAlignment="Center" Height="51" Width="92" Margin="2,22,5.2,16.6" Grid.RowSpan="3"/>
-                <Image Source="C:\Projet aircraft radar\AirTraffic\PL\images\aircraft.png" HorizontalAlignment="Left" Height="61" VerticalAlignment="Center" Width="90" Grid.Row="2" Margin="11.8,17,0,11.6" Grid.ColumnSpan="2" Grid.Column="1" Grid.RowSpan="3"/>
-                <Label Content="{Binding airport.destination.code.iata}"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="2" HorizontalAlignment="Center" FontSize="25" Grid.Row="2" VerticalAlignment="Center" Height="49" Width="92" Margin="1.2,23,-3.6,0" Grid.RowSpan="2"/>
-                <Label Content="{Binding airport.origin.position.country.name}" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="3,46.8,0,0" Grid.Row="3" VerticalAlignment="Top" Width="87" Height="22" FontSize="11" Grid.RowSpan="3"/>
-                <Label Content="{Binding airport.destination.position.country.name}" Grid.Column="2" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Top" Height="22" Width="96" FontSize="11" Margin="0.2,46.8,-6.6,0" Grid.RowSpan="3"/>
-                <Label Content="Aircraft:" HorizontalAlignment="Left" FontFamily="Harrington" VerticalContentAlignment="Top" FontWeight="Bold" FontSize="14" Margin="3,0.6,0,0.6" Grid.Row="7" VerticalAlignment="Center" Grid.ColumnSpan="2" Height="22" Width="144" Foreground="#DD4A3B3B" />
-                <Label Content="{Binding aircraft.model.text}" HorizontalContentAlignment="Left"  VerticalContentAlignment="Top" HorizontalAlignment="Left" Margin="32,1.4,0,23" Grid.Row="8" VerticalAlignment="Center" Height="22" Width="144" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
-                <Label Content="Registration:" HorizontalAlignment="Left" FontFamily="Harrington" Foreground="#DD4A3B3B" FontWeight="Bold" Grid.Row="9" VerticalAlignment="Center" Height="24" Width="129" Grid.ColumnSpan="2" Margin="4,0.2,0,22.2" FontSize="14" Grid.RowSpan="2"/>
-                <Label  Content="{Binding aircraft.registration}" HorizontalAlignment="Left" Grid.Row="10" VerticalAlignment="Center" Height="22" Width="148" Grid.ColumnSpan="2" Margin="32,1,0,0.2"/>
-                <Label Content="Departure date and time:" Foreground="#DD4A3B3B" HorizontalAlignment="Left" Margin="2,22,0,21.6" Grid.Row="10" VerticalAlignment="Center" Height="26" FontFamily="Harrington" FontSize="14" FontWeight="Bold" Width="208" Grid.ColumnSpan="3" Grid.RowSpan="3"/>
-                <Label Content="{Binding time.estimated.arrival, Converter={StaticResource TickConvert}}" HorizontalContentAlignment="Left" VerticalContentAlignment="Top"  HorizontalAlignment="Left" Grid.Row="11" VerticalAlignment="Center" Height="26" Width="210" Grid.ColumnSpan="3" Margin="30,21.8,0,21.8" Grid.RowSpan="3" />
-                <Label Content="Estimated time of arrival:" Foreground="#DD4A3B3B" HorizontalAlignment="Left" Margin="2,20.6,0,21" Grid.Row="12" VerticalAlignment="Center" Height="28" FontFamily="Harrington" FontSize="14" FontWeight="Bold" Width="210" Grid.ColumnSpan="3" Grid.RowSpan="3" />
-                <Label Content="{Binding status.text}" HorizontalAlignment="Left"  HorizontalContentAlignment="Left" VerticalContentAlignment="Top"  Grid.Row="14" VerticalAlignment="Center" Height="22" Width="282" Grid.ColumnSpan="3" Margin="30,1.2,-41.6,0"/>
-                <Button Grid.Column="2" HorizontalAlignment="Left" Background="Transparent" Height="34" BorderBrush="Transparent" Margin="23.2,-1,-25.6,0" VerticalAlignment="Top" Width="92" Grid.RowSpan="2" Click="Button_Click">
-                    <materialDesign:PackIcon Kind="Close " Foreground="Black" HorizontalAlignment="Center" Height="28" Width="43" VerticalAlignment="Center"/>
-                </Button>
-
-                <Label x:Name="DesWeatherOrigin"  HorizontalAlignment="Left" Margin="10,49.4,0,0" VerticalAlignment="Top" Height="24" Width="70" Grid.RowSpan="3" Grid.Row="5"/>
-                <Label x:Name="TempWeatherDestination"  HorizontalAlignment="Left" Margin="49.2,7.4,0,0" Grid.Row="5" VerticalAlignment="Top" Height="36" Width="40" Grid.Column="2"/>
-                <Image x:Name="IconWeatherDestination" HorizontalAlignment="Left" Height="48" Margin="62.8,0.4,0,0" Grid.Row="5" VerticalAlignment="Top" Width="53" Grid.Column="1" Grid.ColumnSpan="2"/>
-                <Label x:Name="DesWeatherDestination"   HorizontalAlignment="Left" Margin="9.2,48.4,0,0" Grid.Row="5" VerticalAlignment="Top" Height="24" Width="70" Grid.RowSpan="2" Grid.Column="2"/>
-                <Image x:Name="IconWeatherOrigin" HorizontalAlignment="Left" Height="48" Margin="2,1.4,0,0" VerticalAlignment="Top" Width="53" Grid.Row="5"/>
-                <Label x:Name="TempWeatherOrigin"  HorizontalAlignment="Left" Margin="60,7.4,0,0" VerticalAlignment="Top" Height="36" Width="50" Grid.Row="5" Grid.ColumnSpan="2"/>
-            </Grid>
+                    <Label x:Name="DesWeatherOrigin" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Height="24" Width="95" Grid.Row="4" FontFamily="Arial" Margin="0,34,0,0" Grid.RowSpan="2"/>
+                    <Label x:Name="TempWeatherDestination" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" Height="36" Width="52" Grid.Column="2" Margin="27,0,0,0" FontFamily="Arial"/>
+                    <Image x:Name="IconWeatherDestination" HorizontalAlignment="Left" Height="48" Margin="72,12,0,0" Grid.Row="3" VerticalAlignment="Top" Width="53" Grid.Column="1" Grid.ColumnSpan="2" RenderTransformOrigin="0.504,0.562" Grid.RowSpan="3" />
+                    <Label x:Name="DesWeatherDestination"  HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="72,34,0,0" Grid.Row="4" VerticalAlignment="Top" Height="24" Width="115" Grid.Column="1" Grid.ColumnSpan="2" FontFamily="Arial" Grid.RowSpan="2"/>
+                    <Image x:Name="IconWeatherOrigin" Height="48" Grid.Row="3" VerticalAlignment="Top" Width="53"  HorizontalAlignment="Left"  Margin="10,13,0,0" Grid.RowSpan="3"/>
+                    <Label x:Name="TempWeatherOrigin" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="54,0,0,0" VerticalAlignment="Center" Height="36" Width="49" Grid.Row="4" FontFamily="Arial"/>
+                    <Label Content="°" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="103,0,0,0" Grid.Row="4" Height="36" Grid.ColumnSpan="2" Width="13"/>
+                    <Label Content="°" Grid.Column="2" HorizontalAlignment="Left" Margin="78,0,0,0" Grid.Row="4" VerticalAlignment="Center" Height="36" Width="12"/>
+                    <Image x:Name="ImagePlane" HorizontalAlignment="Left" Height="98" Margin="27,13,0,0" Grid.Row="6" VerticalAlignment="Top" Width="183" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="5"/>
+                </Grid>
 
 
-        </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
 
 
 

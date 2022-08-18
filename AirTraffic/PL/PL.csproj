@@ -218,6 +218,37 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="images\Bluebird Airways.jpg" />
+    <Resource Include="images\Brussels Airlines.jpg" />
+    <Resource Include="images\Default Image.jpg" />
+    <Resource Include="images\Lufthansa Cargo.jpg" />
+    <Resource Include="images\Airkia Israeli Airlines.jpg" />
+    <Resource Include="images\AirSERBIA.jpg" />
+    <Resource Include="images\AnadoluJet.jpg" />
+    <Resource Include="images\Austrian Airlines.jpg" />
+    <Resource Include="images\Azerbaijan Airlines.jpg" />
+    <Resource Include="images\Corendon Airline.jpg" />
+    <Resource Include="images\easyJet.jpg" />
+    <Resource Include="images\El Al.jpg" />
+    <Resource Include="images\European Air Charter.jpg" />
+    <Resource Include="images\flydubai.jpg" />
+    <Resource Include="images\Israir Airlines %28Future Peace Partnership Livery%29.jpg" />
+    <Resource Include="images\LOT.jpg" />
+    <Resource Include="images\MNG Airlines.jpg" />
+    <Resource Include="images\Neos.jpg" />
+    <Resource Include="images\Norwegian %28N.F.S. Gruntvig Livery%29.jpg" />
+    <Resource Include="images\Pegasus.jpg" />
+    <Resource Include="images\Ryanair.jpg" />
+    <Resource Include="images\Smartwings.jpg" />
+    <Resource Include="images\Sun d%27Or International Airline.jpg" />
+    <Resource Include="images\SunExpress.jpg" />
+    <Resource Include="images\Tailwind Airlines.jpg" />
+    <Resource Include="images\Turkish Airlines.jpg" />
+    <Resource Include="images\Tus Airways.jpg" />
+    <Resource Include="images\United Airlines.jpg" />
+    <Resource Include="images\Uzbekistan Airways.jpg" />
+    <Resource Include="images\VistaJet.jpg" />
+    <Resource Include="images\Wizz Air.jpg" />
     <Resource Include="images\airplane.png" />
     <Resource Include="images\airplaneRed.png" />
     <Resource Include="images\airplaneYellow.png" />
@@ -239,6 +270,9 @@
     <Resource Include="images\13n.png" />
     <Resource Include="images\50d.png" />
     <Resource Include="images\50n.png" />
+    <Resource Include="images\Aegean Airlines.jpg" />
+    <Resource Include="images\Air Canada.jpg" />
+    <Resource Include="images\Air Moldova.jpg" />
     <Content Include="images\aircraft radar.mp4" />
     <Resource Include="images\aircraft.png" />
   </ItemGroup>

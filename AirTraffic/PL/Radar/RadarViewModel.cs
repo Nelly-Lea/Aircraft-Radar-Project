@@ -251,6 +251,21 @@ namespace AirTraffic.Radar
         {
             return radarModel.RMGetAllFLightsRoot();
         }
+
+        public BE.Root RVMGetRoot(string flightCode)
+        {
+            List<BE.Root> listRoot = radarModel.RMGetAllFLightsRoot();
+           
+            foreach(var item in listRoot)
+            {
+                string s = item.identification.number.@default;
+                if (s == flightCode)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
     }
 }
 

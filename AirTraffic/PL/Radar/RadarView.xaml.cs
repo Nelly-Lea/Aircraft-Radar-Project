@@ -116,14 +116,26 @@ namespace AirTraffic.Radar
             Grid.SetRow(fv, 1);
         }
 
+        private void Pin_MouseDownAllFlights(object sender, MouseButtonEventArgs e)
+        {
+           
+            Pushpin pushpin = sender as Pushpin;
+            string FlightCode=pushpin.ToolTip.ToString();
+            BE.Root flight = radarViewModel.RVMGetRoot(FlightCode);
+            //if (flight != null)
+            //{
+            //    addNewPolyLine(flight.trail);
 
-        //private void Button_Click_1(object sender, RoutedEventArgs e) // pr rajouter l'onglet
-        //{
-        //    FlightDataView fv = new FlightDataView();
-        //    radarviewgrid.Children.Add(fv);
+            //    List<Pushpin> l = myMap.Children.OfType<Pushpin>().ToList();
 
+            //    foreach (var item in l)
+            //    {
+            //        if (item.Location.Latitude == flight.airport.origin.position.latitude && item.Location.Longitude == flight.airport.origin.position.longitude)
+            //            item.Background = new SolidColorBrush(Color.FromRgb(100, 100, 100));
+            //    }
+            //}
 
-        //}
+        }
 
         private void FlightsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -166,8 +178,11 @@ namespace AirTraffic.Radar
                 BE.Trail CurrentPlace = null;
                 
                 Pushpin PinCurrent = new Pushpin { ToolTip = selected.FlightCode };
+                
                 Pushpin PinOrigin = new Pushpin { ToolTip = Flight.airport.origin.name };
+                PinOrigin.Background = new SolidColorBrush(Color.FromRgb(255, 127, 80)); //couleur coral
                 Pushpin PinDestination = new Pushpin { ToolTip = Flight.airport.destination.name };
+                PinDestination.Background = new SolidColorBrush(Color.FromRgb(255, 127, 80)); //couleur coral
                 PinCurrent.MouseDoubleClick += Pin_MouseDown;
                 PinCurrent.MouseEnter += PinCurrent_MouseEnter;
                 
@@ -378,7 +393,7 @@ namespace AirTraffic.Radar
                 Pushpin PinCurrent = new Pushpin { ToolTip = flight.identification.number.@default};
                 Pushpin PinOrigin = new Pushpin { ToolTip = Flight.airport.origin.name };
                 Pushpin PinDestination = new Pushpin { ToolTip = Flight.airport.destination.name };
-                //PinCurrent.MouseDoubleClick += Pin_MouseDown;
+                PinCurrent.MouseDoubleClick += Pin_MouseDownAllFlights;
                 PinCurrent.MouseEnter += PinCurrent_MouseEnter2;
 
            
@@ -433,6 +448,9 @@ namespace AirTraffic.Radar
 
             }
         }
+
+        
+
 
         private void DisplayAllFlightsButton_Click(object sender, RoutedEventArgs e)
         {

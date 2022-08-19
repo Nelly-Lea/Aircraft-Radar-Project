@@ -336,9 +336,9 @@ namespace DAL
 
         }
 
-        public RootWeather GetWeatherOfAirport (double latitude, double longitude)
+        public RootWeather GetWeatherOfAirport(double latitude, double longitude)
         {
-            
+
             using (var webClient = new System.Net.WebClient())
             {
                 string key = "085845fad636a5a47a3f041f98275e2c";
@@ -348,10 +348,12 @@ namespace DAL
                 var json = webClient.DownloadString(URL);
                 RootWeather Data = JsonConvert.DeserializeObject<RootWeather>(json);
                 return Data;
-                
+
             }
 
-    
-    }
+
+        }
+
+        
     }
 }

@@ -29,6 +29,7 @@ namespace DAL
         List<BE.FlightInfoPartial> GetAllFlightInDB();
 
         void DeleteFlight(BE.FlightInfoPartial flight);
+      
         #endregion
         #region Position
         List<BE.Trail> getTrail(BE.Root flight);

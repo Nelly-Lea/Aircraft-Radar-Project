@@ -34,9 +34,9 @@ namespace AirTraffic.Radar
             return BL.getTrail(flight);
         }
 
-        public BE.Trail RMGetOriginAirport(List<BE.Trail> OrderedPlaces)
+        public Location RMGetOriginAirport(BE.Root flight)
         {
-            return BL.GetOriginAirport(OrderedPlaces);
+            return BL.GetOriginAirport(flight);
         }
 
         public BE.Trail RMGetCurrentPosition(List<BE.Trail> OrderedPlaces)

@@ -85,9 +85,9 @@ namespace BL
 
 
 
-        public BE.Trail GetOriginAirport(List<BE.Trail> OrderedPlaces)
+        public Location GetOriginAirport(BE.Root flight)
         {
-            return dal.GetOriginAirport(OrderedPlaces);
+            return dal.GetOriginAirport(flight);
         }
 
         public BE.Trail GetCurrentPosition(List<BE.Trail> OrderedPlaces)

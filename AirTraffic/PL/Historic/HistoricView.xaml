@@ -24,9 +24,11 @@
 
     </UserControl.Resources>
 
-    <Grid Background="#FFE2D8CD" Margin="6,0,-6,0" >
-        <StackPanel HorizontalAlignment="Left" Height="100" Margin="408,127,0,0" VerticalAlignment="Top" Width="100">
-            <DatePicker  SelectedDate="{x:Static sys:DateTime.Now}" x:Name="From" Height="36">
+    <Grid Background="#FFD4D4D4" Margin="6,0,-6,0" >
+
+
+        <StackPanel HorizontalAlignment="Left" Height="100" Margin="408,115,0,0" VerticalAlignment="Top" Width="100">
+            <DatePicker  SelectedDate="{x:Static sys:DateTime.Now}" x:Name="From" Height="36" FontFamily="Arial" Background="#FFE8E8E8">
                 <DatePicker.CalendarStyle>
                     <Style TargetType="{x:Type Calendar}">
                         <Style.Resources>
@@ -40,8 +42,8 @@
                 </DatePicker.CalendarStyle>
             </DatePicker>
         </StackPanel>
-        <StackPanel HorizontalAlignment="Left" Height="100" Margin="783,127,0,0" VerticalAlignment="Top" Width="100">
-            <DatePicker  SelectedDate="{x:Static sys:DateTime.Now}" x:Name="To" Height="38">
+        <StackPanel HorizontalAlignment="Left" Height="100" Margin="783,115,0,0" VerticalAlignment="Top" Width="100">
+            <DatePicker  SelectedDate="{x:Static sys:DateTime.Now}" x:Name="To" Height="38" FontFamily="Arial" Background="#FFE8E8E8">
                 <DatePicker.CalendarStyle>
                     <Style TargetType="Calendar"   BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
                         <Style.Resources>
@@ -52,44 +54,47 @@
                 </DatePicker.CalendarStyle>
             </DatePicker>
         </StackPanel>
-        <Label Content="From" HorizontalAlignment="Left" Margin="408,92,0,0" VerticalAlignment="Top" Height="35" Width="135" FontWeight="Bold" FontSize="16"/>
-        <Label Content="To" HorizontalAlignment="Left" Margin="783,92,0,0" VerticalAlignment="Top" Height="35" Width="135" FontWeight="Bold" RenderTransformOrigin="0.142,0.697" FontSize="16"/>
-        <Label Content="Your search history" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="380,18,452,0" VerticalAlignment="Top" Height="55" Width="448" FontFamily="Harrington" FontWeight="Bold" FontSize="36"/>
-        <ListView x:Name="ListHistoric" Background="Tan" ItemsSource="{Binding FlightBetweenTwoDates , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="333" Margin="132,194,0,0" VerticalAlignment="Top" Width="1062"  >
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Flight Code" DisplayMemberBinding="{Binding FlightCode}" Width="150"/>
-                    <GridViewColumn Header="From" DisplayMemberBinding="{Binding Source}" Width="150"/>
-                    <GridViewColumn Header="To" DisplayMemberBinding="{Binding Destination}" Width="150"/>
-                    <GridViewColumn Header="Date and Time" DisplayMemberBinding="{Binding DateAndTime}" Width="150"/>
+        <Label Content="From" HorizontalAlignment="Left" Margin="408,80,0,0" VerticalAlignment="Top" Height="35" Width="135" FontWeight="Bold" FontSize="16" FontFamily="Arial"/>
+        <Label Content="To" HorizontalAlignment="Left" Margin="783,80,0,0" VerticalAlignment="Top" Height="35" Width="135" FontWeight="Bold" RenderTransformOrigin="0.142,0.697" FontSize="16" FontFamily="Arial"/>
+        <Label Content="Your search history" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,4,0,0" VerticalAlignment="Top" Height="69" Width="1280" FontFamily="MV Boli" FontWeight="Bold" FontSize="36"/>
+        <Grid Margin="113,196,131,56" Background="#FFB9B8B8">
 
-                    <GridViewColumn Width="120">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button  Command="{Binding ElementName=ListHistoric, Path=DataContext.DeleteFlightCommand}" CommandParameter="{Binding}" FontFamily="Kristen ITC"  Width="100" Height="40" VerticalAlignment="Center" Background="Transparent" BorderBrush="Transparent" >
-                                    <Button.Content>
-                                        <materialDesign:PackIcon Kind="TrashCanCircleOutline" Height="30" Width="30" Foreground="MidnightBlue" MouseDoubleClick="PackIcon_MouseDoubleClick"/>
-                                    </Button.Content>
-                                </Button>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+           
+            <ListView x:Name="ListHistoric" ItemsSource="{Binding FlightBetweenTwoDates , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="348" VerticalAlignment="Center" Width="1036" FontFamily="Arial" Grid.ColumnSpan="2" >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Flight Code" DisplayMemberBinding="{Binding FlightCode}" Width="150"/>
+                        <GridViewColumn Header="From" DisplayMemberBinding="{Binding Source}" Width="150"/>
+                        <GridViewColumn Header="To" DisplayMemberBinding="{Binding Destination}" Width="150"/>
+                        <GridViewColumn Header="Date and Time" DisplayMemberBinding="{Binding DateAndTime}" Width="150"/>
 
-
-
-                </GridView>
-
+                        <GridViewColumn Width="120">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button  Command="{Binding ElementName=ListHistoric, Path=DataContext.DeleteFlightCommand}" CommandParameter="{Binding}" FontFamily="Kristen ITC"  Width="100" Height="40" VerticalAlignment="Center" Background="Transparent" BorderBrush="Transparent" >
+                                        <Button.Content>
+                                            <materialDesign:PackIcon Kind="TrashCanCircleOutline" Height="30" Width="30" Foreground="MidnightBlue" MouseDoubleClick="PackIcon_MouseDoubleClick"/>
+                                        </Button.Content>
+                                    </Button>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
 
 
+                    </GridView>
 
-            </ListView.View>
 
-        </ListView>
 
-        <Button Style="{DynamicResource RoundButton}" Command="{Binding SHCommand}" Width="141" Height="38" FontFamily="Harrington" Background="MidnightBlue" BorderBrush="MidnightBlue" HorizontalAlignment="Left" Margin="1008,103,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"  >
+
+
+                </ListView.View>
+
+            </ListView>
+        </Grid>
+        <Button Style="{DynamicResource RoundButton}" Command="{Binding SHCommand}" Width="141" Height="38" FontFamily="Harrington" Background="MidnightBlue" BorderBrush="MidnightBlue" HorizontalAlignment="Left" Margin="1008,99,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"  >
             <StackPanel Orientation="Horizontal" Width="132">
-                <Label Content="Search" Height="24" Width="71" Foreground="White" FontWeight="Normal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <Label Content="Search" Height="24" Width="71" Foreground="White" FontWeight="Normal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="MV Boli"/>
                 <materialDesign:PackIcon Kind="Search" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="44" Foreground="#DDFFFFFF"/>
             </StackPanel>
             <Button.CommandParameter>
@@ -99,10 +104,10 @@
                 </MultiBinding>
             </Button.CommandParameter>
         </Button>
-        <Button Style="{DynamicResource RoundButton}" Command="{Binding HCommand}" Width="141" Height="38" HorizontalAlignment="Left" Margin="113,103,0,0" VerticalAlignment="Top" FontFamily="Harrington" Background="MidnightBlue"  >
+        <Button Style="{DynamicResource RoundButton}" Command="{Binding HCommand}" Width="141" Height="38" HorizontalAlignment="Left" Margin="113,99,0,0" VerticalAlignment="Top" FontFamily="Harrington" Background="MidnightBlue"  >
 
             <StackPanel Orientation="Horizontal" Width="132">
-                <Label Content="Event" Height="24" Width="71" Foreground="White" FontWeight="Normal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <Label Content="Event" Height="24" Width="71" Foreground="White" FontWeight="Normal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="MV Boli"/>
                 <materialDesign:PackIcon Kind="Jewish" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="44" Foreground="#DDFFFFFF"/>
             </StackPanel>
             <Button.CommandParameter>
@@ -113,7 +118,12 @@
             </Button.CommandParameter>
         </Button>
 
-        <TextBlock x:Name="HolidayLabel" Foreground="Red" Text="{Binding HolidaysMessage}" HorizontalAlignment="Left" Margin="490,176,0,0" VerticalAlignment="Top" Height="29" Width="393" FontWeight="Bold" FontFamily="Arial"/>
+        <Label Foreground="Red" HorizontalContentAlignment="Center" Content="{Binding HolidaysMessage}" HorizontalAlignment="Left" Margin="408,162,0,0" VerticalAlignment="Top" Height="29" Width="475" FontWeight="Bold" FontFamily="Arial"/>
+        <!--<Rectangle HorizontalAlignment="Left" Height="333" Margin="113,182,0,0" VerticalAlignment="Top" Width="1081"  Stroke="#FFAAAAAA">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="Black" Opacity="0.15"/>
+            </Rectangle.Fill>
+        </Rectangle>-->
 
 
 

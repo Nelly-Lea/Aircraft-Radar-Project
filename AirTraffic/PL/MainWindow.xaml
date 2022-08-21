@@ -17,7 +17,7 @@
         Title="MainWindow"  Height="600" Width="1280.334">
 
     <Grid>
-        <Grid Background="#FFE2D8CD" Margin="0,0,-0.4,0" >
+        <Grid Background="#FFD4D4D4" Margin="0,0,-0.4,0" >
 
             <Grid.RowDefinitions >
                 <RowDefinition Height="49*"/>
@@ -27,39 +27,39 @@
             <Button 
 
             Style="{StaticResource MaterialDesignRaisedButton}"
-            ToolTip="Resource name: MaterialDesignRaisedButton" Grid.Row="0" Height="49" Margin="0,0,1057,0" Background="#FFE2D8CD" BorderBrush="#FFE2D8CD" Foreground="Black" FontFamily="Harrington" Content="Radar" VerticalAlignment="Top" HorizontalAlignment="Right" FontWeight="Bold" Click="ButtonRadar" Width="217" Grid.RowSpan="2" />
+            ToolTip="Resource name: MaterialDesignRaisedButton" Height="49" Background="#FFD4D4D4" BorderBrush="Black" Foreground="Black" FontFamily="MV Boli" Content="Radar" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" Click="ButtonRadar" Width="183" FontSize="20" />
 
 
             <Button
             Style="{StaticResource MaterialDesignRaisedButton}"
-            ToolTip="Resource name: MaterialDesignRaisedButton" Content="Historic" Grid.Row="0" Height="49" Margin="0,0,840,0" Background="#FFE2D8CD" BorderBrush="#FFE2D8CD" Foreground="Black" FontFamily="Harrington" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Right" Width="217" Grid.RowSpan="2" Click="ButtonHistoric" />
-            <Grid>
-                <MediaElement Stretch="UniformToFill" x:Name="player" HorizontalAlignment="Center"
-                      Source="C:\Projet c# radar avions\AirTrafficProject\images\\aircraft radar.mp4" Margin="253,125,264.6,-493.2" Width="756"  />
-                <Button Content="Holidays" Style="{StaticResource MaterialDesignRaisedButton}"
-                   ToolTip="Resource name: MaterialDesignRaisedButton" Grid.Row="0"  Width="217" Height="49" Background="#FFE2D8CD" BorderBrush="#FFE2D8CD" Foreground="Black" FontFamily="Harrington" HorizontalAlignment="Left" Margin="435,0,0,-0.2" VerticalAlignment="Top"  FontWeight="Bold" Click="ButtonHolidays"/>
+            ToolTip="Resource name: MaterialDesignRaisedButton" Content="Historic" Height="49" Margin="184,0,0,0" Background="#FFD4D4D4" BorderBrush="Black" Foreground="Black" FontFamily="MV Boli" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left" Width="183" Click="ButtonHistoric" FontSize="20" >
 
-            </Grid>
+            </Button>
             <UserControl x:Name="MainWindowUC" Margin="0,4,0,0" Grid.Row="1" >
-                <Label  HorizontalAlignment="Left" Margin="429,-37,0,0" VerticalAlignment="Top">
-                    <materialDesign:PackIcon Kind="Jewish" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="44"/>
-                </Label>
+                <UserControl.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFD4D4D4"/>
+                        <GradientStop Color="#FF858484" Offset="1"/>
+                    </LinearGradientBrush>
+                </UserControl.Background>
+                <Grid>
+                    <MediaElement Stretch="UniformToFill" x:Name="player" HorizontalAlignment="Left" 
+                       Margin="190,34,0,11" Width="894"  />
 
+                    <Label Content="Welcome to israel flight radar" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="226,-20,0,0" VerticalAlignment="Top" Width="837" FontSize="30" FontWeight="Bold" FontFamily="MV Boli"/>
 
-
-
-
+                </Grid>
 
             </UserControl>
-            <Label  HorizontalAlignment="Right" VerticalAlignment="Center"  Height="45" Width="54" Margin="0,2,1220,1.8">
+
+            <Label  HorizontalAlignment="Left" VerticalAlignment="Center"  Height="45" Width="54" Margin="1,0,0,0">
 
                 <materialDesign:PackIcon Kind="Radar" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="44"/>
 
             </Label>
-            <Label  HorizontalAlignment="Left" Margin="217,2,0,0" VerticalAlignment="Top">
-                <materialDesign:PackIcon Kind="History" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="44"/>
+            <Label  HorizontalAlignment="Left" Margin="184,0,0,0" VerticalAlignment="Center">
+                <materialDesign:PackIcon Kind="History" VerticalAlignment="Center" Height="35" Width="44" HorizontalAlignment="Center"/>
             </Label>
-
 
         </Grid>
     </Grid>

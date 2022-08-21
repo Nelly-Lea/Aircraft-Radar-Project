@@ -203,9 +203,13 @@ namespace DAL
 
         }
 
-        public BE.Trail GetOriginAirport(List<BE.Trail> OrderedPlaces)
+        public Location GetOriginAirport(BE.Root flight)
         {
-            return OrderedPlaces.First<BE.Trail>();
+            Location loc = new Location();
+            loc.Latitude = flight.airport.origin.position.latitude;
+            loc.Longitude = flight.airport.origin.position.longitude;
+
+            return loc;
         }
 
         public BE.Trail GetCurrentPosition(List<BE.Trail> OrderedPlaces)
@@ -225,10 +229,18 @@ namespace DAL
 
         public Location GetPosition(BE.Root flight)
         {
-            Location loc = new Location();
-            loc.Latitude = flight.airport.destination.position.latitude;
-            loc.Longitude = flight.airport.destination.position.longitude;
-            return loc;
+            try
+            {
+                Location loc = new Location();
+                loc.Latitude = flight.airport.destination.position.latitude;
+                loc.Longitude = flight.airport.destination.position.longitude;
+                return loc;
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            return null;
         }
 
         public Location GetPosition(BE.Trail trail)
@@ -308,7 +320,7 @@ namespace DAL
 
         }
 
-        public async Task<bool> IsBeforeHolidayAsync(DateTime date)
+        public Task<bool> IsBeforeHolidayAsync(DateTime date)
         {
 
             using (var webClient = new System.Net.WebClient())
@@ -321,16 +333,16 @@ namespace DAL
                 var json = webClient.DownloadString(URL);
                 RootCal Data = JsonConvert.DeserializeObject<RootCal>(json);
                 if (Data.hd == 24 && Data.hm == "Kislev")
-                    return true;
+                    return Task.FromResult(true);
 
                 foreach (var item in Data.events)
                 {
                     if (item.Contains("Erev"))
                     {
-                        return true;
+                        return Task.FromResult(true);
                     }
                 }
-                return false;
+                return Task.FromResult(false);
 
             }
 

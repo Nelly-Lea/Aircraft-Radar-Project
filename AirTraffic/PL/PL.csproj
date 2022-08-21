@@ -170,11 +170,6 @@
       <DependentUpon>HistoricView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Historic\HistoricViewModel.cs" />
-    <Compile Include="Holidays\HolidaysModel.cs" />
-    <Compile Include="Holidays\HolidaysView.xaml.cs">
-      <DependentUpon>HolidaysView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Holidays\HolidaysViewModel.cs" />
     <Compile Include="Radar\RadarModel.cs" />
     <Compile Include="Radar\RadarView.xaml.cs">
       <DependentUpon>RadarView.xaml</DependentUpon>
@@ -185,10 +180,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Historic\HistoricView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Holidays\HolidaysView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -250,6 +241,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="images\greenPushpin.png" />
     <Resource Include="images\Lufthansa.jpg" />
     <Resource Include="images\Bluebird Airways.jpg" />
     <Resource Include="images\Brussels Airlines.jpg" />
@@ -306,7 +298,9 @@
     <Resource Include="images\Aegean Airlines.jpg" />
     <Resource Include="images\Air Canada.jpg" />
     <Resource Include="images\Air Moldova.jpg" />
-    <Content Include="images\aircraft radar.mp4" />
+    <Content Include="images\aircraft radar.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="images\aircraft.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

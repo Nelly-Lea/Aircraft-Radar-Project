@@ -34,7 +34,7 @@ namespace DAL
         #region Position
         List<BE.Trail> getTrail(BE.Root flight);
    
-        BE.Trail GetOriginAirport(List<BE.Trail> OrderedPlaces);
+        Location GetOriginAirport(BE.Root flight);
 
         BE.Trail GetCurrentPosition(List<BE.Trail> OrderedPlaces);
 

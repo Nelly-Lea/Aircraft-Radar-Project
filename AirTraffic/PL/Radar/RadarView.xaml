@@ -18,7 +18,21 @@
         <converters:TickToDateTimeConverter x:Key="TickConvert"/>
         <BooleanToVisibilityConverter x:Key="visibilityConverter" />
 
+        <Style TargetType="m:Pushpin" x:Key="GreenPushpin">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
 
+                        <Image x:Name="GreenPushpinImage" Source="\images\greenPushpin.png" RenderTransformOrigin="0.5,0.5" Width="40" Height="34" RenderOptions.BitmapScalingMode="Fant" >
+
+                        </Image>
+
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
 
         <Style x:Key="RoundButton" TargetType="Button">
             <Style.Resources>
@@ -34,7 +48,7 @@
                 <Setter.Value>
                     <ControlTemplate>
 
-                        <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" Width="40" Height="34" RenderOptions.BitmapScalingMode="Fant" >
+                        <Image x:Name="MyImage" Source="\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" Width="40" Height="34" RenderOptions.BitmapScalingMode="Fant" >
                             <Image.RenderTransform>
                                 <RotateTransform Angle="{Binding AngleRot}"/>
                             </Image.RenderTransform>
@@ -61,7 +75,7 @@
                     <ControlTemplate>
 
 
-                        <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
+                        <Image x:Name="MyImage" Source="\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
                             <Image.BitmapEffect>
                                 <DropShadowBitmapEffect Direction="392" Color="Black"  Opacity="0.5" Softness="0.3" />
 
@@ -78,7 +92,7 @@
                 <Setter.Value>
                     <ControlTemplate>
 
-                        <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
+                        <Image x:Name="MyImage" Source="\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
                             <Image.RenderTransform>
                                 <RotateTransform Angle="90"/>
                             </Image.RenderTransform>
@@ -101,7 +115,7 @@
                 <Setter.Value>
                     <ControlTemplate>
 
-                        <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
+                        <Image x:Name="MyImage" Source="\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
                             <Image.RenderTransform>
                                 <RotateTransform Angle="180"/>
                             </Image.RenderTransform>
@@ -124,7 +138,7 @@
                 <Setter.Value>
                     <ControlTemplate>
 
-                        <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
+                        <Image x:Name="MyImage" Source="\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
                             <Image.RenderTransform>
                                 <RotateTransform Angle="270"/>
                             </Image.RenderTransform>
@@ -146,7 +160,7 @@
                 <Setter.Value>
                     <ControlTemplate>
 
-                        <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
+                        <Image x:Name="MyImage" Source="\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
                             <Image.RenderTransform>
                                 <RotateTransform Angle="45"/>
                             </Image.RenderTransform>
@@ -166,7 +180,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
+                        <Image x:Name="MyImage" Source="\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
                             <Image.RenderTransform>
                                 <RotateTransform Angle="135"/>
                             </Image.RenderTransform>
@@ -184,7 +198,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
+                        <Image x:Name="MyImage" Source="\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
                             <Image.RenderTransform>
                                 <RotateTransform Angle="225"/>
                             </Image.RenderTransform>
@@ -202,7 +216,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
+                        <Image x:Name="MyImage" Source="\images\airplaneRed.png" RenderTransformOrigin="0.5,0.5" >
                             <Image.RenderTransform>
                                 <RotateTransform Angle="315"/>
                             </Image.RenderTransform>
@@ -220,7 +234,7 @@
                 <Setter.Value>
                     <ControlTemplate x:Name="controlTemp">
                         <Grid>
-                            <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
+                            <Image x:Name="MyImage" Source="\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
                                 <Image.RenderTransform>
                                     <RotateTransform  Angle="{Binding AngleRot}"/>
                                 </Image.RenderTransform>
@@ -242,7 +256,7 @@
                 <Setter.Value>
                     <ControlTemplate x:Name="controlTemp">
                         <Grid>
-                            <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
+                            <Image x:Name="MyImage" Source="\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
                                 <Image.BitmapEffect>
                                     <DropShadowBitmapEffect Direction="392" Color="Black"  Opacity="0.5" Softness="0.3" />
 
@@ -261,7 +275,7 @@
                 <Setter.Value>
                     <ControlTemplate x:Name="controlTemp">
                         <Grid>
-                            <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
+                            <Image x:Name="MyImage" Source="\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
                                 <Image.RenderTransform>
                                     <RotateTransform  Angle="180"/>
                                 </Image.RenderTransform>
@@ -282,7 +296,7 @@
                 <Setter.Value>
                     <ControlTemplate x:Name="controlTemp">
                         <Grid>
-                            <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
+                            <Image x:Name="MyImage" Source="\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
                                 <Image.RenderTransform>
                                     <RotateTransform  Angle="90"/>
                                 </Image.RenderTransform>
@@ -302,7 +316,7 @@
                 <Setter.Value>
                     <ControlTemplate x:Name="controlTemp">
                         <Grid>
-                            <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
+                            <Image x:Name="MyImage" Source="\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
                                 <Image.RenderTransform>
                                     <RotateTransform  Angle="270"/>
                                 </Image.RenderTransform>
@@ -322,7 +336,7 @@
                 <Setter.Value>
                     <ControlTemplate x:Name="controlTemp">
                         <Grid>
-                            <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
+                            <Image x:Name="MyImage" Source="\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
                                 <Image.RenderTransform>
                                     <RotateTransform  Angle="45"/>
                                 </Image.RenderTransform>
@@ -342,7 +356,7 @@
                 <Setter.Value>
                     <ControlTemplate x:Name="controlTemp">
                         <Grid>
-                            <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
+                            <Image x:Name="MyImage" Source="\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
                                 <Image.RenderTransform>
                                     <RotateTransform  Angle="135"/>
                                 </Image.RenderTransform>
@@ -362,7 +376,7 @@
                 <Setter.Value>
                     <ControlTemplate x:Name="controlTemp">
                         <Grid>
-                            <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
+                            <Image x:Name="MyImage" Source="\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
                                 <Image.RenderTransform>
                                     <RotateTransform  Angle="225"/>
                                 </Image.RenderTransform>
@@ -382,7 +396,7 @@
                 <Setter.Value>
                     <ControlTemplate x:Name="controlTemp">
                         <Grid>
-                            <Image x:Name="MyImage" Source="C:\Users\USER\Documents\project maarehot halonot\projet github\AirTraffic\PL\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
+                            <Image x:Name="MyImage" Source="\images\airplaneYellow.png" RenderTransformOrigin="0.5,0.5">
                                 <Image.RenderTransform>
                                     <RotateTransform  Angle="315"/>
                                 </Image.RenderTransform>
@@ -398,7 +412,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Background="#FFE2D8CD" x:Name="radarviewgrid" >
+    <Grid Background="#FFD4D4D4" x:Name="radarviewgrid" >
 
 
         <m:Map x:Name="myMap" CredentialsProvider="ApINLKklvvkm_3CQRgDQ2s-J4VMwZ1PzoRJ_guhxBVIGnlNYyTIfNhBQOlFeMlfR" ZoomLevel="6.4" Center="32.000454,34.870743" AnimationLevel="None"/>
@@ -470,7 +484,7 @@
             </Button>
 
 
-            <TextBox x:Name="CounterOneFlight" Visibility="Hidden" Foreground="DarkMagenta"  HorizontalAlignment="Left" Margin="656,22,0,0" Grid.Row="1" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="1" VerticalAlignment="Top" Height="38" Width="39"  FontWeight="Bold" FontFamily="Arial" FontSize="20"/>
+            <TextBox x:Name="CounterOneFlight" Visibility="Hidden" Foreground="Black"  HorizontalAlignment="Left" Margin="656,22,0,0" Grid.Row="1" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="1" VerticalAlignment="Top" Height="38" Width="39"  FontWeight="Bold" FontFamily="Arial" FontSize="20"/>
 
             <Button x:Name="FocusOneFlightButton" Content="Focus on one flight" Grid.Column="1" Style="{DynamicResource RoundButton}" Foreground="White"  HorizontalAlignment="Left" Margin="195,10,0,0" Grid.Row="1" VerticalAlignment="Top" Click="FocusOneFlightButton_Click" Width="127" Height="37" FontFamily="Arial">
                 <Button.Background>
@@ -493,120 +507,3 @@
     </Grid>
 </UserControl>
 
-<!--<Style TargetType="m:Pushpin" x:Key="FromIsrael" >
-    <Setter Property="Template">
-        <Setter.Value>
-            <ControlTemplate>
-                <Grid>
-                    <StackPanel>
-                        <Image Source="C:\Projet aircraft radar\AirTraffic\PL\\images\airplane.png"/>
-                        <Button x:Name="Pushpin" Click="PushpinClick" Background="Transparent" BorderBrush="Black"/>
-                    </StackPanel>
-                </Grid>
-            </ControlTemplate>
-        </Setter.Value>
-    </Setter>
-</Style>
-<Style TargetType="m:Pushpin" x:Key="ToIsrael">
-    <Setter Property="Template">
-        <Setter.Value>
-            <ControlTemplate>
-                <StackPanel>
-                    <Image Source="C:\Projet aircraft radar\AirTraffic\PL\\images\airplaneToIsrael.png"/>
-                    <Button x:Name="Pushpin1" Click="PushpinClick" Background="Transparent" BorderBrush="Black"/>
-                </StackPanel>
-
-
-            </ControlTemplate>
-        </Setter.Value>
-    </Setter>
-</Style>-->
-
-<!--<ItemsControl   ItemsSource="{Binding CurrentFlight, Mode=OneWay}" Margin="1021,0,0,259">
-            <ControlTemplate >
-                <StackPanel Background="Aquamarine" >
-                    <TextBlock Text="{Binding identification.callsign}"/>
-                    <TextBlock Text="{Binding airline.name}"/>
-                    <TextBlock Text="{Binding airport.origin.code.iata}"/>
-                    <TextBlock Text="{Binding airport.origin.position.country.name}"/>
-                    <Image Source="C:\Projet aircraft radar\AirTraffic\PL\images\aircraft.png" Height="39"  VerticalAlignment="Top" Width="44"/>
-                    <TextBlock Text="{Binding airport.destination.code.iata}"/>
-                    <TextBlock Text="{Binding airport.destination.position.country.name}"/>
-                    <Label Content="aircraft"/>
-                    <TextBlock Text="{Binding aircraft.model.text}"/>
-                    <Label Content="registration"/>
-                    <TextBlock Text="{Binding aircraft.registration}"/>
-                    <Label Content="departure time and date"/>
-                    <TextBlock Text="{Binding time.estimated.arrival, Converter={StaticResource TickConvert}}"/>
-                    <Label Content="time and date of arrival"/>
-                    <TextBlock Text="{Binding status.text}"/>
-
-                </StackPanel>
-
-            </ControlTemplate>
-        </ItemsControl>-->
-
-<!--<StackPanel Background="#FFD2B488"  Margin="1021,0,0,189" >
-
-    -->
-<!--<materialDesign:PackIcon Kind="Close" Height="23" Width="30" Margin="229,0,0,0"/>-->
-<!--
-
-    <TextBlock Text="{Binding identification.callsign}" Margin="10,0,0.2,0"/>
-    <TextBlock Text="{Binding airline.name}" Margin="10,0,0.2,0"/>
-    <TextBlock Text="{Binding airport.origin.position.country.name}" Height="18" FontSize="12" Margin="95,0,60.2,0"/>
-    <TextBlock Text="{Binding airport.origin.code.iata}" Height="41" Margin="90,0,90.2,0"/>
-    <Image Source="C:\Projet aircraft radar\AirTraffic\PL\images\aircraft.png" Height="39" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="44" RenderTransformOrigin="0.5,0.5" >
-        <Image.RenderTransform>
-            <TransformGroup>
-                <ScaleTransform/>
-                <SkewTransform/>
-                <RotateTransform Angle="90"/>
-                <TranslateTransform/>
-            </TransformGroup>
-        </Image.RenderTransform>
-    </Image>
-    <TextBlock Text="{Binding airport.destination.code.iata}"  Height="41" HorizontalAlignment="Right" Width="70" Margin="0,0,94.2,0"/>
-    <TextBlock Height="18" FontSize="12" HorizontalAlignment="Right" Width="100" Margin="0,0,60.2,0"/>
-    <Label Content="Aircraft:" Margin="10,0,0.2,0" FontWeight="Bold" FontSize="16" FontFamily="Harrington"/>
-    <TextBlock Text="{Binding aircraft.model.text}" FontSize="14" Margin="28,0,0.2,0"/>
-    <Label Content="Registration:" Margin="10,0,0.2,0" FontWeight="Bold" FontSize="16" FontFamily="Harrington"/>
-    <TextBlock Text="{Binding aircraft.registration}" FontSize="14" Margin="24,0,0.2,0"/>
-    <Label Content="Departure time and date:" Margin="10,0,0.2,0" FontSize="16" FontFamily="Harrington" FontWeight="Bold"/>
-    <TextBlock Text="{Binding time.estimated.arrival, Converter={StaticResource TickConvert}}" Margin="24,0,0.2,0"/>
-    <Label Content="Time and date of arrival:" Margin="10,0,0.2,0" FontWeight="Bold" FontSize="16" FontFamily="Harrington"/>
-    <TextBlock Text="{Binding status.text}" FontSize="14" Margin="24,0,0.2,0"/>
-
-</StackPanel>-->
-
-<!--DataContext="{Binding radarViewModel.listStr}"-->
-<!--CommandTarget="{Binding ElementName=OutFlightsListBox}"-->
-
-<!--ItemsSource="{Binding listInFlight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"-->
-
-<!--ItemsSource="{Binding listInFlight}"-->
-<!--<UserControl.DataContext>
-    <local:RadarViewModel></local:RadarViewModel>
-</UserControl.DataContext>
-<UserControl.Resources>
-    <DataTemplate DataType="{x:Type BE.FlightInfoPartial}">
-        <Border BorderThickness="1" BorderBrush="Black" Width="200">
-            <StackPanel>
-                <ListBox x:Name="liste" ItemsSource="{Binding listInFlight}" HorizontalAlignment="Left" Height="100" Margin="1,180,0,0" VerticalAlignment="Top" Width="100"/>
-            </StackPanel>
-        </Border>
-    </DataTemplate>
-</UserControl.Resources>-->
-
-<!--<i:Interaction.Triggers>
-    <i:EventTrigger EventName="SelectionChanged">
-        <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" CommandParameter="{Binding SelectedItem, ElementName=InFlightsListBox}"/>
-    </i:EventTrigger>
-</i:Interact <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" CommandParameter="{Binding SelectedItem, ElementName=OutFlightsListBox}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>ion.Triggers>-->
-<!--<Button  HorizontalAlignment="Left" Margin="285,462,0,0" VerticalAlignment="Top" Width="75" Height="55" Background="#FF191670" BorderBrush="#FF191670" >
-    <Image Source="C:\Projet c# radar avions\AirTrafficProject\images\airplaneToIsrael.png"/>
-</Button-->

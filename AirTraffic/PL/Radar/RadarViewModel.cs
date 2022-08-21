@@ -211,9 +211,9 @@ namespace AirTraffic.Radar
             return radarModel.RMGetTrail(flight);
         }
 
-        public BE.Trail RVMGetOriginAirport(List<BE.Trail> OrderedPlaces)
+        public Location RVMGetOriginAirport(BE.Root flight)
         {
-            return radarModel.RMGetOriginAirport(OrderedPlaces);
+            return radarModel.RMGetOriginAirport(flight);
         }
 
         public BE.Trail RVMGetCurrentPosition(List<BE.Trail> OrderedPlaces)

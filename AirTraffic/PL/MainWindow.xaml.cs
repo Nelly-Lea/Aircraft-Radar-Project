@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using AirTraffic.Radar;
 using PL.Historic;
-using PL.Holidays;
+
 //On peut mettre les fenetres ds PL, et pa sujet elle a mis les 3 couches model, viewmodel et view
 // elle a fait des dossiers par fenetre
 namespace AirTraffic
@@ -27,10 +27,12 @@ namespace AirTraffic
     {
         private RadarView radarview;
         private HistoricView historicView;
-        private HolidaysView holidaysView;
+        //private HolidaysView holidaysView;
         public MainWindow()
         {
             InitializeComponent();
+
+            player.Source = new Uri("C:/Users/USER/Documents/project maarehot halonot/projet github/AirTraffic/PL/images/aircraft radar.mp4");
         }
 
         private void ButtonRadar(object sender, RoutedEventArgs e)
@@ -53,13 +55,13 @@ namespace AirTraffic
 
         }
 
-        private void ButtonHolidays(object sender, RoutedEventArgs e)
-        {
-            if (!(MainWindowUC.Content is HolidaysView))
-            {
-                holidaysView = new HolidaysView();
-            }
-            MainWindowUC.Content = holidaysView;
-        }
+        //private void ButtonHolidays(object sender, RoutedEventArgs e)
+        //{
+        //    if (!(MainWindowUC.Content is HolidaysView))
+        //    {
+        //        holidaysView = new HolidaysView();
+        //    }
+        //    MainWindowUC.Content = holidaysView;
+        //}
     }
 }

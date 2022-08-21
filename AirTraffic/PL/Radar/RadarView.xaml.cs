@@ -23,6 +23,7 @@ using MaterialDesignThemes.Wpf;
 using System.Windows.Media.Animation;
 using System.Diagnostics;
 using System.IO;
+using PL.GadgetWindow;
 
 namespace AirTraffic.Radar
 {
@@ -489,6 +490,11 @@ namespace AirTraffic.Radar
 
         }
 
+        private void ButtonBonus_Click(object sender, RoutedEventArgs e)
+        {
+            GadgetWindowView gwv = new GadgetWindowView();
+            gwv.Show();
+        }
     }
 
 }

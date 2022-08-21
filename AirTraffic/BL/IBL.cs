@@ -18,6 +18,7 @@ namespace BL
         ObservableCollection<BE.FlightInfoPartial> GetFlightsBetweenTwoDates(DateTime dateFrom, DateTime dateTo);
         void DeleteFlight(BE.FlightInfoPartial flight);
         List<BE.Root> GetAllFlightRoot();
+        BE.Root getRootFromFlightCode(string flightCode);
         #endregion
         #region Position
         List<BE.Trail> getTrail(BE.Root flight);
@@ -32,6 +33,7 @@ namespace BL
 
         Location GetPosition(BE.Trail trail);
         Location GetBeforeLastPosition(List<BE.Trail> OrderedPlaces);
+        
         #endregion
 
         #region Holidays

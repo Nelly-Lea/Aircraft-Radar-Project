@@ -193,6 +193,19 @@ namespace BL
             return listFlights;
         }
 
+        public BE.Root getRootFromFlightCode(string flightCode)
+        {
+            List<BE.Root> l = GetAllFlightRoot();
+            
+            foreach(var item in l)
+            {
+                if (item.identification.number.@default == flightCode)
+                    return item;
+            }
+            return null;
+           
+        }
+
       
     }
 

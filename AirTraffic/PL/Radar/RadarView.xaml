@@ -492,7 +492,12 @@
                 </Button.Background>
             </Button>
 
-            <Button x:Name="DisplayAllFlightsButton" Visibility="Hidden" Content="Display all flights" Grid.Column="1" Style="{DynamicResource RoundButton}" Foreground="White"  HorizontalAlignment="Left" Margin="206,226,0,0" Grid.Row="2" VerticalAlignment="Top" Click="DisplayAllFlightsButton_Click" Width="112" Height="37" FontFamily="Arial">
+            <Button x:Name="DisplayAllFlightsButton"  Content="Display all flights" Grid.Column="1" Style="{DynamicResource RoundButton}" Foreground="White"  HorizontalAlignment="Left" Margin="206,226,0,0" Grid.Row="2" VerticalAlignment="Top" Click="DisplayAllFlightsButton_Click" Width="112" Height="37" FontFamily="Arial">
+                <Button.Background>
+                    <SolidColorBrush Color= "Black" Opacity="0.4"/>
+                </Button.Background>
+            </Button>
+            <Button Content="Button Bonus" Grid.Column="1" Style="{DynamicResource RoundButton}" Foreground="White" HorizontalAlignment="Left" Margin="215,171,0,0" Grid.Row="2" VerticalAlignment="Top" Height="24" Width="94" Click="ButtonBonus_Click">
                 <Button.Background>
                     <SolidColorBrush Color= "Black" Opacity="0.4"/>
                 </Button.Background>

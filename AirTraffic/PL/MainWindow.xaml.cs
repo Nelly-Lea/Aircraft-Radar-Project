@@ -32,7 +32,7 @@ namespace AirTraffic
         {
             InitializeComponent();
 
-            player.Source = new Uri("C:/projet AirTraffic last version/AirTraffic/PL/images/aircraft radar.mp4");
+            player.Source = new Uri("C:/Users/USER/Documents/project maarehot halonot/projet github/AirTraffic/PL/images/aircraft radar.mp4");
         }
 
         private void ButtonRadar(object sender, RoutedEventArgs e)
@@ -49,7 +49,10 @@ namespace AirTraffic
         {
             if (!(MainWindowUC.Content is HistoricView))
             {
-               historicView= new HistoricView();
+                radarview = new RadarView();
+                radarview.dispatcherTimerAllFlights.Stop();
+                radarview.dispatcherTimerOneFlight.Stop();
+                historicView = new HistoricView();
             }
             MainWindowUC.Content = historicView;
 

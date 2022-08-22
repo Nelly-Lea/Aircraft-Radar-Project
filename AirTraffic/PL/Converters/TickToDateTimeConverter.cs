@@ -32,15 +32,6 @@ namespace AirTraffic.Converters
         }
 
 
-        //object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }
 

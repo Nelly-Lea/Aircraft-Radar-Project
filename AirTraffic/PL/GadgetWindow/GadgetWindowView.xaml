@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.GadgetWindow"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="GadgetWindowView" Height="150" Width="190"
         WindowStartupLocation="CenterScreen"
@@ -17,33 +18,35 @@
         <SolidColorBrush Color="White"  Opacity="0.5"/>
     </Window.Background>
     <Grid>
-        <Border BorderBrush="Navy" BorderThickness="4" CornerRadius="9">
-            <Grid>
+        <Border BorderBrush="MidnightBlue" BorderThickness="4" CornerRadius="9">
+            <Grid Margin="-4,0,-4,-4">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30*" />
-                    <RowDefinition Height="49*" />
-                    <RowDefinition Height="28*" />
+                    <RowDefinition Height="23*" />
+                    <RowDefinition Height="82*" />
+                    <RowDefinition Height="37*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="98*" />
+                    <ColumnDefinition Width="62*" />
                     <ColumnDefinition Width="168*" />
                     <ColumnDefinition Width="62*" />
                 </Grid.ColumnDefinitions>
 
 
                 <!--  Close Button -->
-                <Button Grid.Column="2" Margin="3" Padding="2"
-              Foreground="Red" FontWeight="ExtraBold"
-              Click="Button_Click">X</Button>
 
 
                 <!--  Next Check Time -->
-                <TextBlock x:Name="txtTimeDue" Grid.Row="2"
-            FontSize="16"  FontWeight="Bold" Foreground="Navy"  
-                 HorizontalAlignment="Center" Margin="42,0.2,0,0.4" RenderTransformOrigin="0.5,0.5" Width="106" Grid.ColumnSpan="2"/>
-                <Label Content="Choose your flight" HorizontalAlignment="Left" Margin="42,1,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" Grid.Row="1"/>
-                <TextBox x:Name="tbFlight" Grid.Column="1" KeyDown="TextBox_KeyUp" HorizontalAlignment="Center" Margin="0,31,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="68"/>
-                <Label x:Name="LabelTimerNow" Content="{Binding CurrentTime}" HorizontalAlignment="Left" Margin="42,6,0,0" VerticalAlignment="Top" Width="96" Grid.ColumnSpan="2" Height="30"/>
+                <TextBlock x:Name="txtTimeDue" Grid.Row="1" FontSize="16"  FontWeight="Bold" Foreground="Navy"  
+                 HorizontalAlignment="Center" Margin="0,68,0,16" RenderTransformOrigin="0.5,0.5" Width="106" Grid.RowSpan="2" Grid.Column="1" FontFamily="Arial"/>
+
+                <Border Grid.Row="0" CornerRadius="7,7,0,0" Background="MidnightBlue" Grid.ColumnSpan="3">
+                    <Button Margin="143,-6,-2,-3" Padding="2" Background="Transparent" BorderBrush="Transparent"
+                               Click="Button_Click" >
+                        <materialDesign:PackIcon Kind="Close " Foreground="White" HorizontalAlignment="Center" Height="25" Width="37" VerticalAlignment="Center"/>
+                    </Button>
+                </Border>
+                <Label Content="Choose your flight" HorizontalAlignment="Left" Margin="37,9,0,0" VerticalAlignment="Top" Grid.Row="1" Height="24" Width="121" FontFamily="Arial" FontWeight="Bold" Grid.ColumnSpan="3"/>
+                <TextBox x:Name="tbFlight" Grid.Column="1" KeyDown="TextBox_KeyUp" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="68" Height="26" Margin="0,36,0,0" FontFamily="Arial" FontWeight="Bold"/>
                 <!--<ComboBox x:Name="cbListFlights" DisplayMemberPath="{Binding identification.number.@default}" SelectedIndex="0" Grid.Column="1" HorizontalAlignment="Center" Margin="0,32,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" SelectionChanged="cbListFlights_SelectionChanged"/>-->
 
             </Grid>

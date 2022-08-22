@@ -27,16 +27,16 @@ namespace PL.GadgetWindow
         GadgetWindowViewModel gadgetViewModel = new GadgetWindowViewModel();
         BE.Root flight = new BE.Root();
         public string CurrentTime;
-        public DispatcherTimer LiveTimeLabel = new DispatcherTimer();
+       // public DispatcherTimer LiveTimeLabel = new DispatcherTimer();
         public TimeSpan timeNow = new TimeSpan();
-        public DispatcherTimer timer = new DispatcherTimer();
-        public TimeSpan Timer = new TimeSpan();
-        public TimeSpan ArrivalTimeSpan = new TimeSpan();
-        public SoundPlayer snd = new SoundPlayer("C:/projet AirTraffic last version/AirTraffic/PL/images/alert sound.wav");
+        public DispatcherTimer timer = new DispatcherTimer();  //qd on appui sur le minuteur
+        public TimeSpan Timer = new TimeSpan();     //difference entre heure arrive et heure actuelle
+        public TimeSpan ArrivalTimeSpan = new TimeSpan();    //heure arrive du vol
+        public SoundPlayer snd = new SoundPlayer("C:/Users/USER/Documents/project maarehot halonot/projet github/AirTraffic/PL/images/alert sound.wav");
         public GadgetWindowView()
         {
             InitializeComponent();
-            CurrentTime = DateTime.Now.ToString();
+           // CurrentTime = DateTime.Now.ToString();
 
 //            LiveTimeLabel.Interval = TimeSpan.FromSeconds(1);
   //          LiveTimeLabel.Tick += timer_Tick;
@@ -48,17 +48,17 @@ namespace PL.GadgetWindow
             //cbListFlights.DataContext = listRoot;
         }
 
-        void timer_Tick(object sender, EventArgs e)
-        {
-            LabelTimerNow.Content = DateTime.Now.ToString("HH:mm:ss");
-        }
+        //void timer_Tick(object sender, EventArgs e)
+        //{
+        //    LabelTimerNow.Content = DateTime.Now.ToString("HH:mm:ss");
+        //}
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)   //bouton close
         {
             this.Close();
             snd.Stop();
@@ -82,8 +82,8 @@ namespace PL.GadgetWindow
             flight = gadgetViewModel.GVMgetRootFromFlightCode(tbFlight.Text);
             if (flight != null)
             {
-                string arrivalstr = flight.status.text;
-                string[] numbers = Regex.Split(arrivalstr, @"\D+");
+                string arrivalstr = flight.status.text;      //string avec status du vol estimated ou delayed
+                string[] numbers = Regex.Split(arrivalstr, @"\D+");     //sort tous les nombres du string et met dans un array
 
 
                 ArrivalTimeSpan = new TimeSpan(Int32.Parse(numbers[1]), Int32.Parse(numbers[2]), Int32.Parse("00"));
@@ -105,8 +105,8 @@ namespace PL.GadgetWindow
                 //  TimeSpan interval = new TimeSpan();
                 if (ArrivalTimeSpan >= timeNow)
                 {
-                    snd.Play();
-                    Timer = (ArrivalTimeSpan.Subtract(timeNow));
+                    //snd.Play();
+                    Timer = ArrivalTimeSpan.Subtract(timeNow);
                     txtTimeDue.Text = Timer.ToString();
                     if (Timer.Hours.ToString() == "1" && Timer.Minutes.ToString() == "0" && Timer.Seconds.ToString() == "0") // alarm sound one hour before landing of the plane
                         snd.Play();
@@ -136,7 +136,7 @@ namespace PL.GadgetWindow
             {
                
 
-                Timer = (ArrivalTimeSpan.Subtract(timeNow));
+                Timer = ArrivalTimeSpan.Subtract(timeNow);
                 txtTimeDue.Text = Timer.ToString();
                 if (Timer.Hours.ToString() == "1" && Timer.Minutes.ToString() == "0" && Timer.Seconds.ToString() == "0")// alarm sound one hour before landing of the plane
                     snd.Play();

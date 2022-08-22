@@ -32,15 +32,15 @@ namespace AirTraffic.Radar
     /// </summary>
     public partial class RadarView : UserControl
     {
-        public string PATH = "C:/projet AirTraffic last version/AirTraffic/PL";
+        public string PATH = "C:/Users/USER/Documents/project maarehot halonot/projet github/AirTraffic/PL";
         BE.FlightInfoPartial SelectedFlight = null;
         public BE.Root Flight = new BE.Root();
         public RadarViewModel radarViewModel;
         //private const string AllURL = @" https://data-cloud.flightradar24.com/zones/fcgi/feed.js?faa=1&bounds=38.805%2C24.785%2C29.014%2C40.505&satellite=1&mlat=1&flarm=1&adsb=1&gnd=1&air=1&vehicles=1&estimated=1&maxage=14400&gliders=1&stats=1";
         //private const string FlightURL = @"https://data-live.flightradar24.com/clickhandler/?version=1.5&flight=";
         public List<BE.Root> ListAllFLightsRoot = new List<BE.Root>();
-        DispatcherTimer dispatcherTimerAllFlights = new DispatcherTimer();
-        DispatcherTimer dispatcherTimerOneFlight = new DispatcherTimer();
+        public DispatcherTimer dispatcherTimerAllFlights = new DispatcherTimer();
+        public DispatcherTimer dispatcherTimerOneFlight = new DispatcherTimer();
         public BE.Root flightClickPolyline = null;
 
         public RadarView()
@@ -368,6 +368,7 @@ namespace AirTraffic.Radar
             CounterOneFlight.Visibility = Visibility.Visible;
             DisplayAllFlightsButton.Visibility = Visibility.Visible;
             FocusOneFlightButton.Visibility = Visibility.Hidden;
+            ButtonTimerBonus.Visibility = Visibility.Visible;
 
         }
 
@@ -476,6 +477,7 @@ namespace AirTraffic.Radar
             CounterOneFlight.Visibility = Visibility.Hidden;
             DisplayAllFlightsButton.Visibility = Visibility.Hidden;
             FocusOneFlightButton.Visibility = Visibility.Visible;
+            ButtonTimerBonus.Visibility = Visibility.Hidden;
             Init();
             var items = myGrid.Children.Cast<UIElement>().Where(i => Grid.GetRow(i) == 1 && Grid.GetColumn(i) == 1);
             foreach (var item in items.ToList())

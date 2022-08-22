@@ -250,6 +250,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="images\alert sound.wav" />
     <Resource Include="images\greenPushpin.png" />
     <Resource Include="images\Lufthansa.jpg" />
     <Resource Include="images\Bluebird Airways.jpg" />

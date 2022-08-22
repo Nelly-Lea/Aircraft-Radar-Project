@@ -38,13 +38,12 @@
 
 
                 <!--  Next Check Time -->
-                <TextBlock x:Name="txtTimeDue" Grid.Row="2" Grid.Column="1"
+                <TextBlock x:Name="txtTimeDue" Grid.Row="2"
             FontSize="16"  FontWeight="Bold" Foreground="Navy"  
-                 HorizontalAlignment="Center">00:00
-                </TextBlock>
+                 HorizontalAlignment="Center" Margin="42,0.2,0,0.4" RenderTransformOrigin="0.5,0.5" Width="106" Grid.ColumnSpan="2"/>
                 <Label Content="Choose your flight" HorizontalAlignment="Left" Margin="42,1,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" Grid.Row="1"/>
                 <TextBox x:Name="tbFlight" Grid.Column="1" KeyDown="TextBox_KeyUp" HorizontalAlignment="Center" Margin="0,31,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="68"/>
-                <Label x:Name="LabelTimerNow" HorizontalAlignment="Left" Margin="54,6,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2"/>
+                <Label x:Name="LabelTimerNow" Content="{Binding CurrentTime}" HorizontalAlignment="Left" Margin="42,6,0,0" VerticalAlignment="Top" Width="96" Grid.ColumnSpan="2" Height="30"/>
                 <!--<ComboBox x:Name="cbListFlights" DisplayMemberPath="{Binding identification.number.@default}" SelectedIndex="0" Grid.Column="1" HorizontalAlignment="Center" Margin="0,32,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" SelectionChanged="cbListFlights_SelectionChanged"/>-->
 
             </Grid>

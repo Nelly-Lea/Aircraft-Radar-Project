@@ -32,7 +32,7 @@ namespace AirTraffic.Radar
     /// </summary>
     public partial class RadarView : UserControl
     {
-        public string PATH = "C:/Users/USER/Documents/project maarehot halonot/projet github/AirTraffic/PL";
+        public string PATH = "C:/projet AirTraffic last version/AirTraffic/PL";
         BE.FlightInfoPartial SelectedFlight = null;
         public BE.Root Flight = new BE.Root();
         public RadarViewModel radarViewModel;

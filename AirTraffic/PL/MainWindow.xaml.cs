@@ -32,7 +32,7 @@ namespace AirTraffic
         {
             InitializeComponent();
 
-            player.Source = new Uri("C:/Users/USER/Documents/project maarehot halonot/projet github/AirTraffic/PL/images/aircraft radar.mp4");
+            player.Source = new Uri("C:/Users/nelly/Documents/PROJETS INFO/Flight Radar/AirTraffic/PL/images/aircraft radar.mp4");
         }
 
         private void ButtonRadar(object sender, RoutedEventArgs e)

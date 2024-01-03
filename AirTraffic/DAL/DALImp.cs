@@ -15,6 +15,8 @@ using System.Collections.ObjectModel;
 //on recoit des BE.class, ds les fonctions on fait ctx=class.DB on le retourne
 //on retourne List<BE.Class>
 //on s'occupe de la data
+using System.IO;
+
 namespace DAL
 {
     public class DALImp : IDAL
@@ -353,8 +355,10 @@ namespace DAL
 
             using (var webClient = new System.Net.WebClient())
             {
-                string key = "085845fad636a5a47a3f041f98275e2c";
+                string key = "your key"; // https://openweathermap.org/
+
                 var lat = latitude.ToString();
+           
                 var lon = longitude.ToString();
                 string URL = $"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={key}";
                 var json = webClient.DownloadString(URL);
